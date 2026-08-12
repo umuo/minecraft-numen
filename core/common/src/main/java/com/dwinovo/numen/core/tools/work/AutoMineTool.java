@@ -6,6 +6,9 @@ import static com.dwinovo.numen.task.TaskDispatch.*;
 import com.dwinovo.numen.agent.tool.Schema;
 import com.dwinovo.numen.agent.tool.NumenTool;
 import com.dwinovo.numen.entity.NumenPlayer;
+import com.dwinovo.numen.core.task.mine.MineBlockTaskRecord;
+import com.dwinovo.numen.core.task.mine.MiningToolAdvisor;
+import com.dwinovo.numen.task.TaskResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -37,7 +40,10 @@ public final class AutoMineTool implements NumenTool {
                 + "needed tier if nothing qualifies (to destroy blocks regardless of drops, use "
                 + "break_block). Nearby exposed targets are handled before farther deposits. If the main "
                 + "inventory cannot accept the requested drops, mining stops before destroying more blocks "
-                + "and asks for space. BACKGROUND: a successful call is already running; do not call mine/goto "
+                + "and asks for space. TOOL PLANNING HAPPENS BEFORE ACCEPTANCE: large jobs are refused when "
+                + "you lack the efficient axe/pickaxe/shovel/hoe. For wood with no axe, follow the refusal's "
+                + "bootstrap plan: gather 2 logs harmlessly, make a crafting table + wooden axe, then continue; "
+                + "never use a sword as a generic mining tool. BACKGROUND: a successful call is already running; do not call mine/goto "
                 + "again while <current_task> exists and do not poll. task_finished status=done means the "
                 + "requested count is complete; only timeout permits resending the same arguments.";
     }
@@ -55,7 +61,14 @@ public final class AutoMineTool implements NumenTool {
     @Override
     public void onServerCall(String toolCallId, JsonObject args, NumenPlayer companion, Consumer<String> reply) {
         Args a = GSON.fromJson(args, Args.class);
-        setTask(companion, impl.autoMine(a.block_ids(), a.count(),
-                ctx(toolCallId, companion)), args, reply);
+        MineBlockTaskRecord record = (MineBlockTaskRecord) impl.autoMine(
+                a.block_ids(), a.count(), ctx(toolCallId, companion));
+        MiningToolAdvisor.Assessment toolPlan = MiningToolAdvisor.assess(
+                companion.getInventory(), record.targets, record.count);
+        if (!toolPlan.proceed()) {
+            reply.accept(TaskResult.fail(toolPlan.message()).toJson());
+            return;
+        }
+        setTask(companion, record, args, reply);
     }
 }

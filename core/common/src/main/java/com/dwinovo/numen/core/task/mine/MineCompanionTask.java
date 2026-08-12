@@ -13,6 +13,7 @@ import com.dwinovo.numen.core.pathing.moves.ActionCosts;
 import com.dwinovo.numen.core.pathing.moves.CalculationContext;
 import com.dwinovo.numen.core.pathing.moves.MovementHelper;
 import com.dwinovo.numen.core.act.BlockDigger;
+import com.dwinovo.numen.core.act.ToolSelect;
 import com.dwinovo.numen.core.pathing.execute.PlayerNav;
 import com.dwinovo.numen.core.pathing.util.BlockHelper;
 import com.dwinovo.numen.core.pathing.util.NavProfiler;
@@ -218,6 +219,10 @@ public final class MineCompanionTask extends AbstractCompanionTask<MineBlockTask
 
     @Override
     protected void onStart() {
+        // 出发前就把意图对应的工具拿出来。以前直到第一格开挖才换持,所以她整段路都
+        // 举着上一场战斗留下的剑,没有斧头时甚至会继续拿剑磨木头。
+        r.targets.stream().findFirst().ifPresent(
+                block -> ToolSelect.holdBestTool(player, block.defaultBlockState()));
         // Count toward `count` by ITEMS gathered, not blocks broken: resolve what these
         // blocks drop, and snapshot how many we already hold so the tally is the delta above it.
         dropItems = computeDropItems();
