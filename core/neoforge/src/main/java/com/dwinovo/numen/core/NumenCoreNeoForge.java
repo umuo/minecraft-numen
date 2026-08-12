@@ -14,6 +14,11 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.BlockItem;
 
 import java.nio.file.Path;
 
@@ -31,6 +36,9 @@ public class NumenCoreNeoForge {
         NumenCore.init();
 
         NeoForge.EVENT_BUS.addListener(NumenCoreNeoForge::onServerTickPost);
+        NeoForge.EVENT_BUS.addListener(NumenCoreNeoForge::onPlayerBreakBlock);
+        NeoForge.EVENT_BUS.addListener(NumenCoreNeoForge::onPlayerAttack);
+        NeoForge.EVENT_BUS.addListener(NumenCoreNeoForge::onPlayerUseBlock);
         // Debug verbs merged into the /numen root registered by the engine mod.
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.RegisterCommandsEvent e) ->
                 DebugCommands.register(e.getDispatcher()));
@@ -62,5 +70,26 @@ public class NumenCoreNeoForge {
         com.dwinovo.numen.core.scan.TargetIndex.serverTick(event.getServer());
         // Debug particles for pathing state, sent only to players with debug on.
         PathDebugRenderer.serverTick(event.getServer());
+    }
+
+    private static void onPlayerBreakBlock(BlockEvent.BreakEvent event) {
+        if (event.getPlayer() instanceof ServerPlayer player) {
+            com.dwinovo.numen.core.assist.OwnerActionTracker.recordBreak(
+                    player, event.getPos(), event.getState());
+        }
+    }
+
+    private static void onPlayerAttack(AttackEntityEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            com.dwinovo.numen.core.assist.OwnerActionTracker.recordAttack(player, event.getTarget());
+        }
+    }
+
+    private static void onPlayerUseBlock(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getEntity() instanceof ServerPlayer player
+                && player.getItemInHand(event.getHand()).getItem() instanceof BlockItem) {
+            com.dwinovo.numen.core.assist.OwnerActionTracker.recordPlace(
+                    player, event.getPos().relative(event.getFace()));
+        }
     }
 }

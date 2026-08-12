@@ -155,6 +155,17 @@ public final class CompanionTickDispatcher {
     }
 
     /**
+     * 这具身体是不是正被主人明确派下来的工作占着。
+     *
+     * <p>后台协助、闲时姿态一类行为用这个边界让位。不能只看 {@link #currentTaskFor}:
+     * 回合内的同步动作也代表一个明确意图,而且那一刻正有人等它的结果。
+     */
+    public static boolean hasExplicitWork(UUID companionUuid) {
+        CompanionBrain brain = BRAINS.get(companionUuid);
+        return brain != null && (!brain.sync.isEmpty() || !brain.current.isEmpty());
+    }
+
+    /**
      * 槽里那个刚受理、一刻都还没跑过。
      *
      * <p>用来分开两种"再派一个活":同一批工具调用里的第二个(模型在做计划,该拒绝

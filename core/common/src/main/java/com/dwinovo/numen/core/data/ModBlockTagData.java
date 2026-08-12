@@ -30,6 +30,16 @@ public final class ModBlockTagData {
     public static void addBlockTags(TagAppenderProvider<Block> tags) {
         tags.tag(InitTag.DO_NOT_BREAK);
 
+        tags.tag(InitTag.ASSIST_CLEARABLE)
+                .add(net.minecraft.world.level.block.Blocks.SHORT_GRASS)
+                .add(net.minecraft.world.level.block.Blocks.TALL_GRASS)
+                .add(net.minecraft.world.level.block.Blocks.FERN)
+                .add(net.minecraft.world.level.block.Blocks.LARGE_FERN)
+                .add(net.minecraft.world.level.block.Blocks.DEAD_BUSH);
+
+        // 默认天然岩石由运行期直接认原版标签;这里留作整合包扩展口。
+        tags.tag(InitTag.ASSIST_MINEABLE);
+
         // 图纸可以把方块实体数据带进世界的那些方块。默认只有牌子和旗帜:牌子上的字是
         // 纯文本(玩家自己写也是白写的),旗帜的花纹是设计的一部分而料按带花纹的那面
         // 旗帜收。两者都不产出任何凭空的东西。

@@ -69,6 +69,18 @@ public final class InitTag {
      */
     public static final TagKey<Block> SAFE_BLOCK_ENTITY_DATA = block("safe_block_entity_data");
 
+    /**
+     * 自动协助可以放心清掉的地表植物。代码自带一份保守的原版白名单,整合包可以用
+     * 这个标签追加自己的草和蕨类;农作物、树苗与花默认都不在其中。
+     */
+    public static final TagKey<Block> ASSIST_CLEARABLE = block("assist_clearable");
+
+    /**
+     * 除原版天然岩石与通用矿石标签外,允许“连续挖掘”触发协助的方块。
+     * 这是白名单,避免玩家拆机器或建筑时同伴跟着扩大破坏。
+     */
+    public static final TagKey<Block> ASSIST_MINEABLE = block("assist_mineable");
+
     private InitTag() {}
 
     /** 模型写标签用的前缀:{@code #minecraft:beds} 指"床这一类",而不是某一种颜色的床。 */

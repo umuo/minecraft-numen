@@ -85,6 +85,9 @@ public final class NumenCore {
                 com.dwinovo.numen.core.task.chain.MobDefenseChain::new);
         com.dwinovo.numen.task.BrainChains.register(50,
                 com.dwinovo.numen.core.task.chain.UnstuckChain::new);
+        // 不是求生反射,而是闲时后台层:它自己的 canRun 在显式任务/同步动作存在时让位。
+        com.dwinovo.numen.task.BrainChains.register(100,
+                com.dwinovo.numen.core.assist.OwnerAssistChain::new);
     }
 
     /**
@@ -108,6 +111,7 @@ public final class NumenCore {
         ToolRegistry.register(new com.dwinovo.numen.core.tools.work.CollectItemsTool());
         ToolRegistry.register(new com.dwinovo.numen.core.tools.work.FishTool());
         ToolRegistry.register(new com.dwinovo.numen.core.tools.work.FollowTool());
+        ToolRegistry.register(new com.dwinovo.numen.core.tools.work.AssistOwnerTool());
         ToolRegistry.register(new com.dwinovo.numen.core.tools.work.AutoMineTool());
         ToolRegistry.register(new com.dwinovo.numen.core.tools.work.FarmCropsTool());
         ToolRegistry.register(new com.dwinovo.numen.core.tools.inventory.EquipItemTool());

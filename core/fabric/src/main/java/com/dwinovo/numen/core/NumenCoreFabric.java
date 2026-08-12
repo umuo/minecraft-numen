@@ -7,6 +7,13 @@ import com.dwinovo.numen.core.scan.BlockSearch;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.BlockItem;
 
 /**
  * Fabric entry point for the numen-core tool pack. Registers the tools and task
@@ -33,6 +40,26 @@ public class NumenCoreFabric implements ModInitializer {
         // Debug verbs merged into the /numen root registered by the engine mod.
         CommandRegistrationCallback.EVENT.register(
                 (dispatcher, registryAccess, environment) -> DebugCommands.register(dispatcher));
+
+        PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
+            if (world instanceof ServerLevel && player instanceof ServerPlayer serverPlayer) {
+                com.dwinovo.numen.core.assist.OwnerActionTracker.recordBreak(serverPlayer, pos, state);
+            }
+        });
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, hit) -> {
+            if (world instanceof ServerLevel && player instanceof ServerPlayer serverPlayer) {
+                com.dwinovo.numen.core.assist.OwnerActionTracker.recordAttack(serverPlayer, entity);
+            }
+            return InteractionResult.PASS;
+        });
+        UseBlockCallback.EVENT.register((player, world, hand, hit) -> {
+            if (world instanceof ServerLevel && player instanceof ServerPlayer serverPlayer
+                    && player.getItemInHand(hand).getItem() instanceof BlockItem) {
+                com.dwinovo.numen.core.assist.OwnerActionTracker.recordPlace(
+                        serverPlayer, hit.getBlockPos().relative(hit.getDirection()));
+            }
+            return InteractionResult.PASS;
+        });
 
         Constants.LOG.info("numen-core initialised on Fabric.");
     }
