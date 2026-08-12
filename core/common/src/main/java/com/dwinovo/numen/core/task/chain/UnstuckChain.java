@@ -87,14 +87,16 @@ public final class UnstuckChain implements Task, com.dwinovo.numen.task.reflex.R
         return "被地形卡住时会自己挣脱出来";
     }
 
-    /** Face the chosen heading, push forward, and hop periodically to clear a lip/step. */
+    /** Face the chosen heading, push forward, and hop periodically to clear a lip/step.
+     *  In water every tick is an upward stroke: intermittent land hops are not
+     *  enough to keep the head up or carry the body over a bank. */
     private void driveWander(NumenPlayer companion) {
         companion.setYRot(wanderYaw);
         companion.setYHeadRot(wanderYaw);
         companion.zza = 1.0f;
         companion.xxa = 0.0f;
         companion.setSprinting(false);
-        if (wanderTicksLeft % 5 == 0) {
+        if (companion.isInWater() || wanderTicksLeft % 5 == 0) {
             InputDriver.jump(companion);
         }
     }

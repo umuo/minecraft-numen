@@ -94,6 +94,8 @@ public final class BuildTool implements NumenTool {
                 + "look fake, so mix 10-20% of a weathered variant into every large wall, floor and roof. "
                 + "block_id `air` CLEARS the cell (drops harvest normally). Liquids are NOT handled: leave "
                 + "water and lava out of the ops — dig the basin and let the player pour it. "
+                + "CROP FIELDS are NOT construction: use farm_crops to harvest, replant, and fill empty "
+                + "farmland. Never use build to overwrite mature crops. "
                 + "Compose whole buildings like stacking toy bricks in ONE call, "
                 + "up to 16384 cells — enough for a whole house, so use it. She walks to the site once, then "
                 + "works inside it, placing cells in batches "

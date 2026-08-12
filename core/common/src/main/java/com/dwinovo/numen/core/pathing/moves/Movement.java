@@ -209,8 +209,10 @@ public abstract class Movement {
         player.getAbilities().flying = false;
         currentState = updateState(currentState);
         BlockPos feet = feet(player);
-        if (MovementHelper.isLiquid(player.level().getBlockState(feet))
-                && player.getY() < dest.getY() + 0.6) {
+        // The body's fluid contact remains true at the surface where the computed
+        // feet cell can already flicker to air. That last stroke is what gets over
+        // a bank. Downward movements remain free to dive deliberately.
+        if (player.isInWater() && feet.getY() <= dest.getY()) {
             currentState.setInput(Input.JUMP, true);
         }
         if (player.isInWall()) {

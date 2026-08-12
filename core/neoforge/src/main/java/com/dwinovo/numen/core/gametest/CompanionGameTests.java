@@ -2,6 +2,7 @@ package com.dwinovo.numen.core.gametest;
 
 import com.dwinovo.numen.core.Constants;
 import com.dwinovo.numen.core.tools.BlockActionOps;
+import com.dwinovo.numen.core.tools.FarmOps;
 import com.dwinovo.numen.core.task.build.BuildTaskRecord;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -231,6 +232,80 @@ public class CompanionGameTests {
         helper.succeedWhen(() -> {
             helper.assertTrue(companion.blockPosition().distSqr(target) <= 2 * 2,
                     "companion has not reached the goto target");
+            CompanionFactory.despawn(level.getServer(), companion);
+        });
+    }
+
+    /**
+     * 水坑上岸:同伴从一格深的封闭水池里去池外目标。回归点是水面附近
+     * feet 已经算成空气时仍要继续上浮,以及靠岸时必须边前进边按跳。
+     */
+    @GameTest(template = "floor16", timeoutTicks = 3000, batch = "numen_smoke")
+    public static void goto_swims_out_of_pool(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        int waterY = 2;
+        for (int x = 3; x <= 9; x++) {
+            for (int z = 3; z <= 9; z++) {
+                BlockPos pos = helper.absolutePos(new BlockPos(x, waterY, z));
+                boolean wall = x == 3 || x == 9 || z == 3 || z == 9;
+                level.setBlock(pos, (wall ? Blocks.STONE : Blocks.WATER).defaultBlockState(), 3);
+            }
+        }
+
+        BlockPos spawn = helper.absolutePos(new BlockPos(6, waterY, 6));
+        BlockPos target = helper.absolutePos(new BlockPos(12, waterY, 6));
+        NumenPlayer companion = CompanionFactory.spawn(level.getServer(), UUID.randomUUID(),
+                "gametest_swimmer", UUID.randomUUID(), level,
+                new Vec3(spawn.getX() + 0.5, spawn.getY(), spawn.getZ() + 0.5));
+        TaskRecord record = (TaskRecord) new MovementOps().moveTo(
+                (double) target.getX(), (double) target.getY(), (double) target.getZ(), null,
+                TaskDispatch.ctx("gametest-swim-out", companion));
+        TaskDispatch.runSync(companion, record, reply -> {});
+
+        helper.succeedWhen(() -> {
+            helper.assertTrue(companion.blockPosition().distSqr(target) <= 4,
+                    "companion did not swim out to the shore target");
+            helper.assertTrue(!companion.isInWater(),
+                    "companion reached the edge but remained trapped in water");
+            CompanionFactory.despawn(level.getServer(), companion);
+        });
+    }
+
+    /**
+     * 收获先于补空:一株成熟胡萝卜自给补种并产出余量,余量在同一次任务里
+     * 种到旁边空耕地;未成熟那株不动。成熟作物不再把整片田判成“已完成”。
+     */
+    @GameTest(template = "floor16", timeoutTicks = 3000, batch = "numen_farm")
+    public static void farm_harvests_replants_and_continues_to_empty_soil(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos mature = helper.absolutePos(new BlockPos(6, 2, 6));
+        BlockPos empty = mature.east();
+        BlockPos young = empty.east();
+        for (BlockPos crop : List.of(mature, empty, young)) {
+            level.setBlock(crop.below(), Blocks.FARMLAND.defaultBlockState(), 3);
+            level.setBlock(crop, Blocks.AIR.defaultBlockState(), 3);
+        }
+        var age = net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_7;
+        level.setBlock(mature, Blocks.CARROTS.defaultBlockState().setValue(age, 7), 3);
+        level.setBlock(young, Blocks.CARROTS.defaultBlockState().setValue(age, 3), 3);
+
+        NumenPlayer companion = spawnAt(helper, "gametest_farmer", new BlockPos(3, 2, 6), false);
+        TaskRecord record = new FarmOps().farmCrops("minecraft:carrots",
+                mature.getX(), mature.getY(), mature.getZ(),
+                young.getX(), young.getY(), young.getZ(), companion,
+                TaskDispatch.ctx("gametest-farm", companion));
+        TaskDispatch.runSync(companion, record, reply -> {});
+
+        helper.succeedWhen(() -> {
+            BlockState replanted = level.getBlockState(mature);
+            BlockState filled = level.getBlockState(empty);
+            BlockState untouched = level.getBlockState(young);
+            helper.assertTrue(replanted.is(Blocks.CARROTS) && replanted.getValue(age) == 0,
+                    "mature carrot was not harvested and replanted");
+            helper.assertTrue(filled.is(Blocks.CARROTS) && filled.getValue(age) == 0,
+                    "empty farmland was not planted from harvest surplus");
+            helper.assertTrue(untouched.is(Blocks.CARROTS) && untouched.getValue(age) == 3,
+                    "immature carrot should have been left alone");
             CompanionFactory.despawn(level.getServer(), companion);
         });
     }

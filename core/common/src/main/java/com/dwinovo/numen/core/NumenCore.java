@@ -14,6 +14,8 @@ import com.dwinovo.numen.core.task.inventory.EquipCompanionTask;
 import com.dwinovo.numen.core.task.inventory.EquipTaskRecord;
 import com.dwinovo.numen.core.task.fish.FishCompanionTask;
 import com.dwinovo.numen.core.task.fish.FishTaskRecord;
+import com.dwinovo.numen.core.task.farm.FarmCropsCompanionTask;
+import com.dwinovo.numen.core.task.farm.FarmCropsTaskRecord;
 import com.dwinovo.numen.core.task.combat.AttackCompanionTask;
 import com.dwinovo.numen.core.task.combat.AttackTaskRecord;
 import com.dwinovo.numen.core.task.interact.InteractAtCompanionTask;
@@ -107,6 +109,7 @@ public final class NumenCore {
         ToolRegistry.register(new com.dwinovo.numen.core.tools.work.FishTool());
         ToolRegistry.register(new com.dwinovo.numen.core.tools.work.FollowTool());
         ToolRegistry.register(new com.dwinovo.numen.core.tools.work.AutoMineTool());
+        ToolRegistry.register(new com.dwinovo.numen.core.tools.work.FarmCropsTool());
         ToolRegistry.register(new com.dwinovo.numen.core.tools.inventory.EquipItemTool());
         ToolRegistry.register(new com.dwinovo.numen.core.tools.work.BuildTool());
         ToolRegistry.register(new com.dwinovo.numen.core.tools.work.BlueprintTool());
@@ -150,6 +153,7 @@ public final class NumenCore {
         TaskFactory.register(AttackTaskRecord.class, (p, r) -> new AttackCompanionTask(p, r));
         TaskFactory.register(CollectItemsTaskRecord.class, (p, r) -> new CollectItemsCompanionTask(p, r));
         TaskFactory.register(FishTaskRecord.class, (p, r) -> new FishCompanionTask(p, r));
+        TaskFactory.register(FarmCropsTaskRecord.class, (p, r) -> new FarmCropsCompanionTask(p, r));
         TaskFactory.register(BuildTaskRecord.class, (p, r) -> new BuildCompanionTask(p, r));
         TaskFactory.register(InteractAtTaskRecord.class, (p, r) -> new InteractAtCompanionTask(p, r));
         TaskFactory.register(InteractEntityTaskRecord.class, (p, r) -> new InteractEntityCompanionTask(p, r));

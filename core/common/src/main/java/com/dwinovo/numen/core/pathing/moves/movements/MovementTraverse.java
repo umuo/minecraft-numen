@@ -254,6 +254,10 @@ public class MovementTraverse extends Movement {
         if (feet.getY() != dest.getY() && !ladder) {
             // 高度不对:低了跳一下,高了等下落
             if (feet.getY() < dest.getY()) {
+                // 靠岸需要同时上浮和横移。只按跳会贴着岸沿垂直打转。
+                if (player.isInWater()) {
+                    AimGeometry.moveTowards(player, state, dest);
+                }
                 return state.setInput(Input.JUMP, true);
             }
             return state;

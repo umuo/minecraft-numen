@@ -143,7 +143,7 @@ public class MovementAscend extends Movement {
 
     @Override
     public MovementState updateState(MovementState state) {
-        if (feet(player).getY() < src.getY()) {
+        if (feet(player).getY() < src.getY() && !player.isInWater()) {
             // 掉下去了:即使还在挖掘准备期也判不可达
             return state.setStatus(MovementStatus.UNREACHABLE);
         }
