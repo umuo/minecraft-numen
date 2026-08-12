@@ -6,6 +6,7 @@ import com.dwinovo.numen.entity.InputDriver;
 import com.dwinovo.numen.entity.NumenPlayer;
 import com.dwinovo.numen.core.pathing.util.BlockHelper;
 import com.dwinovo.numen.core.act.ToolSelect;
+import com.dwinovo.numen.core.pathing.settings.NavSettings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
@@ -60,6 +61,8 @@ public final class BlockDigger {
     private int blockHitDelay;    // post-break cooldown (survives reset())
     /** 开挖时的主手物品快照;中途换持(物品/组件级)即重开进度。 */
     private net.minecraft.world.item.ItemStack destroyingItem;
+    /** 挖掘期间临时持有 Shift,并在所有结束路径恢复进入前状态。 */
+    private final MiningSneakLatch miningSneak = new MiningSneakLatch();
 
     public BlockDigger(NumenPlayer player) {
         this.player = player;
@@ -188,6 +191,9 @@ public final class BlockDigger {
             start(samePos, false);
         }
         InputDriver.lookAt(player, hit.getLocation());
+        // 必须在 START_DESTROY_BLOCK 之前置位:Shift 触发型连锁挖矿模组通常在
+        // 服务端破块入口读取 isShiftKeyDown。之后每 tick 重申,避免别的输入驱动抢掉。
+        holdMiningSneak();
         Direction side = hit.getDirection();
         BlockState state = level.getBlockState(pos);
 
@@ -265,9 +271,22 @@ public final class BlockDigger {
     /** Clear dig state. Deliberately does NOT touch {@link #blockHitDelay} (a
      *  post-break cooldown that must outlive the break) or the crack overlay. */
     private void reset() {
+        releaseMiningSneak();
         pos = null;
         progress = 0.0f;
         started = false;
+    }
+
+    private void holdMiningSneak() {
+        boolean enabled = NavSettings.get().miningInputMode
+                == NavSettings.MiningInputMode.SNEAK_WHILE_MINING;
+        player.setShiftKeyDown(miningSneak.update(enabled, player.isShiftKeyDown()));
+    }
+
+    private void releaseMiningSneak() {
+        if (miningSneak.held()) {
+            player.setShiftKeyDown(miningSneak.release(player.isShiftKeyDown()));
+        }
     }
 
     /**

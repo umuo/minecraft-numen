@@ -19,6 +19,12 @@ import net.minecraft.world.level.block.Blocks;
  */
 public final class NavSettings {
 
+    /** Extra server-visible input held only while a block is actively being broken. */
+    public enum MiningInputMode {
+        NONE,
+        SNEAK_WHILE_MINING
+    }
+
     private static final NavSettings INSTANCE = new NavSettings();
 
     public static NavSettings get() {
@@ -102,6 +108,11 @@ public final class NavSettings {
     public int itemSaverThreshold = 10;
     /** 自动切换最优工具。 */
     public boolean autoTool = true;
+    /**
+     * 挖掘输入修饰。默认在 START_DESTROY_BLOCK 到完成/取消期间保持潜行,
+     * 兼容以 Shift 作为触发条件的连锁挖矿模组;寻路阶段不保持潜行。
+     */
+    public MiningInputMode miningInputMode = MiningInputMode.SNEAK_WHILE_MINING;
     /** 在建筑目标格临时放置错误方块的成本乘数。 */
     public double placeIncorrectBlockPenaltyMultiplier = 2.0;
     /** 建造时是否把任意非空气现有方块视为已可接受。 */
