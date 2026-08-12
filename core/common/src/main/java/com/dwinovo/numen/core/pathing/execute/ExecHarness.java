@@ -311,17 +311,37 @@ public final class ExecHarness implements Movement.ExecutionDelegate {
             return; // 未命中方块或被实体遮挡:不对空挥右键,也不扣冷却
         }
         rightClickCooldown = NavSettings.get().rightClickSpeed - 1;
-        for (InteractionHand hand : HANDS) {
-            ItemStack stack = player.getItemInHand(hand);
-            if (player.gameMode.useItemOn(player, level, stack, hand, hit).consumesAction()) {
-                player.swing(hand);
-                return;
+        boolean placement = shouldSneakForPlacement(
+                player.getMainHandItem(), player.getOffhandItem());
+        boolean restoreSneak = player.isShiftKeyDown();
+        if (placement) {
+            // Movement CLICK_RIGHT means "place the selected scaffold/build block". Holding
+            // Shift prevents a chest/table/machine used as the support face from consuming the
+            // click before the BlockItem gets a chance to place.
+            player.setShiftKeyDown(true);
+        }
+        try {
+            for (InteractionHand hand : HANDS) {
+                ItemStack stack = player.getItemInHand(hand);
+                if (player.gameMode.useItemOn(player, level, stack, hand, hit).consumesAction()) {
+                    player.swing(hand);
+                    return;
+                }
+                if (!stack.isEmpty()
+                        && player.gameMode.useItem(player, level, stack, hand).consumesAction()) {
+                    return;
+                }
             }
-            if (!stack.isEmpty()
-                    && player.gameMode.useItem(player, level, stack, hand).consumesAction()) {
-                return;
+        } finally {
+            if (placement) {
+                player.setShiftKeyDown(restoreSneak);
             }
         }
+    }
+
+    static boolean shouldSneakForPlacement(ItemStack mainHand, ItemStack offHand) {
+        return mainHand.getItem() instanceof net.minecraft.world.item.BlockItem
+                || offHand.getItem() instanceof net.minecraft.world.item.BlockItem;
     }
 
     // ==================== 视线判定 ====================

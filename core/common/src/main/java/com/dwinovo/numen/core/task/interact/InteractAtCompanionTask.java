@@ -9,6 +9,7 @@ import com.dwinovo.numen.entity.NumenPlayer;
 import com.dwinovo.numen.core.pathing.calc.NavGoal;
 import com.dwinovo.numen.core.FailureType;
 import com.dwinovo.numen.core.act.Interaction;
+import com.dwinovo.numen.core.act.SneakLatch;
 import com.dwinovo.numen.core.pathing.execute.PlayerNav;
 import com.dwinovo.numen.core.task.base.GoToThenDoTask;
 import com.dwinovo.numen.core.task.base.Precondition;
@@ -46,6 +47,7 @@ public final class InteractAtCompanionTask extends GoToThenDoTask<InteractAtTask
     // result can report it and the agent loop can remember it in <known_blocks>.
     private net.minecraft.core.BlockPos activatedBlock;
     private String activatedBlockId;
+    private final SneakLatch sneak = new SneakLatch();
 
     public InteractAtCompanionTask(NumenPlayer player, InteractAtTaskRecord record) {
         super(player, record);
@@ -81,6 +83,9 @@ public final class InteractAtCompanionTask extends GoToThenDoTask<InteractAtTask
     protected TaskState act() {
         // Resolve the crosshair once we're in position, then drive the action.
         if (interaction == null) {
+            if (r.sneak) {
+                player.setShiftKeyDown(sneak.hold(player.isShiftKeyDown()));
+            }
             if (r.item != null) {
                 player.holdInHand(PlayerInv.findSlot(player.getInventory(), r.item));
             }
@@ -117,7 +122,8 @@ public final class InteractAtCompanionTask extends GoToThenDoTask<InteractAtTask
             // flips a switch, …). Remember the block we touched so <known_blocks> can
             // walk us back to stations we've used, not just ones we placed. The harvest
             // filters to tracked station types; doors/buttons fall away there.
-            if (button() == Interaction.Button.USE && hit instanceof net.minecraft.world.phys.BlockHitResult bhr) {
+            if (button() == Interaction.Button.USE && !r.sneak
+                    && hit instanceof net.minecraft.world.phys.BlockHitResult bhr) {
                 activatedBlock = bhr.getBlockPos();
                 activatedBlockId = BuiltInRegistries.BLOCK
                         .getKey(player.level().getBlockState(activatedBlock).getBlock()).toString();
@@ -173,7 +179,8 @@ public final class InteractAtCompanionTask extends GoToThenDoTask<InteractAtTask
     }
 
     private String describeDone() {
-        String verb = r.button == MouseButton.LEFT ? "left-clicked" : "right-clicked";
+        String verb = (r.sneak ? "sneak+" : "")
+                + (r.button == MouseButton.LEFT ? "left-clicked" : "right-clicked");
         return verb + (r.aim != null ? " " + aimLabel() : " (forward)");
     }
 
@@ -181,6 +188,9 @@ public final class InteractAtCompanionTask extends GoToThenDoTask<InteractAtTask
     @Override
     protected void cleanup() {
         if (interaction != null) interaction.stop();
+        if (sneak.held()) {
+            player.setShiftKeyDown(sneak.release(player.isShiftKeyDown()));
+        }
         super.cleanup();
     }
 
@@ -188,6 +198,7 @@ public final class InteractAtCompanionTask extends GoToThenDoTask<InteractAtTask
     protected Map<String, Object> resultData() {
         Map<String, Object> data = new HashMap<>();
         data.put("button", r.button == MouseButton.LEFT ? "left" : "right");
+        data.put("sneak", r.sneak);
         if (r.aim != null) {
             data.put("x", r.aim.getX());
             data.put("y", r.aim.getY());

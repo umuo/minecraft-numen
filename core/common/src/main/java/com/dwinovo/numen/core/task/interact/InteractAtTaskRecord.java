@@ -24,6 +24,7 @@ import net.minecraft.world.item.Items;
  * {@code aim} null = use the body's CURRENT facing (in-air use with no target, e.g. eating).
  * {@code holdTicks}: 0 = a single press; &gt;0 = hold that many ticks (modded crank / bow draw);
  * -1 = hold until the action self-completes or the task times out.
+ * {@code sneak} adds the server-visible Shift state for the duration of that mouse action.
  */
 public final class InteractAtTaskRecord extends TaskRecord {
 
@@ -35,14 +36,17 @@ public final class InteractAtTaskRecord extends TaskRecord {
     public final BlockPos aim;     // null → current facing (in-air use)
     public final int holdTicks;
     public final Item item;        // null → use whatever is already in hand; else equip this first
+    public final boolean sneak;    // hold Shift for the mouse action
 
     public InteractAtTaskRecord(String toolCallId, long deadlineGameTime,
-                                MouseButton button, BlockPos aim, int holdTicks, Item item) {
+                                MouseButton button, BlockPos aim, int holdTicks, Item item,
+                                boolean sneak) {
         super(TOOL_NAME, toolCallId, deadlineGameTime);
         this.button = button;
         this.aim = aim != null ? aim.immutable() : null;
         this.holdTicks = holdTicks;
         this.item = item;
+        this.sneak = sneak;
     }
 
     /**
@@ -70,6 +74,7 @@ public final class InteractAtTaskRecord extends TaskRecord {
         return TOOL_NAME + " " + (button == MouseButton.LEFT ? "left" : "right")
                 + (item != null ? " " + BuiltInRegistries.ITEM.getKey(item).getPath() : "")
                 + (aim != null ? " @" + aim.getX() + "," + aim.getY() + "," + aim.getZ() : " (forward)")
+                + (sneak ? " +sneak" : "")
                 + (holdTicks != 0 ? " hold=" + holdTicks : "");
     }
 }

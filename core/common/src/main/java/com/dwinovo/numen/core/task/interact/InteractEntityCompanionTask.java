@@ -9,6 +9,7 @@ import com.dwinovo.numen.entity.NumenPlayer;
 import com.dwinovo.numen.core.pathing.calc.NavGoal;
 import com.dwinovo.numen.core.FailureType;
 import com.dwinovo.numen.core.act.Interaction;
+import com.dwinovo.numen.core.act.SneakLatch;
 import com.dwinovo.numen.core.pathing.execute.PlayerNav;
 import com.dwinovo.numen.core.task.base.GoToThenDoTask;
 import com.dwinovo.numen.core.task.base.Precondition;
@@ -52,6 +53,7 @@ public final class InteractEntityCompanionTask extends GoToThenDoTask<InteractEn
     private long holdUntil = -1;
     private boolean acted = false;     // landed at least one press (death then = success, not failure)
     private String successMsg = "done";
+    private final SneakLatch sneak = new SneakLatch();
 
     public InteractEntityCompanionTask(NumenPlayer player, InteractEntityTaskRecord record) {
         super(player, record);
@@ -87,9 +89,13 @@ public final class InteractEntityCompanionTask extends GoToThenDoTask<InteractEn
      *  in reach with a clear line of sight; otherwise the base drives the nav to follow the entity. */
     @Override
     protected boolean reached() {
-        return entity == null || !entity.isAlive()
+        boolean ready = entity == null || !entity.isAlive()
                 || (interaction != null && holdUntil >= 0 && player.level().getGameTime() >= holdUntil)
                 || inReachAndLos();
+        if (!ready) {
+            releaseSneak(); // Shift modifies the click, not the chase toward a moving target.
+        }
+        return ready;
     }
 
     @Override
@@ -115,11 +121,15 @@ public final class InteractEntityCompanionTask extends GoToThenDoTask<InteractEn
 
         // In reach + LOS: aim at the entity and confirm the crosshair actually resolves to IT
         // (e.g. not another entity wandered into the exact line) before pressing.
+        if (r.sneak) {
+            player.setShiftKeyDown(sneak.hold(player.isShiftKeyDown()));
+        }
         InputDriver.lookAt(player, entity.getEyePosition());
         HitResult hit = Interaction.nativeRaytrace(player, REACH);
         boolean onTarget = hit.getType() == HitResult.Type.ENTITY
                 && ((EntityHitResult) hit).getEntity() == entity;
         if (!onTarget) {
+            releaseSneak();
             return TaskState.RUNNING;   // settling / something briefly in the line — re-aim next tick
         }
 
@@ -211,7 +221,8 @@ public final class InteractEntityCompanionTask extends GoToThenDoTask<InteractEn
     }
 
     private String describeDone() {
-        String verb = r.button == MouseButton.LEFT ? "attacked" : "interacted with";
+        String verb = (r.sneak ? "sneak+" : "")
+                + (r.button == MouseButton.LEFT ? "attacked" : "interacted with");
         return verb + " " + targetName();
     }
 
@@ -219,13 +230,21 @@ public final class InteractEntityCompanionTask extends GoToThenDoTask<InteractEn
     @Override
     protected void cleanup() {
         if (interaction != null) interaction.stop();
+        releaseSneak();
         super.cleanup();
+    }
+
+    private void releaseSneak() {
+        if (sneak.held()) {
+            player.setShiftKeyDown(sneak.release(player.isShiftKeyDown()));
+        }
     }
 
     @Override
     protected Map<String, Object> resultData() {
         Map<String, Object> data = new HashMap<>();
         data.put("button", r.button == MouseButton.LEFT ? "left" : "right");
+        data.put("sneak", r.sneak);
         data.put("entity_id", r.entityId);
         return data;
     }

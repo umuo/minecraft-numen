@@ -13,6 +13,8 @@ import com.dwinovo.numen.core.pathing.moves.MutableMoveResult;
 import com.dwinovo.numen.core.pathing.moves.movements.MovementFall;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import static com.dwinovo.numen.core.pathing.moves.ActionCosts.COST_INF;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,6 +29,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * 测,留待游戏内验收。
  */
 class PathExecutorLogicTest {
+
+    @Test
+    void placementClickSneaksForABlockItemInEitherHand() {
+        assertTrue(ExecHarness.shouldSneakForPlacement(
+                new ItemStack(Items.COBBLESTONE), ItemStack.EMPTY));
+        assertTrue(ExecHarness.shouldSneakForPlacement(
+                new ItemStack(Items.IRON_PICKAXE), new ItemStack(Items.DIRT)));
+    }
+
+    @Test
+    void nonPlacementClickDoesNotForceSneak() {
+        assertFalse(ExecHarness.shouldSneakForPlacement(
+                new ItemStack(Items.IRON_PICKAXE), new ItemStack(Items.WATER_BUCKET)));
+    }
 
     /** 只带 src/dest 与合法位的假移动,成本可配(默认 1)。 */
     private static class FakeMovement extends Movement {

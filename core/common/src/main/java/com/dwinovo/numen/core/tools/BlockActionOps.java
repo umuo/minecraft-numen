@@ -60,6 +60,7 @@ Integer y,
 Integer z,
 Integer hold_ticks,
 String item_id,
+boolean sneak,
             ToolContext ctx) {
         MouseButton buttonVal = ToolParse.parseButton(button);
         int holdTicks = hold_ticks == null ? 0 : hold_ticks;
@@ -77,7 +78,8 @@ String item_id,
         if (bodyBound != null) {
             throw new IllegalArgumentException(bodyBound);
         }
-        return new InteractAtTaskRecord(ctx.toolCallId(), ctx.deadline(INTERACT_AT_TIMEOUT_TICKS), buttonVal, aim, holdTicks, item);
+        return new InteractAtTaskRecord(ctx.toolCallId(), ctx.deadline(INTERACT_AT_TIMEOUT_TICKS),
+                buttonVal, aim, holdTicks, item, sneak);
     }
 
     public TaskRecord interactEntity(
@@ -85,11 +87,12 @@ String button,
 int entity_id,
 Integer hold_ticks,
 String item_id,
+boolean sneak,
             ToolContext ctx) {
         MouseButton buttonVal = ToolParse.parseButton(button);
         int holdTicks = hold_ticks == null ? 0 : hold_ticks;
-        return new InteractEntityTaskRecord(ctx.toolCallId(), ctx.deadline(INTERACT_ENTITY_TIMEOUT_TICKS), buttonVal, entity_id, holdTicks,
-                item_id == null ? null : ToolArgs.parseItem(item_id));
+        return new InteractEntityTaskRecord(ctx.toolCallId(), ctx.deadline(INTERACT_ENTITY_TIMEOUT_TICKS),
+                buttonVal, entity_id, holdTicks,
+                item_id == null ? null : ToolArgs.parseItem(item_id), sneak);
     }
 }
-

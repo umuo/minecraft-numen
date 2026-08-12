@@ -19,6 +19,7 @@ import net.minecraft.world.item.Item;
  * The hit only lands when the native raytrace actually REACHES the entity (a wall in between
  * blocks it — we re-position rather than hit through it). {@code holdTicks}: 0 = tap, &gt;0 =
  * hold N ticks, -1 = hold until done (dead / self-complete) or timeout.
+ * {@code sneak} adds Shift only while the click is being attempted, never while chasing.
  */
 public final class InteractEntityTaskRecord extends TaskRecord {
 
@@ -30,20 +31,24 @@ public final class InteractEntityTaskRecord extends TaskRecord {
     public final int entityId;
     public final int holdTicks;
     public final Item item;        // null → use whatever is in hand; else equip this first (food / shears / weapon)
+    public final boolean sneak;
 
     public InteractEntityTaskRecord(String toolCallId, long deadlineGameTime,
-                                    MouseButton button, int entityId, int holdTicks, Item item) {
+                                    MouseButton button, int entityId, int holdTicks, Item item,
+                                    boolean sneak) {
         super(TOOL_NAME, toolCallId, deadlineGameTime);
         this.button = button;
         this.entityId = entityId;
         this.holdTicks = holdTicks;
         this.item = item;
+        this.sneak = sneak;
     }
 
     @Override
     public String describe() {
         return TOOL_NAME + " " + (button == MouseButton.LEFT ? "left" : "right")
                 + (item != null ? " " + BuiltInRegistries.ITEM.getKey(item).getPath() : "")
-                + " entity#" + entityId + (holdTicks != 0 ? " hold=" + holdTicks : "");
+                + " entity#" + entityId + (sneak ? " +sneak" : "")
+                + (holdTicks != 0 ? " hold=" + holdTicks : "");
     }
 }
