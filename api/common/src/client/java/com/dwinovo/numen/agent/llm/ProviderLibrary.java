@@ -28,7 +28,7 @@ public final class ProviderLibrary extends JsonLibrary<ProviderLibrary.Entry> {
      *  fallback of any kind). */
     public record Entry(String id, String name, String provider, String model,
                         String apiKey, String baseUrl, String reasoningEffort,
-                        String proxy) {}
+                        String proxy, boolean vision) {}
 
     private static ProviderLibrary instance;
 
@@ -53,19 +53,20 @@ public final class ProviderLibrary extends JsonLibrary<ProviderLibrary.Entry> {
     public LlmEndpoint resolve(String id) {
         Entry e = get(id);
         if (e == null) {
-            return new LlmEndpoint("", "", "", "", Services.CONFIG.getProxy(), "");
+            return new LlmEndpoint("", "", "", "", Services.CONFIG.getProxy(), "", false);
         }
         String proxy = e.proxy() != null && !e.proxy().isBlank()
                 ? e.proxy() : Services.CONFIG.getProxy();
         return new LlmEndpoint(e.provider(), e.model(), e.apiKey(),
-                e.baseUrl(), proxy, e.reasoningEffort());
+                e.baseUrl(), proxy, e.reasoningEffort(), e.vision());
     }
 
     /** Create an entry — only the name is required; everything else may be blank. */
     public Entry create(String name, String provider, String model,
-                        String apiKey, String baseUrl, String reasoningEffort, String proxy) {
+                        String apiKey, String baseUrl, String reasoningEffort, String proxy,
+                        boolean vision) {
         Entry e = new Entry(freshId("prov"), name, provider, model, apiKey, baseUrl,
-                reasoningEffort, proxy);
+                reasoningEffort, proxy, vision);
         putAndSave(e);
         return e;
     }
@@ -107,7 +108,8 @@ public final class ProviderLibrary extends JsonLibrary<ProviderLibrary.Entry> {
     protected Entry readEntry(JsonObject o) {
         return new Entry(strOrNull(o, "id"), strOrNull(o, "name"), strOrNull(o, "provider"),
                 strOrNull(o, "model"), strOrNull(o, "api_key"), strOrNull(o, "base_url"),
-                strOrNull(o, "reasoning_effort"), strOrNull(o, "proxy"));
+                strOrNull(o, "reasoning_effort"), strOrNull(o, "proxy"),
+                o.has("vision") && o.get("vision").getAsBoolean());
     }
 
     @Override
@@ -121,6 +123,7 @@ public final class ProviderLibrary extends JsonLibrary<ProviderLibrary.Entry> {
         if (nb(e.baseUrl())) o.addProperty("base_url", e.baseUrl());
         if (nb(e.reasoningEffort())) o.addProperty("reasoning_effort", e.reasoningEffort());
         if (nb(e.proxy())) o.addProperty("proxy", e.proxy());
+        if (e.vision()) o.addProperty("vision", true);
         return o;
     }
 

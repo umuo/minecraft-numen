@@ -116,6 +116,7 @@ public final class SettingsView {
                         boolean hasKey = nb(e.apiKey());
                         String meta = (nb(e.provider()) ? e.provider() : "?") + " · "
                                 + (nb(e.model()) ? e.model() : "?")
+                                + (e.vision() ? " · " + I18n.get(ModLanguageData.Keys.GUI_PROVIDERS_VISION_BADGE) : "")
                                 + (hasKey ? "" : " · " + I18n.get(ModLanguageData.Keys.PROVIDER_NO_KEY));
                         return new LibraryListPanel.Row(e.name() == null ? "" : e.name(), meta, !hasKey, null);
                     },
@@ -176,10 +177,10 @@ public final class SettingsView {
         if (providerEditId != null) {
             lib.update(new com.dwinovo.numen.agent.llm.ProviderLibrary.Entry(
                     providerEditId, d.name.trim(), d.provider, d.model.trim(),
-                    d.apiKey.trim(), d.baseUrl.trim(), d.reasoningEffort, d.proxy.trim()));
+                    d.apiKey.trim(), d.baseUrl.trim(), d.reasoningEffort, d.proxy.trim(), d.vision));
         } else {
             lib.create(d.name.trim(), d.provider, d.model.trim(),
-                    d.apiKey.trim(), d.baseUrl.trim(), d.reasoningEffort, d.proxy.trim());
+                    d.apiKey.trim(), d.baseUrl.trim(), d.reasoningEffort, d.proxy.trim(), d.vision);
         }
         addingProvider = false;
         providerEditId = null;
@@ -992,6 +993,7 @@ public final class SettingsView {
         providerDraft.baseUrl = e.baseUrl() == null ? "" : e.baseUrl();
         providerDraft.reasoningEffort = e.reasoningEffort() == null ? "" : e.reasoningEffort();
         providerDraft.proxy = e.proxy() == null ? "" : e.proxy();
+        providerDraft.vision = e.vision();
         host.rebuild();
     }
 

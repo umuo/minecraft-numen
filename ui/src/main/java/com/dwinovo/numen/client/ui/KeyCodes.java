@@ -26,8 +26,14 @@ public final class KeyCodes {
 
     /** GLFW 修饰键位掩码。 */
     public static final int MOD_CTRL = 0x2;
+    public static final int MOD_SUPER = 0x8;
 
     public static boolean ctrl(int modifiers) {
         return (modifiers & MOD_CTRL) != 0;
+    }
+
+    /** Ctrl on Windows/Linux, Command on macOS. */
+    public static boolean shortcut(int modifiers) {
+        return (modifiers & (MOD_CTRL | MOD_SUPER)) != 0;
     }
 }

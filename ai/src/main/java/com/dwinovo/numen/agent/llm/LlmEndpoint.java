@@ -10,9 +10,14 @@ package com.dwinovo.numen.agent.llm;
  * cached client (clients hold an HTTP connection pool worth reusing).
  */
 public record LlmEndpoint(String provider, String model, String apiKey,
-                          String baseUrl, String proxy, String reasoningEffort) {
+                          String baseUrl, String proxy, String reasoningEffort,
+                          boolean vision) {
 
     public boolean hasApiKey() {
         return apiKey != null && !apiKey.isBlank();
+    }
+
+    public boolean supportsVision() {
+        return vision;
     }
 }

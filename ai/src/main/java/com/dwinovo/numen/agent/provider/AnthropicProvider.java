@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.dwinovo.numen.agent.llm.InputImage;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -90,6 +91,30 @@ public class AnthropicProvider implements LlmProvider {
         JsonObject m = new JsonObject();
         m.addProperty("role", "user");
         m.addProperty("content", content == null ? "" : content);
+        return m;
+    }
+
+    @Override
+    public JsonObject buildUserMessage(String content, List<InputImage> images) {
+        if (images == null || images.isEmpty()) return buildUserMessage(content);
+        JsonArray blocks = new JsonArray();
+        for (InputImage image : images) {
+            JsonObject source = new JsonObject();
+            source.addProperty("type", "base64");
+            source.addProperty("media_type", image.mediaType());
+            source.addProperty("data", image.base64());
+            JsonObject block = new JsonObject();
+            block.addProperty("type", "image");
+            block.add("source", source);
+            blocks.add(block);
+        }
+        JsonObject text = new JsonObject();
+        text.addProperty("type", "text");
+        text.addProperty("text", content == null ? "" : content);
+        blocks.add(text);
+        JsonObject m = new JsonObject();
+        m.addProperty("role", "user");
+        m.add("content", blocks);
         return m;
     }
 

@@ -66,6 +66,8 @@ public final class ModLanguageData {
         public static final String GUI_PROVIDERS_THINKING_AUTO      = "numen.gui.providers.thinking.auto";
         public static final String GUI_PROVIDERS_THINKING_OFF       = "numen.gui.providers.thinking.off";
         public static final String GUI_PROVIDERS_THINKING_ON        = "numen.gui.providers.thinking.on";
+        public static final String GUI_PROVIDERS_VISION             = "numen.gui.providers.vision";
+        public static final String GUI_PROVIDERS_VISION_BADGE       = "numen.gui.providers.vision.badge";
         public static final String RESPAWN_BLOCKED                  = "numen.respawn.blocked";
 
         /** Hotkey: open the companion roster panel (shown in Controls settings). */
@@ -136,6 +138,10 @@ public final class ModLanguageData {
         // Endpoint problems surfaced in chat (EntityAgentLoop#endpointProblem).
         public static final String ENDPOINT_UNBOUND = "numen.endpoint.unbound";
         public static final String ENDPOINT_NO_KEY  = "numen.endpoint.no_key";
+        public static final String CHAT_IMAGE_UNSUPPORTED = "numen.chat.image.unsupported";
+        public static final String CHAT_IMAGE_FAILED      = "numen.chat.image.failed";
+        public static final String CHAT_IMAGE_REMOVE      = "numen.chat.image.remove";
+        public static final String CHAT_IMAGE_DEFAULT     = "numen.chat.image.default_prompt";
 
         // Voice (TTS) section: nav label, global switch, entry list/form, preview, bindings.
         public static final String VOICE_TITLE          = "numen.voice.title";
@@ -206,6 +212,8 @@ public final class ModLanguageData {
         adder.add(Keys.GUI_SETTINGS_SAVE,          "Save");
         adder.add(Keys.GUI_SETTINGS_CANCEL,        "Cancel");
         adder.add(Keys.GUI_SETTINGS_SAVED,         "Saved");
+        adder.add(Keys.GUI_PROVIDERS_VISION,        "Supports image input");
+        adder.add(Keys.GUI_PROVIDERS_VISION_BADGE,  "Vision");
 
         adder.add(Keys.KEY_OPEN_ROSTER, "Open Companion Roster");
         adder.add(Keys.KEY_TALK_COMPANION, "Talk to Companion");
@@ -311,6 +319,10 @@ public final class ModLanguageData {
         adder.add("numen.chat.tip.mic_stop", "Stop recording");
         adder.add("numen.chat.tip.stop", "Stop the turn");
         adder.add("numen.chat.hint", "Talk to %s…");
+        adder.add(Keys.CHAT_IMAGE_UNSUPPORTED, "The selected model profile does not support image input");
+        adder.add(Keys.CHAT_IMAGE_FAILED, "Could not read the pasted image");
+        adder.add(Keys.CHAT_IMAGE_REMOVE, "Remove image");
+        adder.add(Keys.CHAT_IMAGE_DEFAULT, "Please look at this image.");
         adder.add("numen.chat.no_key", "⚠ No API key — open Settings to add one");
         adder.add("numen.chat.empty", "Say something to %s.");
         adder.add("numen.chat.compacting", "compacting history…");
@@ -518,6 +530,8 @@ public final class ModLanguageData {
         adder.add(Keys.GUI_SETTINGS_SAVE,          "保存");
         adder.add(Keys.GUI_SETTINGS_CANCEL,        "取消");
         adder.add(Keys.GUI_SETTINGS_SAVED,         "已保存");
+        adder.add(Keys.GUI_PROVIDERS_VISION,        "支持图片输入");
+        adder.add(Keys.GUI_PROVIDERS_VISION_BADGE,  "视觉");
 
         adder.add(Keys.KEY_OPEN_ROSTER, "打开同伴名册");
         adder.add(Keys.KEY_TALK_COMPANION, "与同伴对话");
@@ -617,6 +631,10 @@ public final class ModLanguageData {
         adder.add("numen.chat.tip.mic_stop", "停止录音");
         adder.add("numen.chat.tip.stop", "停止当前回合");
         adder.add("numen.chat.hint", "对 %s 说…");
+        adder.add(Keys.CHAT_IMAGE_UNSUPPORTED, "当前模型配置未开启图片输入");
+        adder.add(Keys.CHAT_IMAGE_FAILED, "无法读取粘贴的图片");
+        adder.add(Keys.CHAT_IMAGE_REMOVE, "移除图片");
+        adder.add(Keys.CHAT_IMAGE_DEFAULT, "请查看这张图片。");
         adder.add("numen.chat.no_key", "⚠ 未配置 API Key —— 打开设置添加");
         adder.add("numen.chat.empty", "对 %s 说点什么。");
         adder.add("numen.chat.compacting", "正在压缩历史…");

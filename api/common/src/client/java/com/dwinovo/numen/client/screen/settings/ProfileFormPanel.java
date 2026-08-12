@@ -14,6 +14,7 @@ import com.dwinovo.numen.client.ui.widget.Dropdown;
 import com.dwinovo.numen.client.ui.widget.InlineAlert;
 import com.dwinovo.numen.client.ui.widget.Label;
 import com.dwinovo.numen.client.ui.widget.TextField;
+import com.dwinovo.numen.client.ui.widget.Toggle;
 import com.dwinovo.numen.client.ui.widget.UiRoot;
 import com.dwinovo.numen.platform.Services;
 import net.minecraft.client.Minecraft;
@@ -42,6 +43,7 @@ public final class ProfileFormPanel {
         public String baseUrl = "";
         public String reasoningEffort = "";
         public String proxy = "";
+        public boolean vision;
     }
 
     /** 滚动根:表单行(进裁剪区,可上下滚);固定根:✕/结果胶囊/按钮行(不动)。 */
@@ -64,6 +66,7 @@ public final class ProfileFormPanel {
     private Dropdown sitePick, modelDropdown, thinkingPick;
     private Button modelBackBtn;
     private Label thinkingLabel;
+    private Toggle visionToggle;
     private boolean thinkingToggleOnly;
     private Button checkButton;
     private InlineAlert resultAlert;
@@ -130,6 +133,12 @@ public final class ProfileFormPanel {
         modelField.setBounds(x, ry, w - 17, NumenStyle.CONTROL_H);
         modelBackBtn = ui.add(new Button("▾", Button.Style.NORMAL, this::onModelBackToPresets));
         modelBackBtn.setBounds(x + w - 15, ry, 15, NumenStyle.CONTROL_H);
+        ry += NumenStyle.ROW_PITCH;
+
+        Label visionLabel = ui.add(new Label(t(ModLanguageData.Keys.GUI_PROVIDERS_VISION), Label.Role.MUTED));
+        visionLabel.setBounds(x, ry + 2, w - 28, 9);
+        visionToggle = ui.add(new Toggle(draft.vision, v -> draft.vision = v));
+        visionToggle.setBounds(x + w - 22, ry, 22, 11);
         ry += NumenStyle.ROW_PITCH;
 
         ry = label(x, ry, "numen.gui.settings.base_url");
@@ -408,7 +417,7 @@ public final class ProfileFormPanel {
         String proxy = draft.proxy != null && !draft.proxy.isBlank()
                 ? draft.proxy : Services.CONFIG.getProxy();
         LlmEndpoint ep = new LlmEndpoint(draft.provider, draft.model, draft.apiKey,
-                draft.baseUrl, proxy, "auto");
+                draft.baseUrl, proxy, "auto", draft.vision);
         NumenLlmClient.forEndpoint(ep)
                 .chatStreaming(List.of(new ConvoState.Msg.User("ping")), List.of(), "", null)
                 .whenComplete((result, error) -> Minecraft.getInstance().execute(() -> {

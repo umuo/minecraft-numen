@@ -8,7 +8,7 @@ import com.dwinovo.numen.client.ui.NumenTheme;
 import java.util.function.Consumer;
 
 /**
- * 单行文本输入。支持:光标移动/删改、Home/End、Ctrl+V 粘贴(API key 场景
+ * 单行文本输入。支持:光标移动/删改、Home/End、Ctrl/Command+V 粘贴(API key 场景
  * 的刚需)、Ctrl+C 复制全文、掩码模式(密钥显示为 •)、占位符、水平滚动
  * (光标始终可见)。选区一期不做——设置场景里粘贴覆盖 > 局部选择。
  */
@@ -208,7 +208,7 @@ public final class TextField extends Widget {
 
     @Override
     public boolean keyPressed(int keyCode, int modifiers) {
-        if (KeyCodes.ctrl(modifiers)) {
+        if (KeyCodes.shortcut(modifiers)) {
             if (keyCode == KeyCodes.KEY_V) {
                 String paste = root == null ? "" : root.clipboard();
                 if (paste != null && !paste.isEmpty()) {

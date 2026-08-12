@@ -130,6 +130,7 @@ public final class NumenScreen extends Screen {
     /** 聊天输入行(NumenUI):四颗图标钮 + 输入框,见 ChatInputBar。 */
     private com.dwinovo.numen.client.screen.chat.ChatInputBar inputBar;
     private String savedInput = "";
+    private java.util.List<com.dwinovo.numen.agent.llm.InputImage> savedImages = java.util.List.of();
 
     // "+" summon flow:居中卡 + 暗幕,当前 tab 内容照常渲染作背景
     private boolean summoning;
@@ -229,7 +230,9 @@ public final class NumenScreen extends Screen {
     /** Switch the panel to another companion in place (left-rail click) — no reopen. */
     private void switchTo(UUID u, String n) {
         if (java.util.Objects.equals(u, uuid)) return;
-        inputBar = null; savedInput = "";       // don't carry typed text across companions
+        if (inputBar != null) inputBar.close();
+        inputBar = null; savedInput = ""; savedImages = java.util.List.of();
+        // don't carry typed text/images across companions
         uuid = u; name = n;
         chatView.reset();
         rebuild();
@@ -273,7 +276,11 @@ public final class NumenScreen extends Screen {
 
     /** Rebuild the widgets for the active tab. */
     private void rebuild() {
-        if (inputBar != null) savedInput = inputBar.text();
+        if (inputBar != null) {
+            savedInput = inputBar.text();
+            savedImages = inputBar.attachments();
+            inputBar.close();
+        }
         clearWidgets();
         overlay.clear();
         inputBar = null;
@@ -446,11 +453,17 @@ public final class NumenScreen extends Screen {
             inputBar.setText(savedInput);
             savedInput = "";
         }
+        if (!savedImages.isEmpty()) {
+            inputBar.setAttachments(savedImages);
+            savedImages = java.util.List.of();
+        }
     }
 
     /** 输入行的宿主回调面:发言闸门与可按性判据都在屏幕这边。 */
     private final class ChatBarHost implements com.dwinovo.numen.client.screen.chat.ChatInputBar.Host {
-        @Override public void onSend(String text) { submitChat(text); }
+        @Override public void onSend(String text, java.util.List<com.dwinovo.numen.agent.llm.InputImage> images) {
+            submitChat(text, images);
+        }
 
         @Override public void onMicToggle() { NumenScreen.this.onMicToggle(); }
 
@@ -469,6 +482,15 @@ public final class NumenScreen extends Screen {
             if (inputLocked()) return I18n.get("numen.brain.chat_locked");
             if (micNotice != null && micNoticeUntil > System.currentTimeMillis()) return micNotice;
             return I18n.get("numen.chat.hint", name == null ? "" : name);
+        }
+
+        @Override public boolean visionEnabled() {
+            return uuid != null && loop().visionEnabled();
+        }
+
+        @Override public void onImageNotice(String message) {
+            warnText = message;
+            warnUntil = System.currentTimeMillis() + 4000;
         }
 
         @Override public java.util.List<com.dwinovo.numen.client.command.Completion>
@@ -595,12 +617,21 @@ public final class NumenScreen extends Screen {
 
     /** 发言闸门:模式开着时一并挡掉(回车绕过了被禁用的发送键,否则消息会进
      *  内置大脑的收件箱、在模式关闭后突然诈尸开轮)。 */
-    private void submitChat(String text) {
+    private void submitChat(String text, java.util.List<com.dwinovo.numen.agent.llm.InputImage> images) {
         if (com.dwinovo.numen.mcp.server.McpMode.instance().enabled()) return;
-        if (text == null || text.isBlank()) return;
+        boolean hasImages = images != null && !images.isEmpty();
+        if ((text == null || text.isBlank()) && !hasImages) return;
+        if (hasImages && !loop().visionEnabled()) {
+            warnText = I18n.get(com.dwinovo.numen.data.ModLanguageData.Keys.CHAT_IMAGE_UNSUPPORTED);
+            warnUntil = System.currentTimeMillis() + 4000;
+            return;
+        }
+        if ((text == null || text.isBlank()) && hasImages) {
+            text = I18n.get(com.dwinovo.numen.data.ModLanguageData.Keys.CHAT_IMAGE_DEFAULT);
+        }
         // 斜杠命令是主人对客户端说的话:在本地跑完就结束,不往下走。所以它不过发言闸门
         // ——查技能、看清单这些事没有理由要求先配好 API key。
-        if (com.dwinovo.numen.client.command.ChatCommands.isCommand(text)) {
+        if (!hasImages && com.dwinovo.numen.client.command.ChatCommands.isCommand(text)) {
             // 面板类命令:多余的参数不理会——它要的不是参数,是一个能上下选的界面。
             var page = com.dwinovo.numen.client.command.ChatCommands.pageFor(loop(), text);
             if (page != null && inputBar != null) {
@@ -624,9 +655,19 @@ public final class NumenScreen extends Screen {
             warnUntil = System.currentTimeMillis() + 4000;
             return;
         }
-        loop().submitPrompt(text);
-        if (inputBar != null) inputBar.setText("");
+        loop().submitPrompt(text, images == null ? java.util.List.of() : images);
+        if (inputBar != null) {
+            inputBar.setText("");
+            inputBar.clearAttachments();
+        }
         chatView.pinToBottom();
+    }
+
+    @Override
+    public void removed() {
+        if (inputBar != null) inputBar.close();
+        savedImages = java.util.List.of();
+        super.removed();
     }
 
     // ---- input ----

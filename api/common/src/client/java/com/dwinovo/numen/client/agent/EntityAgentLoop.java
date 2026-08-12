@@ -8,6 +8,7 @@ import com.dwinovo.numen.event.EventQueue;
 import com.dwinovo.numen.event.EventTypes;
 import com.dwinovo.numen.event.JsonlJournal;
 import com.dwinovo.numen.agent.llm.ConvoState;
+import com.dwinovo.numen.agent.llm.InputImage;
 import com.dwinovo.numen.agent.provider.AssistantTurn;
 import com.dwinovo.numen.agent.provider.LlmToolCall;
 import com.dwinovo.numen.agent.skill.SkillRegistry;
@@ -97,6 +98,9 @@ public final class EntityAgentLoop {
     private static final String COMPACT_SYSTEM_PROMPT =
             "You are a helpful AI assistant tasked with summarizing conversations "
             + "between a Minecraft companion entity (the Numen) and its owner.";
+
+    /** Images queued with owner prompts. Transient by design: never journaled. */
+    private final List<InputImage> pendingImages = new ArrayList<>();
 
     /**
      * The summarization request, appended as the final user message over the
@@ -254,7 +258,11 @@ public final class EntityAgentLoop {
         this.log = ConvoLog.atFile(CompanionHome.chat(entityUuid));
         this.convo = new ConvoState(msg -> {
             log.append(msg);
-            display.add(msg);
+            // The visible transcript needs only the owner's words. Keeping the
+            // image-bearing DTO here would retain megabytes even after the LLM
+            // context strips its transient attachment.
+            display.add(msg instanceof ConvoState.Msg.User u && u.hasImages()
+                    ? new ConvoState.Msg.User(u.content()) : msg);
         });
         this.workBlocks = WorkBlockMemory.forEntity(entityUuid);
         this.queue = new EventQueue(JsonlJournal.atFile(CompanionHome.inbox(entityUuid)));
@@ -389,6 +397,12 @@ public final class EntityAgentLoop {
      *         当场就发出去了,界面却会写"排队中"。闸门以后再加几道,这里也不会跑偏。
      */
     public boolean submitPrompt(String text) {
+        return submitPrompt(text, List.of());
+    }
+
+    /** Submit owner text with transient pasted images. */
+    public boolean submitPrompt(String text, List<InputImage> images) {
+        if (images != null && !images.isEmpty()) pendingImages.addAll(images);
         return enqueueOwnerWords("<query>" + text + "</query>", text);
     }
 
@@ -824,6 +838,8 @@ public final class EntityAgentLoop {
             }
 
             convo.resetTurnCount();
+            convo.stripImages();
+            pendingImages.clear();
             turnPause = AgentTurnPause.OWNER_INTERRUPT;
             Constants.LOG.info("[numen-entity#{}] {} (awaitingLlm={}, backgroundTask={}, cancelledTools={}, queued={})",
                     entityUuid, why, wasAwaitingLlm, wasBackgroundTask, cancelled.size(),
@@ -1039,6 +1055,13 @@ public final class EntityAgentLoop {
         return null;
     }
 
+    /** Image capability is an explicit per-profile promise controlled by the player. */
+    public boolean visionEnabled() {
+        var lib = com.dwinovo.numen.agent.llm.ProviderLibrary.instance();
+        return providerEntryId != null && lib.get(providerEntryId) != null
+                && lib.resolve(providerEntryId).supportsVision();
+    }
+
     /** Point this companion at a provider-library entry (null = back to global settings)
      *  and persist the assignment. Takes effect on the next request — no restart. */
     public void setProviderEntry(String entryId) {
@@ -1114,7 +1137,10 @@ public final class EntityAgentLoop {
         }
         parts.addAll(EventQueue.render(text, now));
         String merged = String.join("\n", parts);
-        convo.addUser(merged);
+        List<InputImage> images = pendingImages.isEmpty()
+                ? List.of() : List.copyOf(pendingImages);
+        pendingImages.clear();
+        convo.addUser(merged, images);
         // A fresh owner directive starts a new tool-chain: restart the turn
         // counter (just log numbering now that the hard cap is gone).
         convo.resetTurnCount();
@@ -1179,7 +1205,11 @@ public final class EntityAgentLoop {
         int contextTokens = lastPromptTokens > 0
                 ? lastPromptTokens
                 : estimateContextTokens(convo.snapshot());
-        if (contextTokens >= window - AUTO_COMPACT_BUFFER_TOKENS
+        // Do not summarize away a just-pasted image before the actual agent
+        // gets to answer it. The 13k buffer leaves room for this one request;
+        // after the final answer strips the image, the next turn can compact.
+        if (!convo.hasImages()
+                && contextTokens >= window - AUTO_COMPACT_BUFFER_TOKENS
                 && convo.snapshot().size() >= MIN_COMPACT_MESSAGES
                 && compactFailures < MAX_COMPACT_FAILURES) {
             Constants.LOG.info("[numen-entity#{}] auto-compacting: {} context {} tokens >= {} - {}",
@@ -1636,6 +1666,9 @@ public final class EntityAgentLoop {
         // The failed turn is over. Any fresh turn started now or by a later wake event gets its own
         // one-retry allowance rather than inheriting the exhausted budget from this turn.
         turnRetried = false;
+        // The request chain has ended. Do not keep or resend a failed turn's
+        // potentially multi-megabyte attachment with an unrelated future prompt.
+        convo.stripImages();
         com.dwinovo.numen.client.hud.SpeechBubbles.clear(entityUuid);
         // 失败必须让主人看见——沉进日志就是"已读不回"
         String why = lastTurnError == null ? "连接中断" : lastTurnError;
@@ -1771,6 +1804,9 @@ public final class EntityAgentLoop {
                         presenter.speakerName() + " 想了想,什么也没说——再问一句试试", 3500);
             }
             convo.resetTurnCount();
+            // The image was available throughout this tool-chain. Once the
+            // model gives a final answer, keep only the textual history.
+            convo.stripImages();
             // A prompt that arrived during this final turn was buffered; now that
             // the chain has settled, start a fresh turn to answer it.
             if (hasQueuedPrompts()) tryStartTurn();

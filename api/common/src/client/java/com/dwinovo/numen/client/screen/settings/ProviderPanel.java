@@ -292,7 +292,7 @@ public final class ProviderPanel {
         checkButton.setLabel(t(ModLanguageData.Keys.GUI_PROVIDERS_CHECKING));
         resultAlert.show(InlineAlert.Severity.INFO, t(ModLanguageData.Keys.GUI_PROVIDERS_CHECKING));
         LlmEndpoint ep = new LlmEndpoint(cfg.getProvider(), cfg.getModel(), cfg.getApiKey(),
-                cfg.getBaseUrl(), cfg.getProxy(), "auto");
+                cfg.getBaseUrl(), cfg.getProxy(), "auto", false);
         NumenLlmClient.forEndpoint(ep)
                 .chatStreaming(List.of(new ConvoState.Msg.User("ping")), List.of(), "", null)
                 .whenComplete((result, error) -> Minecraft.getInstance().execute(() -> {

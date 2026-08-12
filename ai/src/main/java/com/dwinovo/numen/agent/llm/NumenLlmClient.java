@@ -152,7 +152,7 @@ public final class NumenLlmClient {
         List<JsonObject> wire = new ArrayList<>(messages.size());
         for (ConvoState.Msg m : messages) {
             switch (m) {
-                case ConvoState.Msg.User u -> wire.add(provider.buildUserMessage(u.content()));
+                case ConvoState.Msg.User u -> wire.add(provider.buildUserMessage(u.content(), u.images()));
                 case ConvoState.Msg.Assistant a -> wire.add(provider.assistantToRequestMessage(a.turn()));
                 case ConvoState.Msg.Tool t -> wire.add(provider.buildToolResultMessage(t.toolCallId(), t.content()));
             }

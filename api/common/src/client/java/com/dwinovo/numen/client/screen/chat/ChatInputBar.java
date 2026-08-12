@@ -9,12 +9,19 @@ import com.dwinovo.numen.client.ui.mc.McDrawSurface;
 import com.dwinovo.numen.client.ui.widget.Button;
 import com.dwinovo.numen.client.ui.widget.TextField;
 import com.dwinovo.numen.client.ui.widget.UiRoot;
+import com.dwinovo.numen.agent.llm.InputImage;
+import com.dwinovo.numen.data.ModLanguageData;
+import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * 聊天输入行——NumenUI 版的瓤:[压缩][麦克风] 输入框 [发送][叫停]。
@@ -26,7 +33,7 @@ public final class ChatInputBar {
 
     /** 宿主回调面:发送/麦克风/压缩/叫停,以及"这几颗键此刻可不可按"。 */
     public interface Host {
-        void onSend(String text);
+        void onSend(String text, List<InputImage> images);
 
         void onMicToggle();
 
@@ -39,6 +46,12 @@ public final class ChatInputBar {
 
         /** 输入框占位文案(随锁定态/麦克风状态变)。 */
         String hint();
+
+        /** Whether this companion's selected model profile accepts image blocks. */
+        boolean visionEnabled();
+
+        /** Surface a short image-paste error next to the chat input. */
+        void onImageNotice(String message);
 
         /** 这串输入对应的斜杠命令补全候选;空 = 不弹层。输入行不认识命令是什么。 */
         List<Completion> completions(String text);
@@ -70,6 +83,15 @@ public final class ChatInputBar {
     private int selected;
     /** 主人按了 Esc 收起弹层;一改文字就复位——收的是"这次",不是这个功能。 */
     private boolean dismissed;
+
+    /** One pasted image is enough for the initial UX and keeps request size predictable. */
+    private InputImage attachment;
+    private ResourceLocation previewTexture;
+    private int previewWidth = 1, previewHeight = 1;
+    private boolean imageLoading;
+    private boolean closed;
+    private int barX, barY, barW, barH;
+    private int imageX, imageY, imageSize;
 
     public ChatInputBar(Host host, ResourceLocation iconMic,
                         ResourceLocation iconSend, ResourceLocation iconStop) {
@@ -113,20 +135,16 @@ public final class ChatInputBar {
         // 不用回来重算"左几右几"那两个常数。
         keys = new Button[]{micBtn, sendBtn, stopBtn};
 
-        int inW = w - (BTN_W + GAP) * keys.length;
         field = ui.add(new TextField(draft, v -> {
             draft = v;
             refreshCandidates();
         }).placeholder(host.hint())
                 .leadingToken(com.dwinovo.numen.client.command.ChatCommands.PREFIX, CMD_COLOR));
-        field.setBounds(x, y, inW, h);
-        fieldX = x;
-        fieldY = y;
-        fieldW = inW;
-        fieldH = h;
-        for (int i = 0; i < keys.length; i++) {
-            keys[i].setBounds(x + inW + GAP + i * (BTN_W + GAP), y, BTN_W, h);
-        }
+        barX = x;
+        barY = y;
+        barW = w;
+        barH = h;
+        layout();
 
         ui.requestFocus(field);   // 开屏即可打字
         refreshCandidates();
@@ -145,6 +163,7 @@ public final class ChatInputBar {
         field.placeholder(host.hint());
         micBtn.setEnabled(!locked && !paged);
         sendBtn.setEnabled(!locked && !paged);
+        if (imageLoading) sendBtn.setEnabled(false);
         stopBtn.setEnabled(host.canAbort());
     }
 
@@ -180,6 +199,13 @@ public final class ChatInputBar {
         refreshEnablement();
         IDrawSurface s = new McDrawSurface(g, Minecraft.getInstance().font);
         ui.render(s, c, mouseX, mouseY, nowMs);
+        if (attachment != null && previewTexture != null) {
+            g.fill(imageX, imageY, imageX + imageSize, imageY + imageSize, c.inputBorder());
+            g.blit(previewTexture, imageX + 1, imageY + 1, 0f, 0f,
+                    imageSize - 2, imageSize - 2, previewWidth, previewHeight);
+            g.drawString(Minecraft.getInstance().font, "×",
+                    imageX + imageSize - 6, imageY - 1, 0xFFFFFFFF, true);
+        }
         // 面板与弹层都最后画:它俩要压在对话流上面。同时只会有一个。
         if (panel != null) {
             panel.render(s, c, mouseX, mouseY, nowMs);
@@ -190,6 +216,9 @@ public final class ChatInputBar {
 
     /** 悬停的按钮提示文案(宿主自行绘制 tooltip:定位与样式是宿主的事)。 */
     public String tooltipAt(double mx, double my) {
+        if (attachment != null && insideImage(mx, my)) {
+            return t(ModLanguageData.Keys.CHAT_IMAGE_REMOVE);
+        }
         for (Button b : keys) {
             if (b != null && b.enabled() && b.contains(mx, my)) return b.tooltip();
         }
@@ -197,6 +226,11 @@ public final class ChatInputBar {
     }
 
     public boolean mouseClicked(double mx, double my, int button) {
+        if (button == 0 && attachment != null && insideImage(mx, my)) {
+            clearAttachment();
+            ui.requestFocus(field);
+            return true;
+        }
         return ui.mouseClicked(mx, my, button);
     }
 
@@ -208,6 +242,13 @@ public final class ChatInputBar {
                 return true;
             }
             panel.keyPressed(keyCode, modifiers);
+            return true;
+        }
+        // Prefer an actual clipboard bitmap over the text flavour many apps
+        // expose alongside it. If there is no image, TextField handles normal paste.
+        if (keyCode == KeyCodes.KEY_V && KeyCodes.shortcut(modifiers)
+                && field != null && field.isFocused() && clipboardHasImage()) {
+            pasteImage();
             return true;
         }
         // 弹层在场时先归它:↑↓ 选、Tab 补/循环、Esc 收、回车先补再谈发送。
@@ -312,8 +353,136 @@ public final class ChatInputBar {
     private void send() {
         if (field == null || panel != null || host.inputLocked()) return;
         String text = field.value() == null ? "" : field.value().trim();
-        if (text.isEmpty()) return;
-        host.onSend(text);
+        if (text.isEmpty() && attachment == null) return;
+        if (attachment != null && !host.visionEnabled()) {
+            host.onImageNotice(t(ModLanguageData.Keys.CHAT_IMAGE_UNSUPPORTED));
+            return;
+        }
+        host.onSend(text, attachment == null ? List.of() : List.of(attachment));
+    }
+
+    /** Current transient attachment, used by the screen when rebuilding its widgets. */
+    public List<InputImage> attachments() {
+        return attachment == null ? List.of() : List.of(attachment);
+    }
+
+    public void setAttachments(List<InputImage> images) {
+        if (images == null || images.isEmpty()) {
+            clearAttachment();
+        } else {
+            setAttachment(images.get(0));
+        }
+    }
+
+    /** Release the dynamic preview before this input bar is discarded. */
+    public void close() {
+        closed = true;
+        releasePreview();
+    }
+
+    public void clearAttachments() {
+        clearAttachment();
+    }
+
+    private void pasteImage() {
+        if (!host.visionEnabled()) {
+            host.onImageNotice(t(ModLanguageData.Keys.CHAT_IMAGE_UNSUPPORTED));
+            return;
+        }
+        if (imageLoading) return;
+        imageLoading = true;
+        refreshEnablement();
+        CompletableFuture.supplyAsync(() -> {
+            try {
+                return ClipboardImages.read();
+            } catch (Exception | LinkageError error) {
+                throw new java.util.concurrent.CompletionException(error);
+            }
+        }).whenComplete((image, error) -> Minecraft.getInstance().execute(() -> {
+            if (closed) return;
+            imageLoading = false;
+            if (error != null || image == null) {
+                String detail = error == null ? "" : rootMessage(error);
+                host.onImageNotice(t(ModLanguageData.Keys.CHAT_IMAGE_FAILED)
+                        + (detail.isBlank() ? "" : ": " + detail));
+            } else {
+                setAttachment(image);
+            }
+            refreshEnablement();
+        }));
+    }
+
+    private void setAttachment(InputImage image) {
+        releasePreview();
+        attachment = image;
+        NativeImage textureImage = null;
+        try {
+            textureImage = NativeImage.read(new ByteArrayInputStream(image.bytes()));
+            previewWidth = textureImage.getWidth();
+            previewHeight = textureImage.getHeight();
+            previewTexture = ResourceLocation.fromNamespaceAndPath(
+                    com.dwinovo.numen.Constants.MOD_ID,
+                    "chat_attachment/" + UUID.randomUUID().toString().replace("-", ""));
+            Minecraft.getInstance().getTextureManager().register(
+                    previewTexture, new DynamicTexture(textureImage));
+            textureImage = null; // DynamicTexture owns and closes it from here.
+        } catch (Exception error) {
+            if (textureImage != null) textureImage.close();
+            attachment = null;
+            previewTexture = null;
+            host.onImageNotice(t(ModLanguageData.Keys.CHAT_IMAGE_FAILED) + ": " + error.getMessage());
+        }
+        layout();
+    }
+
+    private void clearAttachment() {
+        attachment = null;
+        releasePreview();
+        layout();
+    }
+
+    private void releasePreview() {
+        if (previewTexture != null) {
+            Minecraft.getInstance().getTextureManager().release(previewTexture);
+            previewTexture = null;
+        }
+    }
+
+    private void layout() {
+        if (field == null) return;
+        int imageSpan = attachment == null ? 0 : BTN_W + GAP;
+        int inW = Math.max(24, barW - (BTN_W + GAP) * keys.length - imageSpan);
+        fieldX = barX + imageSpan;
+        fieldY = barY;
+        fieldW = inW;
+        fieldH = barH;
+        field.setBounds(fieldX, fieldY, fieldW, fieldH);
+        imageX = barX;
+        imageY = barY;
+        imageSize = barH;
+        for (int i = 0; i < keys.length; i++) {
+            keys[i].setBounds(fieldX + inW + GAP + i * (BTN_W + GAP),
+                    barY, BTN_W, barH);
+        }
+    }
+
+    private boolean insideImage(double mx, double my) {
+        return mx >= imageX && mx < imageX + imageSize
+                && my >= imageY && my < imageY + imageSize;
+    }
+
+    private static String rootMessage(Throwable error) {
+        Throwable current = error;
+        while (current.getCause() != null) current = current.getCause();
+        return current.getMessage() == null ? current.getClass().getSimpleName() : current.getMessage();
+    }
+
+    private static boolean clipboardHasImage() {
+        try {
+            return ClipboardImages.hasImage();
+        } catch (LinkageError unavailableOnThisLauncher) {
+            return false;
+        }
     }
 
     /** 图标钮:贴图绘制由本层(允许 import MC)注入,组件库只管几何与状态色。

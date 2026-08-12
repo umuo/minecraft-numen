@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.dwinovo.numen.agent.llm.InputImage;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -100,6 +101,28 @@ public class OpenAIProvider implements LlmProvider {
         JsonObject m = new JsonObject();
         m.addProperty("role", "user");
         m.addProperty("content", content == null ? "" : content);
+        return m;
+    }
+
+    @Override
+    public JsonObject buildUserMessage(String content, List<InputImage> images) {
+        if (images == null || images.isEmpty()) return buildUserMessage(content);
+        JsonArray blocks = new JsonArray();
+        JsonObject text = new JsonObject();
+        text.addProperty("type", "text");
+        text.addProperty("text", content == null ? "" : content);
+        blocks.add(text);
+        for (InputImage image : images) {
+            JsonObject url = new JsonObject();
+            url.addProperty("url", "data:" + image.mediaType() + ";base64," + image.base64());
+            JsonObject block = new JsonObject();
+            block.addProperty("type", "image_url");
+            block.add("image_url", url);
+            blocks.add(block);
+        }
+        JsonObject m = new JsonObject();
+        m.addProperty("role", "user");
+        m.add("content", blocks);
         return m;
     }
 

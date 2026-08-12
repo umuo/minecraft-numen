@@ -28,7 +28,20 @@ public final class ConvoState {
 
     /** Tagged union for conversation history. */
     public sealed interface Msg permits Msg.User, Msg.Assistant, Msg.Tool {
-        record User(String content) implements Msg {}
+        record User(String content, List<InputImage> images) implements Msg {
+            public User(String content) {
+                this(content, List.of());
+            }
+
+            public User {
+                content = content == null ? "" : content;
+                images = images == null ? List.of() : List.copyOf(images);
+            }
+
+            public boolean hasImages() {
+                return !images.isEmpty();
+            }
+        }
         record Assistant(AssistantTurn turn) implements Msg {}
         record Tool(String toolCallId, String content) implements Msg {}
     }
@@ -74,6 +87,11 @@ public final class ConvoState {
         push(new Msg.User(content));
     }
 
+    /** Add a multimodal user turn. Images are intentionally transient; see {@link InputImage}. */
+    public void addUser(String content, List<InputImage> images) {
+        push(new Msg.User(content, images));
+    }
+
     public void addAssistant(AssistantTurn turn) {
         push(new Msg.Assistant(turn));
     }
@@ -89,6 +107,27 @@ public final class ConvoState {
 
     public List<Msg> snapshot() {
         return List.copyOf(messages);
+    }
+
+    /**
+     * Drop every transient image after its agent tool-chain settles. The text
+     * stays in history and on disk; only the potentially large byte arrays are
+     * released and excluded from future requests.
+     */
+    public void stripImages() {
+        for (int i = 0; i < messages.size(); i++) {
+            Msg m = messages.get(i);
+            if (m instanceof Msg.User u && u.hasImages()) {
+                messages.set(i, new Msg.User(u.content()));
+            }
+        }
+    }
+
+    public boolean hasImages() {
+        for (Msg m : messages) {
+            if (m instanceof Msg.User u && u.hasImages()) return true;
+        }
+        return false;
     }
 
     /** Most recent message, or {@code null} when the history is empty. Used by

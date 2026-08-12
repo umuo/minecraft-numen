@@ -2,6 +2,7 @@ package com.dwinovo.numen.agent.provider;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.dwinovo.numen.agent.llm.InputImage;
 
 import java.util.Collection;
 import java.util.List;
@@ -77,6 +78,16 @@ public interface LlmProvider {
 
     /** Build the user-role wire message for {@code content}. */
     JsonObject buildUserMessage(String content);
+
+    /**
+     * Build a multimodal user message. Text-only providers retain their normal
+     * behaviour for an empty image list; adapters that support image wire
+     * blocks override this method.
+     */
+    default JsonObject buildUserMessage(String content, List<InputImage> images) {
+        if (images == null || images.isEmpty()) return buildUserMessage(content);
+        throw new IllegalArgumentException("provider " + name() + " does not support image messages");
+    }
 
     /** Build the system-role wire message for {@code content}. */
     JsonObject buildSystemMessage(String content);
