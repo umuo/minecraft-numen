@@ -491,12 +491,12 @@ public final class EntityAgentLoop {
                 case "place_block", "interact_at" -> {
                     if (data.has("block") && data.has("x")) {
                         String path = data.get("block").getAsString();
-                        int colon = path.indexOf(':');
-                        if (colon >= 0) path = path.substring(colon + 1);
-                        workBlocks.record(path, new net.minecraft.core.BlockPos(
+                        net.minecraft.core.BlockPos pos = new net.minecraft.core.BlockPos(
                                 data.get("x").getAsInt(),
                                 data.get("y").getAsInt(),
-                                data.get("z").getAsInt()));
+                                data.get("z").getAsInt());
+                        AbstractClientPlayer body = resolveEntity();
+                        workBlocks.record(path, pos, body != null ? body.level() : null);
                     }
                 }
                 default -> { /* nothing to harvest */ }

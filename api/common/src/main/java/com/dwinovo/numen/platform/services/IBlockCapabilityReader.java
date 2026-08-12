@@ -1,13 +1,14 @@
 package com.dwinovo.numen.platform.services;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
 import net.minecraft.world.level.Level;
 
 /**
  * Reads the item / fluid / energy a block <em>holds</em>, through the loader's
  * standard capability system — NeoForge's {@code IItemHandler} /
- * {@code IFluidHandler} / {@code IEnergyStorage} block capabilities, or (later)
- * Fabric's Transfer API.
+ * {@code IFluidHandler} / {@code IEnergyStorage} block capabilities, or
+ * Fabric's Transfer API item/fluid storages.
  *
  * <h2>Why a service</h2>
  * This is the companion's "eyes" for machines/tanks/batteries. The capability
@@ -31,6 +32,32 @@ import net.minecraft.world.level.Level;
  * dedicated network reader (T3).
  */
 public interface IBlockCapabilityReader {
+
+    /** Loader-neutral summary used when discovering storage blocks without knowing their ids. */
+    record StorageKinds(boolean items, boolean fluids, boolean energy) {
+        public boolean any() {
+            return items || fluids || energy;
+        }
+
+        public boolean matches(String filter) {
+            return switch (filter) {
+                case "items" -> items;
+                case "fluids" -> fluids;
+                case "energy" -> energy;
+                case "all" -> any();
+                default -> false;
+            };
+        }
+    }
+
+    /**
+     * Cheap capability-presence probe for nearby-storage discovery. The common
+     * fallback recognizes vanilla and modded block entities implementing
+     * {@link Container}; loaders override it to include their capability APIs.
+     */
+    default StorageKinds storageKinds(Level level, BlockPos pos) {
+        return new StorageKinds(level.getBlockEntity(pos) instanceof Container, false, false);
+    }
 
     String describe(Level level, BlockPos pos);
 }

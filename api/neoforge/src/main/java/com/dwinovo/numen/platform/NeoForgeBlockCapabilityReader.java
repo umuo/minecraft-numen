@@ -36,6 +36,15 @@ public final class NeoForgeBlockCapabilityReader implements IBlockCapabilityRead
     private static final int MAX_SLOT_LINES = 64;
 
     @Override
+    public StorageKinds storageKinds(Level level, BlockPos pos) {
+        boolean items = level.getBlockEntity(pos) instanceof net.minecraft.world.Container
+                || has(level, pos, Capabilities.ItemHandler.BLOCK);
+        boolean fluids = has(level, pos, Capabilities.FluidHandler.BLOCK);
+        boolean energy = has(level, pos, Capabilities.EnergyStorage.BLOCK);
+        return new StorageKinds(items, fluids, energy);
+    }
+
+    @Override
     public String describe(Level level, BlockPos pos) {
         StringBuilder sb = new StringBuilder();
         appendItems(level, pos, sb);
@@ -124,6 +133,16 @@ public final class NeoForgeBlockCapabilityReader implements IBlockCapabilityRead
     private static <T> void collect(Map<T, List<String>> byHandler, T handler, String side) {
         if (handler == null) return;
         byHandler.computeIfAbsent(handler, h -> new ArrayList<>()).add(side);
+    }
+
+    /** Whether a capability is exposed without a side or from at least one face. */
+    private static <T> boolean has(Level level, BlockPos pos,
+                                   net.neoforged.neoforge.capabilities.BlockCapability<T, Direction> cap) {
+        if (level.getCapability(cap, pos, null) != null) return true;
+        for (Direction direction : Direction.values()) {
+            if (level.getCapability(cap, pos, direction) != null) return true;
+        }
+        return false;
     }
 
     private static String itemId(ItemStack stack) {

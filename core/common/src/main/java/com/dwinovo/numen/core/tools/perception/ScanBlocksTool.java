@@ -35,7 +35,10 @@ public final class ScanBlocksTool implements NumenTool {
                 + "Sees terrain that is loaded right now; anything further out is UNKNOWN, not empty, and "
                 + "note says when that happened — walk that way and scan again. Water and lava are scannable, "
                 + "and those matches carry source:true/false (a source cell behaves very differently from "
-                + "flowing). Give every variant of what you want, e.g. both iron_ore and deepslate_iron_ore.";
+                + "flowing). Give every variant of what you want, e.g. both iron_ore and deepslate_iron_ore. "
+                + "Block tags such as #minecraft:beds are accepted. To find chests or machines from an "
+                + "unknown modpack without guessing their ids, use scan_storage instead.";
+
     }
 
     @Override

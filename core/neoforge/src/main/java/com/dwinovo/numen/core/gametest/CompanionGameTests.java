@@ -404,6 +404,88 @@ public class CompanionGameTests {
         });
     }
 
+    /** 背包没有任何可接钻石的容量时，任务应立即报错，不能把矿挖成地上物后无限追捡。 */
+    @GameTest(template = "floor16", timeoutTicks = 1000, batch = "numen_mine")
+    public static void mine_full_inventory_preserves_target(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos ore = helper.absolutePos(new BlockPos(4, 2, 3));
+        level.setBlockAndUpdate(ore, Blocks.DIAMOND_ORE.defaultBlockState());
+
+        NumenPlayer companion = spawnAt(helper, "gametest_fullminer", new BlockPos(3, 2, 3), false);
+        companion.getInventory().items.set(0, new ItemStack(Items.IRON_PICKAXE));
+        for (int slot = 1; slot < 36; slot++) {
+            companion.getInventory().items.set(slot, new ItemStack(Items.COBBLESTONE, 64));
+        }
+        TaskRecord record = new BlockActionOps().autoMine(
+                List.of("minecraft:diamond_ore"), 1,
+                TaskDispatch.ctx("gametest-full-inventory-mine", companion));
+        TaskDispatch.setTask(companion, record, null, reply -> {});
+
+        helper.succeedWhen(() -> {
+            helper.assertTrue(record.getState() == com.dwinovo.numen.task.TaskState.FAILED,
+                    "full-inventory mine task did not stop");
+            helper.assertTrue(level.getBlockState(ore).is(Blocks.DIAMOND_ORE),
+                    "diamond ore was destroyed despite having no pickup capacity");
+            CompanionFactory.despawn(level.getServer(), companion);
+        });
+    }
+
+    /** 头顶裸露且眼睛够得到的矿物，应立即抢占远处同类矿物的普通地面路线。 */
+    @GameTest(template = "floor16", timeoutTicks = 100000, batch = "numen_mine")
+    public static void mine_prioritizes_exposed_overhead_target(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos overhead = helper.absolutePos(new BlockPos(3, 6, 3));
+        BlockPos far = helper.absolutePos(new BlockPos(13, 2, 13));
+        level.setBlockAndUpdate(overhead, Blocks.DIAMOND_ORE.defaultBlockState());
+        level.setBlockAndUpdate(far, Blocks.DIAMOND_ORE.defaultBlockState());
+
+        NumenPlayer companion = spawnAt(helper, "gametest_overheadminer", new BlockPos(3, 2, 3), false);
+        companion.getInventory().items.set(0, new ItemStack(Items.IRON_PICKAXE));
+        companion.getInventory().items.set(1, new ItemStack(Items.COBBLESTONE, 64));
+        TaskRecord record = new BlockActionOps().autoMine(
+                List.of("minecraft:diamond_ore"), 1,
+                TaskDispatch.ctx("gametest-overhead-priority", companion));
+        TaskDispatch.setTask(companion, record, null, reply -> {});
+
+        helper.succeedWhen(() -> {
+            helper.assertTrue(companion.getInventory().countItem(Items.DIAMOND) >= 1,
+                    "companion has not gathered the overhead diamond");
+            helper.assertTrue(level.getBlockState(overhead).isAir(),
+                    "overhead exposed diamond was not mined first");
+            helper.assertTrue(level.getBlockState(far).is(Blocks.DIAMOND_ORE),
+                    "companion routed to the farther diamond instead");
+            CompanionFactory.despawn(level.getServer(), companion);
+        });
+    }
+
+    /** 无需预先知道 minecraft:chest 这个 id，也能按物品存储能力发现箱子。 */
+    @GameTest(template = "floor16", timeoutTicks = 1000, batch = "numen_perception")
+    public static void scan_storage_discovers_item_container_by_capability(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos chest = helper.absolutePos(new BlockPos(5, 2, 3));
+        level.setBlockAndUpdate(chest, Blocks.CHEST.defaultBlockState());
+        NumenPlayer companion = spawnAt(helper, "gametest_storage_scout", new BlockPos(3, 2, 3), false);
+
+        String result = new com.dwinovo.numen.core.tools.StorageScanOps()
+                .scanNearby(8, "items", companion);
+        var storages = com.google.gson.JsonParser.parseString(result).getAsJsonObject()
+                .getAsJsonArray("storages");
+        boolean found = false;
+        for (var element : storages) {
+            var hit = element.getAsJsonObject();
+            if (hit.get("x").getAsInt() == chest.getX()
+                    && hit.get("y").getAsInt() == chest.getY()
+                    && hit.get("z").getAsInt() == chest.getZ()
+                    && "minecraft:chest".equals(hit.get("block").getAsString())) {
+                found = true;
+                break;
+            }
+        }
+        helper.assertTrue(found, "scan_storage did not discover the nearby item container: " + result);
+        CompanionFactory.despawn(level.getServer(), companion);
+        helper.succeed();
+    }
+
     // ==================== 真实地形挖掘用例(模板取自实际存档地形)====================
 
     /** 挖掘批次前置:和平难度 + 正午,排除怪物袭扰与昼夜随机性。 */

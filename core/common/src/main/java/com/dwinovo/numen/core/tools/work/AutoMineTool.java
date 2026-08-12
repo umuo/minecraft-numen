@@ -35,7 +35,9 @@ public final class AutoMineTool implements NumenTool {
                 + "blocks (redstone_ore drops ~4). Include all variants in block_ids (iron_ore AND "
                 + "deepslate_iron_ore). Only mines what its tools actually harvest, and stops naming the "
                 + "needed tier if nothing qualifies (to destroy blocks regardless of drops, use "
-                + "break_block). BACKGROUND: a successful call is already running; do not call mine/goto "
+                + "break_block). Nearby exposed targets are handled before farther deposits. If the main "
+                + "inventory cannot accept the requested drops, mining stops before destroying more blocks "
+                + "and asks for space. BACKGROUND: a successful call is already running; do not call mine/goto "
                 + "again while <current_task> exists and do not poll. task_finished status=done means the "
                 + "requested count is complete; only timeout permits resending the same arguments.";
     }

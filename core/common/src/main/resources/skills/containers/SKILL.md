@@ -7,6 +7,10 @@ description: How to move items in/out of any container or machine GUI — chest,
 
 You move items through real GUIs, exactly like a player: open the block, look at the slots, move items, close. There is no per-item black box — you drive the menu yourself with `transfer`, which works for **any** container or machine (vanilla or modded) and lets you **see and fix** what goes wrong.
 
+## Finding storage
+
+If `<known_blocks>` already names the container, reuse those coordinates. Otherwise call `scan_storage` with `storage_type=items`; it discovers vanilla and modded chests, crates, drawers, vaults and machines by their actual inventory capability, so do not guess a mod's block id or scan only for `minecraft:chest`. Use `fluids`, `energy`, or `all` for tanks, batteries, or mixed machinery. The result gives exact coordinates for `inspect_block_storage` or `interact_at`.
+
 ## The loop
 
 1. **Open** — `interact_at` with `button=right` on the container block (walk there first if needed; `interact_at` paths to it). This opens its GUI and leaves it open.

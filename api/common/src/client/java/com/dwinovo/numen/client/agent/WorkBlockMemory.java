@@ -1,12 +1,14 @@
 package com.dwinovo.numen.client.agent;
 
 import com.dwinovo.numen.Constants;
+import com.dwinovo.numen.platform.Services;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import java.io.IOException;
@@ -73,13 +75,37 @@ public final class WorkBlockMemory {
     }
 
     /** Is this block id path a type we remember at all? */
-    public static boolean isTracked(String blockPath) {
-        return TRACKED_TYPES.contains(blockPath);
+    public static boolean isTracked(String blockId) {
+        if (blockId == null) return false;
+        ResourceLocation parsed = ResourceLocation.tryParse(blockId);
+        String path = parsed != null ? parsed.getPath() : blockId;
+        return TRACKED_TYPES.contains(path);
+    }
+
+    /**
+     * Dynamic station test: keep the stable vanilla list, then ask the loader's
+     * capability system whether this exact modded block exposes storage.
+     */
+    public static boolean isTracked(String blockPath, Level level, BlockPos pos) {
+        if (isTracked(blockPath)) return true;
+        if (level == null || pos == null || !level.hasChunkAt(pos)) return false;
+        try {
+            return Services.CAPS.storageKinds(level, pos).any();
+        } catch (RuntimeException brokenProvider) {
+            Constants.LOG.debug("[numen-memory] storage capability probe failed at {}: {}",
+                    pos.toShortString(), brokenProvider.toString());
+            return false;
+        }
     }
 
     /** Remember (or refresh the recency of) a tracked block. Untracked types are ignored. */
     public void record(String blockPath, BlockPos pos) {
-        if (!isTracked(blockPath)) return;
+        record(blockPath, pos, null);
+    }
+
+    /** Remember a vanilla station or a modded block that exposes standard storage capabilities. */
+    public void record(String blockPath, BlockPos pos, Level level) {
+        if (!isTracked(blockPath, level, pos)) return;
         long key = pos.asLong();
         String prev = blocks.remove(key);      // re-insert → newest
         blocks.put(key, blockPath);
@@ -111,11 +137,17 @@ public final class WorkBlockMemory {
                 Map.Entry<Long, String> e = it.next();
                 BlockPos pos = BlockPos.of(e.getKey());
                 if (!level.hasChunkAt(pos)) continue;   // unloaded — can't verify, keep
-                String actual = BuiltInRegistries.BLOCK
-                        .getKey(level.getBlockState(pos).getBlock()).getPath();
-                if (!actual.equals(e.getValue())) {
+                ResourceLocation actualId = BuiltInRegistries.BLOCK
+                        .getKey(level.getBlockState(pos).getBlock());
+                String expected = e.getValue();
+                // Old memory files stored only the path; new entries retain the
+                // namespace so two mods' equally named crates cannot collide.
+                boolean same = expected.indexOf(':') >= 0
+                        ? actualId.toString().equals(expected)
+                        : actualId.getPath().equals(expected);
+                if (!same) {
                     Constants.LOG.info("[numen-memory] forgot {} at {},{},{} (now {})",
-                            e.getValue(), pos.getX(), pos.getY(), pos.getZ(), actual);
+                            expected, pos.getX(), pos.getY(), pos.getZ(), actualId);
                     it.remove();
                     changed = true;
                 }

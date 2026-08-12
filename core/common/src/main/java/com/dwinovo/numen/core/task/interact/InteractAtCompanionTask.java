@@ -120,7 +120,7 @@ public final class InteractAtCompanionTask extends GoToThenDoTask<InteractAtTask
             if (button() == Interaction.Button.USE && hit instanceof net.minecraft.world.phys.BlockHitResult bhr) {
                 activatedBlock = bhr.getBlockPos();
                 activatedBlockId = BuiltInRegistries.BLOCK
-                        .getKey(player.level().getBlockState(activatedBlock).getBlock()).getPath();
+                        .getKey(player.level().getBlockState(activatedBlock).getBlock()).toString();
             }
             interaction = Interaction.forHit(player, hit, button(), r.holdTicks);
             if (interaction == null) {       // left-click on air — a swing, nothing to do

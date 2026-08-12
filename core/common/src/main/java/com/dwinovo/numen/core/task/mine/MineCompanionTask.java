@@ -1,6 +1,7 @@
 package com.dwinovo.numen.core.task.mine;
 import com.dwinovo.numen.core.WorkProfile;
 import com.dwinovo.numen.core.FailureType;
+import com.dwinovo.numen.core.PlayerInv;
 
 import com.dwinovo.numen.task.TaskState;
 
@@ -80,6 +81,10 @@ import java.util.Set;
 public final class MineCompanionTask extends AbstractCompanionTask<MineBlockTaskRecord> {
 
     private static final int MAX_ORES = 64;            // cap on tracked target locations
+    /** A visible, currently reachable target near the body should preempt a farther route. */
+    private static final int LOCAL_DISCOVERY_RADIUS = 8;
+    /** Local direct scan cadence; catches newly exposed ore before the chunk index catches up. */
+    private static final int LOCAL_DISCOVERY_INTERVAL = 10;
     /** 目标查询的最大 chebyshev 区块环半径。 */
     private static final int QUERY_MAX_CHUNK_RADIUS = 32;
     /** 名单低于此数触发补货查询——索引由方块变更钩子实时维护,自己挖掉的目标即时出账,
@@ -158,6 +163,8 @@ public final class MineCompanionTask extends AbstractCompanionTask<MineBlockTask
     private int branchY;
     /** 距下一次允许查询的冷却(tick)。 */
     private int queryCooldown;
+    /** 距下一次脚边直接目标扫描的冷却(tick)。 */
+    private int localDiscoveryCooldown;
     /** 距慢心跳强制刷新的剩余 tick。 */
     private int heartbeatTimer;
     /** 上一次查询时同伴所在 chunk(打包 long)——跨 chunk 视为看到新地形,触发补查。 */
@@ -220,6 +227,7 @@ public final class MineCompanionTask extends AbstractCompanionTask<MineBlockTask
         if (player.level() instanceof ServerLevel sl) {
             TargetIndex.register(sl, r.targets);
         }
+        discoverLocalTargets();
         runQuery();
         lastProgressTick = player.level().getGameTime();
         lastProgressPos = player.blockPosition();
@@ -243,6 +251,19 @@ public final class MineCompanionTask extends AbstractCompanionTask<MineBlockTask
             return TaskState.SUCCESS;
         }
 
+        // A survival miner only makes progress after native pickup. Breaking another
+        // target when none of its possible drops can fit would destroy resources while
+        // leaving the count unchanged, producing an endless mine/drop/miss loop.
+        if (WorkProfile.of(player).dropsLoot() && !dropItems.isEmpty()
+                && !PlayerInv.canAcceptAny(player.getInventory(), dropItems)) {
+            fail("main inventory is full and cannot accept " + dropLabel()
+                            + "; gathered " + gathered + "/" + r.count
+                            + ". No further target blocks were broken. Free a slot, deposit or drop"
+                            + " something, then retry; existing ground drops remain available.",
+                    FailureType.NO_MATERIAL);
+            return TaskState.FAILED;
+        }
+
         Level level = player.level();
 
         // Maintain the ore list every tick — INCLUDING while a dig below is latched:
@@ -251,6 +272,9 @@ public final class MineCompanionTask extends AbstractCompanionTask<MineBlockTask
         // heartbeat / cold area still building) instead of on a fixed rescan cadence —
         // the block-change hook keeps the index itself current in between.
         long tUpkeep = NavProfiler.begin();
+        if (--localDiscoveryCooldown <= 0) {
+            discoverLocalTargets();
+        }
         prune();
         maybeQuery();
         NavProfiler.end("mine.upkeep", tUpkeep);
@@ -424,10 +448,41 @@ public final class MineCompanionTask extends AbstractCompanionTask<MineBlockTask
             // Degenerate frame (targets vanished between ticks): stand where we are.
             return GoalCompiler.standOn(player.blockPosition());
         }
+        // GoalComposite/A* chooses the cheapest route, not the first list member. Passing
+        // every deposit here therefore lets a farther easy route beat an ore already in
+        // sight over the companion's head. Restrict the ore side to targets the eyes can
+        // hit right now. Merely being exposed is not enough: a high tree trunk may be open
+        // to air but still require scaffolding, and must not deadlock the wider route.
+        List<BlockPos> preferred = MineTargetOrder.preferred(
+                knownOres, player.blockPosition(), LOCAL_DISCOVERY_RADIUS, this::reachable);
         return GoalCompiler.mineField(
-                new ArrayList<>(knownOres), new ArrayList<>(drops));
+                preferred, new ArrayList<>(drops));
     }
 
+    /**
+     * Directly inspect the small cube around the body. The shared index is optimized
+     * for wide-area queries and can still be progressively warming a section; this
+     * scan makes a newly exposed block at arm's reach available on the very next tick.
+     */
+    private void discoverLocalTargets() {
+        localDiscoveryCooldown = LOCAL_DISCOVERY_INTERVAL;
+        Level level = player.level();
+        BlockPos feet = player.blockPosition();
+        List<BlockPos> hits = new ArrayList<>();
+        for (BlockPos pos : BlockPos.betweenClosed(
+                feet.offset(-LOCAL_DISCOVERY_RADIUS, -LOCAL_DISCOVERY_RADIUS,
+                        -LOCAL_DISCOVERY_RADIUS),
+                feet.offset(LOCAL_DISCOVERY_RADIUS, LOCAL_DISCOVERY_RADIUS,
+                        LOCAL_DISCOVERY_RADIUS))) {
+            if (!level.hasChunkAt(pos)) continue;
+            if (r.targets.contains(level.getBlockState(pos).getBlock())) {
+                hits.add(pos.immutable());
+            }
+        }
+        if (!hits.isEmpty()) {
+            mergeHits(hits);
+        }
+    }
 
     /** 脚位到目标的最大垂直距离:站在目标正下方仰头,眼高 1.62 + 触及 4.5 ≈ 6.1,
      *  即目标底面在脚上 6 格内仍可命中——波段最多下探到此,再深就算站得住也打不到了。 */
@@ -512,7 +567,6 @@ public final class MineCompanionTask extends AbstractCompanionTask<MineBlockTask
      * up, etc.).
      */
     private BlockPos reachableTarget() {
-        if (!player.onGround()) return null;
         Level level = player.level();
         BlockPos feet = player.blockPosition();
         BlockPos support = feet.below();
@@ -675,6 +729,15 @@ public final class MineCompanionTask extends AbstractCompanionTask<MineBlockTask
             }
         }
         return items;
+    }
+
+    /** Human-readable possible pickup ids for actionable inventory-full failures. */
+    private String dropLabel() {
+        return dropItems.stream()
+                .map(item -> net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).toString())
+                .sorted()
+                .reduce((left, right) -> left + ", " + right)
+                .orElse(r.label);
     }
 
     /** The inventory item that mines {@code state} fastest — the tool the dig will actually use, so the

@@ -4,6 +4,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Collection;
+
 /**
  * Small adapter giving the companion task layer the {@code SimpleContainer}-style
  * inventory operations it grew up on (count / remove-by-type / add-with-leftover)
@@ -47,6 +49,24 @@ public final class PlayerInv {
             if (!s.isEmpty() && s.is(item)) n += s.getCount();
         }
         return n;
+    }
+
+    /**
+     * Whether the 36-slot main inventory can accept at least one of {@code items}.
+     * Armor and offhand do not receive normal picked-up drops, so they deliberately
+     * do not count as spare mining capacity.
+     */
+    public static boolean canAcceptAny(Inventory inv, Collection<Item> items) {
+        if (items.isEmpty()) return false;
+        int limit = Math.min(BUILDABLE_SLOTS, inv.items.size());
+        for (int i = 0; i < limit; i++) {
+            ItemStack stack = inv.items.get(i);
+            if (stack.isEmpty()) return true;
+            if (items.contains(stack.getItem()) && stack.getCount() < stack.getMaxStackSize()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** First slot holding {@code item}, or -1. */
