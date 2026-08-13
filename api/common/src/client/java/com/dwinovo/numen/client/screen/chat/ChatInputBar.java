@@ -7,9 +7,11 @@ import com.dwinovo.numen.client.ui.NumenStyle;
 import com.dwinovo.numen.client.ui.NumenTheme;
 import com.dwinovo.numen.client.ui.mc.McDrawSurface;
 import com.dwinovo.numen.client.ui.widget.Button;
-import com.dwinovo.numen.client.ui.widget.TextField;
 import com.dwinovo.numen.client.ui.widget.UiRoot;
 import com.dwinovo.numen.agent.llm.InputImage;
+import com.dwinovo.numen.client.screen.FlatEditBox;
+import com.dwinovo.numen.client.screen.Nb;
+import com.dwinovo.numen.client.screen.UiTheme;
 import com.dwinovo.numen.data.ModLanguageData;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Minecraft;
@@ -26,7 +28,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * 聊天输入行——NumenUI 版的瓤:[压缩][麦克风] 输入框 [发送][叫停]。
  * 四颗图标钮走组件库的 Button 图标形态(贴图由本层注入,组件库不认识贴图);
- * 输入框走 TextField(Enter 发送)。锁定态(外接大脑模式)整排禁用只留叫停
+ * 输入框使用基于原版 EditBox 的 FlatEditBox，以保留系统输入法组合输入。
+ * Enter 发送；锁定态(外接大脑模式)整排禁用，只保留叫停
  * ——那是主人的急刹车,外部 AI 抽风时更需要它。
  */
 public final class ChatInputBar {
@@ -37,9 +40,13 @@ public final class ChatInputBar {
 
         void onMicToggle();
 
+        void onCompact();
+
         void onAbort();
 
         boolean canAbort();
+
+        boolean canCompact();
 
         /** 外接大脑模式:发言入口整排锁死(叫停不锁)。 */
         boolean inputLocked();
@@ -59,20 +66,16 @@ public final class ChatInputBar {
 
     private static final int BTN_W = 22;
     private static final int GAP = 4;
-    /** 输入框里 {@code /命令} 那一截的颜色。定死不跟主题走——它标的是"这是命令不是话"
-     *  这件事,换主题不该让它变得像普通文字。 */
-    private static final int CMD_COLOR = 0xFFA6AEE9;
-
     private final UiRoot ui = new UiRoot();
     private final Host host;
 
-    private TextField field;
-    private Button micBtn, sendBtn, stopBtn;
-    /** 右侧那一串键,顺序即布局。 */
+    private FlatEditBox field;
+    private Button compactBtn, micBtn, sendBtn, stopBtn;
+    /** 输入行按钮集合，统一用于刷新交互状态。 */
     private Button[] keys = new Button[0];
     private String draft = "";
     private ResourceLocation micIcon;
-    private final ResourceLocation iconMic, iconStop, iconSend;
+    private final ResourceLocation iconCompact, iconMic, iconStop, iconSend;
 
     /** 输入框自己的几何(弹层贴它上边长,面板占它的位)。 */
     private int fieldX, fieldY, fieldW, fieldH;
@@ -93,9 +96,10 @@ public final class ChatInputBar {
     private int barX, barY, barW, barH;
     private int imageX, imageY, imageSize;
 
-    public ChatInputBar(Host host, ResourceLocation iconMic,
+    public ChatInputBar(Host host, ResourceLocation iconCompact, ResourceLocation iconMic,
                         ResourceLocation iconSend, ResourceLocation iconStop) {
         this.host = host;
+        this.iconCompact = iconCompact;
         this.iconMic = iconMic;
         this.iconSend = iconSend;
         this.iconStop = iconStop;
@@ -107,7 +111,7 @@ public final class ChatInputBar {
 
     /** 输入框内容(切换同伴时宿主取走暂存,回来再 setText 放回)。 */
     public String text() {
-        return field != null ? field.value() : draft;
+        return field != null ? field.getValue() : draft;
     }
 
     public void setText(String text) {
@@ -122,31 +126,41 @@ public final class ChatInputBar {
     }
 
     public void build(int x, int y, int w, int h) {
-        if (field != null) draft = field.value();   // 重建不丢已输入的文字
+        if (field != null) draft = field.getValue();   // 重建不丢已输入的文字
         ui.clear();
 
+        compactBtn = ui.add(iconButton(iconCompact, "numen.chat.tip.compact",
+                Button.Style.NORMAL, host::onCompact));
         micBtn = ui.add(iconButton(null, "numen.chat.tip.mic",
                 Button.Style.NORMAL, host::onMicToggle));
         sendBtn = ui.add(iconButton(iconSend, "numen.chat.send",
                 Button.Style.ACCENT, this::send));
         stopBtn = ui.add(iconButton(iconStop, "numen.chat.tip.stop",
                 Button.Style.NORMAL, host::onAbort));
-        // 顺序即布局:输入框吃掉左边剩下的,这一串靠右排。加减一颗键只改这个数组,
-        // 不用回来重算"左几右几"那两个常数。
-        keys = new Button[]{micBtn, sendBtn, stopBtn};
+        // 两颗操作键在左，发送/叫停在右；中间空间留给输入框与图片预览。
+        keys = new Button[]{compactBtn, micBtn, sendBtn, stopBtn};
 
-        field = ui.add(new TextField(draft, v -> {
+        // Chat uses vanilla's EditBox input machinery so platform IMEs (Chinese,
+        // Japanese, Korean, etc.) keep their composition/commit behaviour. Only
+        // painting is customised by FlatEditBox to match NumenUI.
+        field = new FlatEditBox(Minecraft.getInstance().font, x, y, 24, h,
+                Component.literal("Numen chat input"));
+        field.setBordered(false);
+        field.setTextColor(UiTheme.current().text());
+        field.setMaxLength(1024);
+        field.setCanLoseFocus(false);
+        field.setResponder(v -> {
             draft = v;
             refreshCandidates();
-        }).placeholder(host.hint())
-                .leadingToken(com.dwinovo.numen.client.command.ChatCommands.PREFIX, CMD_COLOR));
+        });
+        field.setValue(draft);
+        field.setFocused(true);
         barX = x;
         barY = y;
         barW = w;
         barH = h;
         layout();
 
-        ui.requestFocus(field);   // 开屏即可打字
         refreshCandidates();
         refreshEnablement();
     }
@@ -159,8 +173,9 @@ public final class ChatInputBar {
         // 面板在场时输入框让位(它就摆在输入框那格),旁边几颗键跟着停手——
         // 叫停除外:那是主人的急刹车,任何时候都得能按。
         field.setVisible(!paged);
-        field.setEnabled(!locked && !paged);
-        field.placeholder(host.hint());
+        field.active = !locked && !paged;
+        field.setHint(Nb.colored(host.hint(), UiTheme.current().textDim()));
+        compactBtn.setEnabled(!locked && !paged && host.canCompact());
         micBtn.setEnabled(!locked && !paged);
         sendBtn.setEnabled(!locked && !paged);
         if (imageLoading) sendBtn.setEnabled(false);
@@ -198,6 +213,11 @@ public final class ChatInputBar {
     public void render(GuiGraphics g, int mouseX, int mouseY, long nowMs, NumenTheme.Colors c) {
         refreshEnablement();
         IDrawSurface s = new McDrawSurface(g, Minecraft.getInstance().font);
+        if (field.isVisible()) {
+            NumenStyle.fieldCard(s, fieldX, fieldY, fieldW, fieldH,
+                    c.inputBg(), field.isFocused() ? c.accent() : c.inputBorder());
+            field.render(g, mouseX, mouseY, 0f);
+        }
         ui.render(s, c, mouseX, mouseY, nowMs);
         if (attachment != null && previewTexture != null) {
             g.fill(imageX, imageY, imageX + imageSize, imageY + imageSize, c.inputBorder());
@@ -228,13 +248,18 @@ public final class ChatInputBar {
     public boolean mouseClicked(double mx, double my, int button) {
         if (button == 0 && attachment != null && insideImage(mx, my)) {
             clearAttachment();
-            ui.requestFocus(field);
+            field.setFocused(true);
             return true;
+        }
+        if (field.isVisible() && mx >= fieldX && mx < fieldX + fieldW
+                && my >= fieldY && my < fieldY + fieldH) {
+            field.setFocused(true);
+            return field.mouseClicked(mx, my, button);
         }
         return ui.mouseClicked(mx, my, button);
     }
 
-    public boolean keyPressed(int keyCode, int modifiers) {
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         // 面板在场:键盘整个归它,一个都不往下漏。Esc 是回输入框,不是关整个界面。
         if (panel != null) {
             if (keyCode == KeyCodes.ESCAPE) {
@@ -245,7 +270,7 @@ public final class ChatInputBar {
             return true;
         }
         // Prefer an actual clipboard bitmap over the text flavour many apps
-        // expose alongside it. If there is no image, TextField handles normal paste.
+        // expose alongside it. If there is no image, EditBox handles normal text paste.
         if (keyCode == KeyCodes.KEY_V && KeyCodes.shortcut(modifiers)
                 && field != null && field.isFocused() && clipboardHasImage()) {
             pasteImage();
@@ -288,7 +313,7 @@ public final class ChatInputBar {
             send();
             return true;
         }
-        return ui.keyPressed(keyCode, modifiers);
+        return field != null && field.keyPressed(keyCode, scanCode, modifiers);
     }
 
     // ---- 补全 ----
@@ -302,7 +327,7 @@ public final class ChatInputBar {
     /** 文字变了就重算候选,并把 Esc 的收起复位。 */
     private void refreshCandidates() {
         dismissed = false;
-        String text = field != null ? field.value() : draft;
+        String text = field != null ? field.getValue() : draft;
         candidates = host.completions(text == null ? "" : text);
         selected = firstEnabled();
     }
@@ -331,17 +356,17 @@ public final class ChatInputBar {
     private boolean fillSelected() {
         if (selected < 0 || selected >= candidates.size()) return false;
         Completion pick = candidates.get(selected);
-        if (!pick.enabled() || pick.insert().equals(field.value())) return false;
+        if (!pick.enabled() || pick.insert().equals(field.getValue())) return false;
         field.setValue(pick.insert());
-        field.cursorToEnd();
+        field.moveCursorToEnd(false);
         draft = pick.insert();
         refreshCandidates();
         return true;
     }
 
-    public boolean charTyped(char ch) {
+    public boolean charTyped(char ch, int modifiers) {
         // 面板在场时输入框是隐着的,打进去的字看不见也用不上——直接吞掉。
-        return panel != null || ui.charTyped(ch);
+        return panel != null || (field != null && field.charTyped(ch, modifiers));
     }
 
     public boolean isFieldFocused() {
@@ -352,7 +377,7 @@ public final class ChatInputBar {
 
     private void send() {
         if (field == null || panel != null || host.inputLocked()) return;
-        String text = field.value() == null ? "" : field.value().trim();
+        String text = field.getValue() == null ? "" : field.getValue().trim();
         if (text.isEmpty() && attachment == null) return;
         if (attachment != null && !host.visionEnabled()) {
             host.onImageNotice(t(ModLanguageData.Keys.CHAT_IMAGE_UNSUPPORTED));
@@ -451,19 +476,22 @@ public final class ChatInputBar {
     private void layout() {
         if (field == null) return;
         int imageSpan = attachment == null ? 0 : BTN_W + GAP;
-        int inW = Math.max(24, barW - (BTN_W + GAP) * keys.length - imageSpan);
-        fieldX = barX + imageSpan;
+        int pitch = BTN_W + GAP;
+        int inW = Math.max(24, barW - pitch * 4 - imageSpan);
+        compactBtn.setBounds(barX, barY, BTN_W, barH);
+        micBtn.setBounds(barX + pitch, barY, BTN_W, barH);
+        imageX = barX + pitch * 2;
+        imageY = barY;
+        imageSize = barH;
+        fieldX = barX + pitch * 2 + imageSpan;
         fieldY = barY;
         fieldW = inW;
         fieldH = barH;
-        field.setBounds(fieldX, fieldY, fieldW, fieldH);
-        imageX = barX;
-        imageY = barY;
-        imageSize = barH;
-        for (int i = 0; i < keys.length; i++) {
-            keys[i].setBounds(fieldX + inW + GAP + i * (BTN_W + GAP),
-                    barY, BTN_W, barH);
-        }
+        field.setX(fieldX + NumenStyle.FIELD_PAD);
+        field.setY(fieldY + 5);
+        field.setWidth(Math.max(8, fieldW - NumenStyle.FIELD_PAD * 2));
+        sendBtn.setBounds(fieldX + inW + GAP, barY, BTN_W, barH);
+        stopBtn.setBounds(fieldX + inW + GAP + pitch, barY, BTN_W, barH);
     }
 
     private boolean insideImage(double mx, double my) {

@@ -444,10 +444,11 @@ public final class NumenScreen extends Screen {
     private static final net.minecraft.resources.ResourceLocation ICON_SEND = chatIcon("icon_send");
     private static final net.minecraft.resources.ResourceLocation ICON_MIC = chatIcon("icon_mic");
     private static final net.minecraft.resources.ResourceLocation ICON_STOP = chatIcon("icon_stop");
+    private static final net.minecraft.resources.ResourceLocation ICON_COMPACT = chatIcon("icon_compact");
     private void buildChatWidgets() {
         int inputY = top + panelH - INPUT_H - PAD;
         inputBar = new com.dwinovo.numen.client.screen.chat.ChatInputBar(
-                new ChatBarHost(), ICON_MIC, ICON_SEND, ICON_STOP);
+                new ChatBarHost(), ICON_COMPACT, ICON_MIC, ICON_SEND, ICON_STOP);
         inputBar.build(left + PAD, inputY, panelW - PAD * 2, INPUT_H);
         if (!savedInput.isEmpty()) {
             inputBar.setText(savedInput);
@@ -467,9 +468,17 @@ public final class NumenScreen extends Screen {
 
         @Override public void onMicToggle() { NumenScreen.this.onMicToggle(); }
 
+        @Override public void onCompact() {
+            String reply = com.dwinovo.numen.client.command.ChatCommands.dispatch(loop(), "/compact");
+            showCommandReply(reply);
+            chatView.pinToBottom();
+        }
+
         @Override public void onAbort() { loop().abort(); }
 
         @Override public boolean canAbort() { return loop().canInterrupt(); }
+
+        @Override public boolean canCompact() { return loop().compactProblem() == null; }
 
         @Override public boolean inputLocked() {
             // 「外接大脑」模式:发言入口整排锁死。真正的互斥在 EntityAgentLoop 的开轮
@@ -693,7 +702,7 @@ public final class NumenScreen extends Screen {
             if (summonPanel().keyPressed(keyCode, modifiers)) return true;
             return super.keyPressed(keyCode, scanCode, modifiers);
         }
-        if (tab == Tab.CHAT && inputBar != null && inputBar.keyPressed(keyCode, modifiers)) {
+        if (tab == Tab.CHAT && inputBar != null && inputBar.keyPressed(keyCode, scanCode, modifiers)) {
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -704,7 +713,7 @@ public final class NumenScreen extends Screen {
         if (tab == Tab.SETTINGS && !summoning && settings.charTyped(ch)) {
             return true;
         }
-        if (tab == Tab.CHAT && !summoning && inputBar != null && inputBar.charTyped(ch)) {
+        if (tab == Tab.CHAT && !summoning && inputBar != null && inputBar.charTyped(ch, modifiers)) {
             return true;
         }
         if (summoning && summonPanel().charTyped(ch)) {
