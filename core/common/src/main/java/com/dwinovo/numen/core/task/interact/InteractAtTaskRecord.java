@@ -16,8 +16,8 @@ import net.minecraft.world.item.Items;
  * <p>Aim at a world point and press a mouse button; the native raytrace resolves whatever
  * is actually under the aim:
  * <ul>
- *   <li>{@link Button#LEFT} (attack): break the block hit (held until gone); air = nothing.</li>
- *   <li>{@link Button#RIGHT} (use): activate the block hit (lever / door / modded machine), or
+ *   <li>Button.LEFT (attack): break the block hit (held until gone); air = nothing.</li>
+ *   <li>Button.RIGHT (use): activate the block hit (lever / door / modded machine), or
  *       — when the aim is clear air — use the held item in that direction (throw an ender
  *       pearl, eat, draw a bow).</li>
  * </ul>

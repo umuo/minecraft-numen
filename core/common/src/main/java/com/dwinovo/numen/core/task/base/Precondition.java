@@ -4,7 +4,7 @@ import com.dwinovo.numen.core.FailureType;
 
 /**
  * A cheap, side-effect-free "can this task even begin?" gate, checked once by
- * {@link AbstractCompanionTask#start()} before any body is driven.
+ * AbstractCompanionTask.start() before any body is driven.
  *
  * <p>Preconditions replace the ad-hoc fail-fast blocks each concrete task used to
  * open with (e.g. {@code BuildCompanionTask} rejecting an occupied target with

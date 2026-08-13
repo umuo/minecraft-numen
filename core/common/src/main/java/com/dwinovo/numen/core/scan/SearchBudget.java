@@ -4,8 +4,8 @@ import net.minecraft.server.MinecraftServer;
 
 /**
  * GLOBAL per-tick budget for every sliced world search on the server —
- * structure locating ({@link LocateStructureCompanionTask}), biome locating
- * ({@link LocateBiomeCompanionTask}) and long-range block scans
+ * structure locating (LocateStructureCompanionTask), biome locating
+ * (LocateBiomeCompanionTask) and long-range block scans
  * ({@link BlockSearch}). The Explorer's Compass {@code WorldWorkerManager}
  * model: total search cost per tick is a server constant, independent of how
  * many companions are searching at once — per-task budgets would stack

@@ -48,8 +48,8 @@ import java.util.Map;
  *
  * <h2>The onTick fail idiom</h2>
  * A concrete {@link #onTick()} reports a failure with
- * {@snippet : fail(reason, FailureType.SOMETHING); return TaskState.FAILED; }
- * — {@link #fail} records the reason + type (so {@link #buildResult} and any
+ * <code>fail(reason, FailureType.SOMETHING); return TaskState.FAILED;</code>
+ * — {@link #fail} records the reason + type (so the parent task and any
  * parent ladder can read them) and {@code return FAILED} ends the tick. The two
  * are kept separate (rather than {@code fail} returning {@code FAILED}) so a
  * caller can also stash a failure for the NEXT tick to observe.
@@ -266,8 +266,8 @@ public abstract class AbstractCompanionTask<R extends TaskRecord>
     // ---------------------------------------------------------------------
 
     /**
-     * Delegate this tick to a child {@link CompanionTask} representing a bounded
-     * SUB-goal, driving its {@code start → tick} lifecycle for the parent.
+     * Delegate this tick to a child CompanionTask representing a bounded
+     * sub-goal, driving its {@code start → tick} lifecycle for the parent.
      *
      * <p>Re-invoking with the SAME child instance continues it; passing a
      * different instance switches to (and starts) the new child. The child's
@@ -310,7 +310,7 @@ public abstract class AbstractCompanionTask<R extends TaskRecord>
      * Preempted by a higher-priority survival chain: release the BODY (zero the
      * locomotion inputs, drop sneak) but keep every logical field — including the
      * nav PLAN — intact. Deliberately does NOT call {@code nav.stop()}: the plan
-     * is what lets {@link #resume()} pick straight back up on the next tick.
+     * is what lets resume() pick straight back up on the next tick.
      */
     @Override
     public void stop(NumenPlayer companion, StopReason why) {

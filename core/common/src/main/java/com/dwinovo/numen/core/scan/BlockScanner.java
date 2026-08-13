@@ -73,7 +73,7 @@ public final class BlockScanner {
     /**
      * 扫一节:已解析好的 chunk 里的一个 section,调色板短路 + 球面裁剪,命中追加进
      * {@code out}。全仓找方块最终都落到这里——{@link BlockSearch} 一个配额换一节,
-     * {@link #scanRings} 一口气走完一串。公开是因为前者要按这个粒度计费。
+     * scanRings 一口气走完一串。公开是因为前者要按这个粒度计费。
      */
     public static void scanChunkSection(Level level, ChunkAccess chunk,
                                         int chunkX, int sectionY, int chunkZ,

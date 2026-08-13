@@ -45,7 +45,7 @@ import com.dwinovo.numen.core.task.move.MoveToTaskRecord;
  *       caching);</li>
  *   <li>task runners — each {@code TaskRecord} type a world-action tool emits is
  *       paired with the {@code CompanionTask} that runs it, via
- *       {@link CompanionTaskFactory#register}.</li>
+ *       CompanionTaskFactory.register.</li>
  * </ul>
  */
 public final class NumenCore {
