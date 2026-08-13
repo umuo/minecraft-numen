@@ -1,49 +1,37 @@
 # japanese_minka — 和风民居
 
-Domestic Japanese building is horizontal, quiet, and unfinished-looking on
-purpose. The wooden frame stays visible because the joinery *is* the ornament;
-walls are only infill between posts. Roofs run wide and low because deep eaves
-shade paper screens and shed monsoon rain — and that overhang, not the wall, is
-what you read from a distance. Nothing is symmetrical, nothing is bright, and
-every material is allowed to look like itself.
+日本民居讲究水平、安静，并刻意保留一种未过度修饰的状态。木框架始终外露，因为榫卯本身就是装饰；墙面只是柱间填充。宽阔低缓的屋顶用深檐遮蔽纸门，并排走季风降雨——远看时真正定义建筑的是挑檐，而不是墙体。避免对称和明亮色彩，让每种材料保持自身质感。
 
-## Materials
-- **frame** (posts and beams, always visible): stripped_spruce_log,
-  stripped_oak_log, dark_oak_log — warm bare timber, darker than the infill
-- **infill** (wall panels): white_concrete, smooth_quartz, bone_block,
-  white_terracotta — high value, calm, no pattern
-- **roof**: deepslate_tiles, gray_concrete, dark_prismarine, blackstone for
-  tile; hay_block or dried_kelp_block for thatch
-- **floor**: spruce_planks, stripped_spruce_wood; mats read as lime_carpet
-- **screens** (shoji): white_stained_glass_pane set inside the frame rhythm
-- **light**: lantern under the eave; a stone lantern in the garden
-- **accent**: almost none. Never vermilion — that belongs to shrines.
+## 材料
+- **框架**（柱梁始终外露）：stripped_spruce_log、stripped_oak_log、dark_oak_log——温暖裸木，颜色深于填充墙
+- **填充墙板**：white_concrete、smooth_quartz、bone_block、white_terracotta——明度高、安静且无图案
+- **屋顶**：瓦面使用 deepslate_tiles、gray_concrete、dark_prismarine、blackstone；茅草面使用 hay_block 或 dried_kelp_block
+- **地板**：spruce_planks、stripped_spruce_wood；用 lime_carpet 表现榻榻米
+- **障子屏风**：在框架节奏内安装 white_stained_glass_pane
+- **照明**：檐下设置 lantern；庭院中放置石灯笼
+- **强调色**：几乎不使用。绝不能用朱红色，那属于神社语汇。
 
-## Proportions
-- wide and shallow footprint; depth roughly 0.6–0.8 of the frontage
-- walls low, 3–4 tall, divided into visible bays by the frame
-- roof rise about 0.35–0.55 of the half-span — deliberately **shallow**
-- eaves overhang 1–3 past the wall, deeper on the long sides
-- floor lifted 1 above ground, with a step or veranda in front
+## 比例
+- 平面宽而浅；进深约为正面宽度的 0.6–0.8
+- 墙高 3–4 格，由外露框架分隔成清晰开间
+- 屋顶高度约为半跨的 0.35–0.55——刻意保持**低缓**
+- 屋檐伸出墙外 1–3 格，长边挑檐更深
+- 地板抬高 1 格，前方设置台阶或缘侧
 
-## Signature moves
-- **The eave is the building.** Make the overhang unmistakable. Given a choice
-  between a taller wall and a wider eave, take the eave.
-- **Veranda (engawa)** — a walkable ledge along one long side that blurs inside
-  and outside. A plank platform with a low rail reads right.
-- **Bay rhythm** — vertical frame members at a regular interval with infill
-  between them. This is the strongest single signal of the style.
-- **Lifted corners** — eave corners tick upward. Inverted stairs or stacked
-  slabs both work; what matters is that the corner is not flat.
+## 标志性手法
+- **屋檐就是建筑。** 挑檐必须足够醒目。若要在加高墙体与加宽屋檐之间选择，应选择屋檐。
+- **缘侧**——沿一条长边设置可行走的平台，模糊室内外边界；木板平台配低栏杆即可准确表达。
+- **开间节奏**——按固定间距设置竖向框架，框架之间填墙。这是最强烈的单一风格信号。
+- **起翘檐角**——屋檐转角略向上抬。可用倒置楼梯或叠放台阶，只要角部不是平的即可。
 
-## Variants
-- **minka** — farmhouse: steep thatch, heavy and rustic, small openings
-- **machiya** — townhouse: narrow frontage, deep plan, two storeys, inner court
-- **chashitsu** — tea house: tiny, one room, low entrance, garden approach
-- **ryokan** — long, low, multi-winged around a bathing court
+## 变体
+- **民家**——农舍：陡峭茅草顶、厚重质朴、开口较小
+- **町家**——联排住宅：正面狭窄、进深很长、两层并带内院
+- **茶室**——体量极小、单室、低入口，并通过庭院小径到达
+- **旅馆**——围绕浴池庭院展开的狭长低矮多翼建筑
 
-## Avoid
-- tall walls, steep roofs, bilateral symmetry
-- vermilion or red anything (shrine vocabulary)
-- cobblestone or rough grey stone in view
-- busy multi-colour palettes; this style lives on two or three materials
+## 避免
+- 高墙、陡屋顶和左右对称
+- 朱红色或任何红色元素，那属于神社语汇
+- 视野中出现 cobblestone 或粗糙灰石
+- 繁杂多色配色；这种风格只需两三种材料

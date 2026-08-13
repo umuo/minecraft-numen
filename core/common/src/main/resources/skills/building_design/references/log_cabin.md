@@ -1,43 +1,35 @@
 # log_cabin — 原木小屋
 
-Whole trees, notched at the corners and stacked. Because the walls are round
-logs, the corners overhang and the whole building reads as horizontal courses of
-timber with a stone chimney breaking the pattern. It is small, low, and clearly
-built by someone with an axe and no sawmill — the moment the surfaces look
-machined, it stops being a cabin.
+整根树木在角部开槽后逐层堆叠。由于墙体由圆木构成，转角木料会伸出墙外，整栋建筑呈现连续水平木层，再由石烟囱打破节奏。它应小巧、低矮，明显像是一个只有斧头、没有锯木厂的人建造的；只要表面显得经过机械加工，就不再像原木小屋。
 
-## Materials
-- **walls**: spruce_log, oak_log, stripped_spruce_log — horizontal, and mix two
-  log types so the courses vary
-- **corners**: the same logs, extended 1 past the corner (see below)
-- **roof**: spruce_slab, dark_oak_slab; moss_block or grass_block for a sod
-  roof; hay_block for thatch
-- **chimney**: cobblestone, mossy_cobblestone, stone — rough, mixed
-- **floor / porch**: spruce_planks, stripped_spruce_wood
-- **light**: lantern by the door, campfire outside
-- **surroundings**: a woodpile, an axe in a stump, drying racks
+## 材料
+- **墙体**：spruce_log、oak_log、stripped_spruce_log——水平摆放，并混用两种原木，使各层有所变化
+- **转角**：使用相同原木，并伸出转角 1 格，做法见下文
+- **屋顶**：spruce_slab、dark_oak_slab；覆土屋顶使用 moss_block 或 grass_block；茅草顶使用 hay_block
+- **烟囱**：cobblestone、mossy_cobblestone、stone——粗糙混砌
+- **地板／门廊**：spruce_planks、stripped_spruce_wood
+- **照明**：门旁放 lantern，室外放 campfire
+- **周边陈设**：柴堆、树桩上的斧头和晾晒架
 
-## Proportions
-- small: one or two rooms, walls 3–4 tall
-- roof rise 0.7–1.0 of half-span, and it usually extends into a porch on one
-  side
-- porch 2–3 deep along the entrance elevation, roof continuing over it
-- chimney rising 2–3 clear of the ridge
+## 比例
+- 体量小：一到两个房间，墙高 3–4 格
+- 屋顶高度为半跨的 0.7–1.0，通常向一侧延伸覆盖门廊
+- 入口立面设置深 2–3 格的门廊，屋顶连续覆盖其上
+- 烟囱顶部高出屋脊 2–3 格
 
-## Signature moves
-- **Overhanging corner notches** — logs project 1 past the corner on alternating
-  courses. This is the single detail that says "log cabin".
-- **Stone chimney on the outside** — climbing the gable wall, wider at the base.
-- **Covered porch** — the roof carried down over a deck, held on log posts.
-- **Sod or moss roof** — softens the whole thing and ties it to the site.
+## 标志性手法
+- **外伸转角榫口**——相邻木层交替让原木伸出转角 1 格。这是最能直接说明“原木小屋”的细节。
+- **外置石烟囱**——沿山墙向上攀升，底部更宽。
+- **有顶门廊**——屋顶向下延伸覆盖木平台，并由原木柱支撑。
+- **覆土或苔藓屋顶**——柔化整体轮廓，让建筑与场地相连。
 
-## Variants
-- **trapper cabin** — one room, no porch, very remote
-- **lodge** — larger, two storeys, wraparound porch, big stone fireplace
-- **fishing camp** — on stilts at a lake edge, dock attached
-- **winter cabin** — snow on the roof, smoke, deep drifts against the walls
+## 变体
+- **猎人小屋**——单室、无门廊，位于偏远地区
+- **山林旅舍**——体量更大、两层、环绕式门廊和大型石壁炉
+- **渔猎营地**——架空在湖岸，连接码头
+- **冬季小屋**——屋顶积雪、烟囱冒烟，墙边堆着深雪
 
-## Avoid
-- planed planks as the main wall material
-- brick, concrete, or anything manufactured
-- large glass; windows are small and few
+## 避免
+- 以刨光木板作为主要墙材
+- 砖、混凝土或任何工业制品
+- 大面积玻璃；窗户应少而小

@@ -1,46 +1,46 @@
 ---
 name: ender_pearls
-description: Hunt endermen for ≥12 ender pearls — warped forest (Nether) is the densest spot, overworld night works too. Pearls + blaze powder = eyes of ender.
+description: 狩猎末影人并取得至少 12 颗末影珍珠——下界诡异森林密度最高，主世界夜晚也可以。末影珍珠与烈焰粉可以合成末影之眼。
 ---
 
-# Skill: ender_pearls
+# 技能：收集末影珍珠
 
-Phase 4 of the dragon route. You need **12 pearls** for up to 12 eyes of ender (stronghold frames spawn ~10% pre-filled, but don't count on it).
+这是屠龙路线的第 4 阶段。你需要**12 颗珍珠**，用于合成最多 12 个末影之眼（要塞传送门框架生成时约有 10% 的概率已填入眼睛，但不要依赖运气）。
 
-## Done when
+## 完成条件
 
-- `get_self_status` shows **≥12 ender_pearl**
+- `get_self_status` 显示拥有**至少 12 个 ender_pearl**
 
-## Endermen, from your perspective
+## 从你的视角理解末影人
 
-- **Your gaze does not anger them.** Look-aggro is a player-only mechanic — you're an entity. No pumpkin tricks needed; they turn hostile only when you hit them. (Warn your *owner* not to stare, though.)
-- 40 HP, melee-only (~7 dmg), teleport when struck — often behind you. Expected; keep swinging.
-- **They teleport away from arrows.** `attack` closes and swings whenever it can reach one, which is what you want here; keep the fight on ground it can walk to.
-- They teleport out of rain and away from water. Check `get_world_info`: raining → wait or fight in the Nether instead. Don't fight next to water.
-- Drop: 0–1 pearl per kill (avg 0.5) → expect **~24 kills** for 12 pearls.
+- **你的注视不会激怒它们。** 盯视仇恨只针对玩家，而你是一个实体，因此无需南瓜头；只有主动攻击才会让它们敌对。（但应提醒*主人*不要盯着末影人。）
+- 生命值 40，只能近战（约 7 点伤害），受击后会传送，且经常出现在你身后。这是正常现象，应继续挥击。
+- **它们会躲避箭矢。** `attack` 在能够接近时会贴近挥击，正适合此处；应在身体可以步行到达的地面上交战。
+- 它们会躲雨并远离水。用 `get_world_info` 检查天气；下雨时等待，或改在下界战斗。不要在水边交战。
+- 每只掉落 0–1 颗珍珠（平均 0.5），收集 12 颗预计要击杀**约 24 只**。
 
-## Where to fight
+## 战斗地点
 
-| Spot | Density | Notes |
+| 地点 | 密度 | 说明 |
 |---|---|---|
-| **Warped forest (Nether)** | High — best choice | Teal forest; endermen everywhere, no rain, you're already in the Nether after phase 3 |
-| Overworld at night | Low | Plains/desert, flat sight-lines; `get_world_info` to confirm darkness |
-| Soul sand valley | Medium | Slow walking (soul sand), watch for ghasts |
+| **诡异森林（下界）** | 高——最佳选择 | 青绿色森林；末影人随处可见、不会下雨，而且第 3 阶段后你本就在下界 |
+| 主世界夜晚 | 低 | 平原或沙漠视野平坦；用 `get_world_info` 确认已入夜 |
+| 灵魂沙峡谷 | 中 | 灵魂沙会减慢移动，同时提防恶魂 |
 
-**Finding the forest: `locate_biome(biome="minecraft:warped_forest")` — never wander-and-scan.** It answers with coordinates and distance up to ~6400 blocks out. The answer is accurate to ~64 blocks: `goto` the x/z, then `scan_nearby_entities` to confirm endermen (or `scan_blocks` for `warped_nylium`). Not found → travel a few thousand blocks and retry, same as `locate_structure`.
+**寻找森林时调用 `locate_biome(biome="minecraft:warped_forest")`，绝不要漫游扫描。** 它会返回最远约 6400 格范围内的坐标和距离，精度约 64 格。用 `goto` 前往返回的 x/z，再用 `scan_nearby_entities` 确认末影人，或用 `scan_blocks` 查找 `warped_nylium`。未找到时先移动数千格再重试，与 `locate_structure` 相同。
 
-## Hunting loop
+## 狩猎循环
 
-1. `equip_item(diamond_sword)`, food check (`get_self_status`).
-2. `scan_nearby_entities` to confirm endermen around; reposition with `goto` if the area is dry.
-3. scan nearby endermen, then call `attack` with up to four returned runtime IDs; it collects each pearl before selecting the next target.
-4. `get_self_status` between batches; HP ≤ 8 → disengage, eat.
-5. Repeat until ≥12 pearls.
+1. `equip_item(diamond_sword)`，并用 `get_self_status` 检查食物。
+2. 用 `scan_nearby_entities` 确认附近有末影人；区域空旷时用 `goto` 调整位置。
+3. 扫描附近末影人，把最多四个返回的运行时 ID 交给 `attack`；每次选择下一个目标前会先收取当前珍珠。
+4. 每批之间调用 `get_self_status`；生命值 ≤ 8 时脱离战斗并进食。
+5. 重复操作，直到拥有至少 12 颗珍珠。
 
-## Piglin bartering (fallback only)
+## 猪灵交易（仅作为后备方案）
 
-Piglins drop ender pearls for gold ingots at ~2% per barter (~47 ingots per pearl on average). Only worth it if you looted a pile of gold; otherwise mining gold for this is slower than hunting. To barter: wear gold, drop ingots near a piglin, `collect_items` what it throws back.
+猪灵以约 2% 的概率用金锭交换末影珍珠（平均每颗需要约 47 个金锭）。只有已经搜刮到大量黄金时才值得尝试；专门挖金通常比狩猎更慢。交易时穿戴金质装备，把金锭丢到猪灵附近，再用 `collect_items` 收取它扔回的物品。
 
-## What to load next
+## 接下来加载什么
 
-≥12 pearls → mark phase 4 `completed`, then `load_skill(name="stronghold_finding")`. The endgame is two skills away.
+拥有至少 12 颗珍珠后，将第 4 阶段标记为 `completed`，再调用 `load_skill(name="stronghold_finding")`。距离终局只剩两个技能。

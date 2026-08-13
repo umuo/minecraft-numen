@@ -1,24 +1,23 @@
 ---
 name: world_atlas
-description: Every searchable structure and biome in MC 26.1 — exact registry ids with a one-line picture of each (what's there, dangers, loot), the classic id traps, family tags, and the structure-vs-biome routing rule. Load before locate_structure / locate_biome.
+description: MC 26.1 中所有可搜索的结构与群系——精确注册表 ID、每处的内容/危险/战利品概览、常见 ID 陷阱、家族标签，以及结构与群系的调用分流规则。使用 locate_structure / locate_biome 前加载。
 ---
 
-# Skill: world_atlas
+# 技能：世界图鉴
 
-`locate_structure` / `locate_biome` take EXACT registry ids (or `#tags`),
-current dimension only. A guessed id costs a failed round — this is the
-COMPLETE catalog (all 34 structures + all 65 biomes, extracted from the
-26.1 registry): if an id isn't here, it doesn't exist in vanilla.
+`locate_structure` / `locate_biome` 只接受精确的注册表 ID（或 `#tags`），
+并且只搜索当前维度。猜错 ID 会浪费一次调用；这里是从 26.1 注册表提取的
+**完整目录**（全部 34 种结构和 65 种群系）。某个 ID 不在这里，就不存在于原版游戏。
 
-## Id traps — memorize these four
+## ID 陷阱——记住这四项
 
-- Woodland mansion = `minecraft:mansion` (NOT woodland_mansion)
-- Ocean monument = `minecraft:monument` (NOT ocean_monument)
-- Jungle temple = `minecraft:jungle_pyramid` (NOT jungle_temple)
-- "Any village" = the TAG `#minecraft:village` — the five concrete ids are
+- 林地府邸 = `minecraft:mansion`（不是 woodland_mansion）
+- 海底神殿 = `minecraft:monument`（不是 ocean_monument）
+- 丛林神庙 = `minecraft:jungle_pyramid`（不是 jungle_temple）
+- “任意村庄”应使用标签 `#minecraft:village`；五个具体 ID 是
   `village_plains` / `village_desert` / `village_savanna` / `village_snowy` / `village_taiga`
 
-## Structures — Overworld
+## 结构——主世界
 
 | id | 一句话画像 |
 |---|---|
@@ -41,7 +40,7 @@ COMPLETE catalog (all 34 structures + all 65 biomes, extracted from the
 | `trial_chambers` | 试炼密室(Y -40..-20):试炼刷怪笼连战,**旋风人(breeze rod)与重核(锤)唯一来源**;金库要试炼钥匙 |
 | `ruined_portal` / `#minecraft:ruined_portal` | 废弃传送门:**现成黑曜石**+金质战利品;用 tag 搜任意变体(`_desert` `_jungle` `_swamp` `_mountain` `_ocean` `_nether`) |
 
-## Structures — Nether / End
+## 结构——下界 / 末地
 
 | id | 一句话画像 |
 |---|---|
@@ -50,7 +49,7 @@ COMPLETE catalog (all 34 structures + all 65 biomes, extracted from the
 | `nether_fossil` | 下界化石:几块骨块,灵魂沙峡谷里的小可怜,基本不值得专程搜 |
 | `end_city` | 末地城(仅外环岛,屠龙后经折跃门):潜影贝(壳=盒子)、**末地船上有鞘翅**;潜影弹会浮空,带牛奶或慢降 |
 
-## Biomes — Overworld(按家族)
+## 群系——主世界（按家族）
 
 | id | 一句话画像 |
 |---|---|
@@ -77,7 +76,7 @@ COMPLETE catalog (all 34 structures + all 65 biomes, extracted from the
 | `dripstone_caves` / `lush_caves` | 洞穴群系:钟乳石(滴水收集岩浆!)+额外铜矿;繁茂洞穴=发光浆果(食物+光源)、美西螈、黏土 |
 | `deep_dark` | 深暗之域(Y 极深):sculk、远古城市;**监守者——这不是战斗区域,是潜行区域** |
 
-## Biomes — Nether / End
+## 群系——下界 / 末地
 
 | id | 一句话画像 |
 |---|---|
@@ -90,7 +89,7 @@ COMPLETE catalog (all 34 structures + all 65 biomes, extracted from the
 | `end_highlands` / `end_midlands` / `end_barrens` / `small_end_islands` | 外环岛(经折跃门):高地=紫颂果+末地城的家;贫瘠/小岛=虚空跳台,小心摔出世界 |
 | `the_void` | 仅超平坦虚空预设存在,实战永远搜不到——见到这个名字说明搜错了 |
 
-## 常用 tag
+## 常用标签
 
 `#minecraft:is_forest` `#minecraft:is_ocean` `#minecraft:is_mountain`
 `#minecraft:is_jungle` `#minecraft:is_badlands`(群系);
@@ -100,6 +99,6 @@ COMPLETE catalog (all 34 structures + all 65 biomes, extracted from the
 ## 分流口诀
 
 - **结构**(有箱子/房间的建筑)→ `locate_structure`;**群系**(一片地形气候)→ `locate_biome`;
-- 拿错类别没关系,失败消息会给修正调用;拼错 id 会收到 "did you mean…";
+- 拿错类别没关系，失败消息会给出修正调用；拼错 ID 会收到“你是不是想输入……”的提示；
 - 只搜**当前维度**:fortress/bastion 在下界,end_city 在末地,其余主世界;
 - 数据包/模组加的注册表 id 同样合法。

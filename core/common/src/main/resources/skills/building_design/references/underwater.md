@@ -1,42 +1,34 @@
 # underwater — 水下
 
-Pressure shapes everything. Domes and spheres because they resist crushing,
-airlocks because doors cannot simply open, and light everywhere because sunlight
-gives out fast below the surface. Whether it reads as a research station or a
-drowned temple, the constants are curved enclosure, visible seals, and a
-blue-green cast over the entire palette.
+水压决定一切形态。穹顶和球体用于抵抗挤压，气闸用于解决门不能直接开启的问题，充足照明则是因为阳光在水下迅速衰减。无论最终看起来像研究站还是沉没神庙，核心都包括曲面围护、可见密封结构，以及笼罩整体配色的蓝绿色调。
 
-## Materials
-- **shell**: prismarine, prismarine_bricks, dark_prismarine — the base palette
-  of the whole style
-- **structure / seals**: iron_block, iron_bars, copper_block weathering green
-- **glass**: glass and tinted_glass in large curved domes
-- **light**: sea_lantern, glowstone, conduit — abundant; underwater without
-  light reads as a black blob
-- **floor**: prismarine_bricks, polished_deepslate
-- **growth**: kelp, sea_pickle, coral blocks, sponge on older structures
+## 材料
+- **外壳**：prismarine、prismarine_bricks、dark_prismarine——整个风格的基础配色
+- **结构／密封**：iron_block、iron_bars，以及风化成绿色的 copper_block
+- **玻璃**：glass、tinted_glass 组成大型曲面穹顶
+- **照明**：sea_lantern、glowstone、conduit——必须充足；缺少照明的水下建筑只会像黑色团块
+- **地面**：prismarine_bricks、polished_deepslate
+- **附着生物**：老建筑上放置 kelp、sea_pickle、coral_block、sponge
 
-## Proportions
-- domes and cylinders dominate; flat walls should be rare and short
-- dome span 8–20; several linked domes beat one huge one
-- corridors 3–4 wide connecting the modules, glazed on at least one side
-- towers or spires rising toward the surface, tapering
+## 比例
+- 以穹顶和圆柱为主；平墙应少且短
+- 穹顶跨度 8–20 格；多个相连穹顶优于一个巨大穹顶
+- 模块间用宽 3–4 格的走廊连接，至少一侧安装玻璃
+- 塔楼或尖顶向水面升起，并逐渐收分
 
-## Signature moves
-- **Linked domes** — several curved volumes joined by tube corridors. This
-  massing is the fastest read.
-- **Glazed dome roof** — a hemisphere of glass with an iron rib pattern.
-- **Airlock** — a small chamber between inside and outside, doors at both ends,
-  visibly sealed.
-- **Interior light spilling out** through the glass into the dark water.
+## 标志性手法
+- **相连穹顶**——多个曲面体量由管状走廊连接，这是最快被识别的整体形态。
+- **玻璃穹顶**——半球形玻璃配 iron_block 肋骨图案。
+- **气闸**——室内外之间设置小舱室，两端各有门，并清楚表现密封结构。
+- **内部光线外溢**——光透过玻璃照入黑暗水体。
 
-## Variants
-- **research station** — modern, iron and glass, equipment, submersible dock
-- **drowned temple** — prismarine ruin, columns, sea lanterns, guardians
-- **coral city** — built into a reef, coral and prismarine merging
-- **wreck** — a sunken ship colonised and half-converted into a dwelling
+## 变体
+- **研究站**——现代、铁与玻璃、设备以及潜水器码头
+- **沉没神庙**——prismarine 遗迹、柱子、sea_lantern 和 guardian
+- **珊瑚城市**——嵌入礁石，coral 与 prismarine 相互融合
+- **沉船居所**——沉船已被海洋生物占据，并有一半改造成住宅
 
-## Avoid
-- flat rectangular boxes
-- dark unlit exteriors
-- warm-toned materials; the palette stays blue-green
+## 避免
+- 平直矩形盒体
+- 黑暗、没有照明的外部
+- 暖色材料；配色必须保持蓝绿

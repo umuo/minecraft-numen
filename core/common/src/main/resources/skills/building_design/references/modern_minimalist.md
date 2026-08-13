@@ -1,44 +1,35 @@
 # modern_minimalist — 现代极简
 
-Nothing is applied; everything you see is either structure, enclosure, or view.
-The composition is made of intersecting flat planes and a lot of glass, with the
-roof usually flat and cantilevered so the wall beneath it can disappear. What
-makes it work is restraint plus one or two genuinely bold moves — a long
-cantilever, a double-height void — not an accumulation of details.
+不附加任何纯装饰；眼前所见的每一部分都属于结构、围护或景观。构图由相互穿插的平面和大量玻璃组成，屋顶通常平坦并向外悬挑，使下方墙体仿佛消失。成功关键是克制，再加一两个真正大胆的动作——长距离悬挑或通高空间——而不是堆积细节。
 
-## Materials
-- **planes**: white_concrete, smooth_quartz, polished_diorite, calcite
-- **contrast mass**: polished_deepslate, blackstone, gray_concrete
-- **warm relief**: stripped_oak_wood, stripped_birch_wood — one warm surface
-  keeps the whole thing from reading as a fridge
-- **glass**: glass and glass_pane in large uninterrupted panels
-- **floor / terrace**: polished_andesite, smooth_stone
-- **light**: hidden — sea_lantern or glowstone behind a slab lip, not fixtures
-- **accent**: none. If you want colour, make it one plant.
+## 材料
+- **平面**：white_concrete、smooth_quartz、polished_diorite、calcite
+- **对比体量**：polished_deepslate、blackstone、gray_concrete
+- **温暖调和**：stripped_oak_wood、stripped_birch_wood——一个温暖表面可避免整体像冰箱
+- **玻璃**：glass、glass_pane 组成大型连续玻璃面
+- **地板／露台**：polished_andesite、smooth_stone
+- **照明**：隐藏式——将 sea_lantern 或 glowstone 藏在台阶挑边后方，不使用外露灯具
+- **强调色**：不使用。如果需要颜色，只放一株植物。
 
-## Proportions
-- **flat roofs** with a 1-block parapet, or a thin slab oversailing 1–2
-- glass fills 0.4–0.7 of the main facade in a few large openings, never many
-  small ones
-- horizontal emphasis: long low boxes rather than tall ones
-- one cantilever of 2–4 with nothing under it — this is the money shot
+## 比例
+- 使用带 1 格女儿墙的**平屋顶**，或向外悬挑 1–2 格的薄板
+- 玻璃以少量大开口占主立面的 0.4–0.7，绝不能拆成许多小窗
+- 强调水平：使用狭长低矮盒体，而不是高盒体
+- 设置一处下方完全悬空、伸出 2–4 格的悬挑，这是最具表现力的画面
 
-## Signature moves
-- **Cantilever** — push an upper volume out past the one below and leave the
-  space beneath open.
-- **Intersecting boxes** — two or three rectangles of different materials
-  sliding past each other, not one box with holes.
-- **Full-height glazing** — floor to ceiling, corner to corner. Small windows
-  kill it instantly.
-- **Hidden light** — glow strips under slabs and behind reveals.
+## 标志性手法
+- **悬挑**——让上层体量越过下层向外伸出，并保持下方开放。
+- **穿插盒体**——两三个不同材质的矩形体量彼此错动，而非一个开洞的盒子。
+- **通高玻璃**——从地面到天花、从一个转角延伸到另一个转角；小窗会立刻破坏风格。
+- **隐藏照明**——在台阶下方和凹槽后方设置发光带。
 
-## Variants
-- **cliff house** — cantilevered over a drop, glass toward the view
-- **courtyard house** — blank to the street, entirely glazed inward
-- **pavilion** — single room, glass on all four sides, roof plane floating
-- **compound** — several small boxes linked by covered walks
+## 变体
+- **悬崖住宅**——悬挑到落差上方，玻璃朝向景观
+- **庭院住宅**——临街面封闭，朝内院一侧完全玻璃化
+- **玻璃亭**——单室、四面玻璃，屋顶平面仿佛悬浮
+- **组团住宅**——多个小盒体由有顶步道连接
 
-## Avoid
-- pitched roofs and any ornament
-- many small windows
-- more than three materials in total
+## 避免
+- 坡屋顶和任何装饰
+- 许多小窗
+- 总共使用超过三种材料

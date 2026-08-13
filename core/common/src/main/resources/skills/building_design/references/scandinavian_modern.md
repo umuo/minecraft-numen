@@ -1,44 +1,34 @@
 # scandinavian_modern — 北欧现代
 
-Modernism with the cold taken out of it. The shapes stay simple and the roofs
-often stay pitched — but bare — and every surface that can be timber is timber.
-It is built for long dark winters, so windows are large and light fittings are
-warm, and the whole thing is meant to feel calm rather than impressive. Black
-exterior, pale interior, is the classic pairing.
+一种去除冷漠感的现代主义。形体保持简洁，屋顶常保留坡顶但不加装饰；凡是能用木材的表面都使用木材。它为漫长黑暗的冬季而建，因此窗户很大，灯光温暖，整体追求平静而非威势。深黑外部与浅色内部是经典搭配。
 
-## Materials
-- **exterior cladding**: dark_oak_planks, spruce_planks, polished_deepslate,
-  black_concrete — vertical boards, often stained near-black
-- **interior / soffits**: stripped_birch_wood, stripped_oak_wood, birch_planks —
-  pale and warm
-- **roof**: dark_oak_slab, deepslate_tiles, gray_concrete — same colour as the
-  walls, so the whole form reads as one shape
-- **glass**: large panes, minimal frames
-- **light**: lantern; warm, low, and plentiful
-- **planting**: moss_block roof, birch trees, low shrubs
+## 材料
+- **外墙饰面**：dark_oak_planks、spruce_planks、polished_deepslate、black_concrete——竖向木板，通常染成近黑色
+- **室内／檐底**：stripped_birch_wood、stripped_oak_wood、birch_planks——浅色温暖
+- **屋顶**：dark_oak_slab、deepslate_tiles、gray_concrete——与墙体同色，使整个体量呈现为一个连续形状
+- **玻璃**：大型玻璃面，框架尽量少
+- **照明**：lantern；温暖、低矮且数量充足
+- **植物**：moss_block 屋顶、白桦树和低矮灌木
 
-## Proportions
-- simple gable, roof rise 0.5–0.8 of half-span, **no eaves at all** — the roof
-  stops flush with the wall
-- windows large but few; one big opening per elevation beats five small ones
-- single storey plus a loft under the pitch
-- long low massing, sometimes several gables in a row
+## 比例
+- 简单双坡顶，高度为半跨的 0.5–0.8，并且**完全没有挑檐**——屋顶与墙面齐平结束
+- 窗户大而少；每个立面一个大开口优于五个小开口
+- 单层加坡顶下阁楼
+- 狭长低矮体量，有时将多个山墙连续排列
 
-## Signature moves
-- **Monochrome envelope** — roof and walls the same dark colour with no eave
-  break, so the house reads as one extruded shape.
-- **Zero overhang** — this is what distinguishes it from every traditional
-  pitched-roof style. Flush is deliberate.
-- **Pale interior seen through big glass** — the warm inside is the contrast.
-- **Green roof** — moss or grass on the pitch, tying it into the site.
+## 标志性手法
+- **单色围护体**——屋顶与墙体使用同一深色，檐口不分断，使住宅像一个被挤出的完整形状。
+- **零挑檐**——这一点将其与所有传统坡屋顶风格区分开；齐平是刻意设计。
+- **透过大玻璃看见浅色室内**——温暖内部形成核心对比。
+- **绿色屋顶**——坡顶覆盖苔藓或草地，使建筑融入场地。
 
-## Variants
-- **summer cabin** — small, black timber, one big window toward the water
-- **house with loft** — full gable used as a bedroom, dormer or gable window
-- **row of gables** — several identical volumes joined side by side
-- **sauna** — tiny, dark outside, all pale wood inside, by water
+## 变体
+- **夏季小屋**——小型黑木屋，仅用一面大窗朝向水面
+- **阁楼住宅**——完整利用山墙空间作为卧室，并设置老虎窗或山墙窗
+- **连续山墙**——多个相同体量并排连接
+- **桑拿房**——位于水边，体量很小，外部深色、内部全为浅木
 
-## Avoid
-- overhanging eaves and decorative bargeboards
-- multiple exterior colours
-- ornament of any kind
+## 避免
+- 外挑屋檐和装饰封檐板
+- 多种外部颜色
+- 任何装饰

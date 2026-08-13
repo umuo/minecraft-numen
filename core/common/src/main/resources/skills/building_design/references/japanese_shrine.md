@@ -1,43 +1,35 @@
 # japanese_shrine — 神社
 
-Where the house whispers, the shrine announces. Vermilion against dark timber
-and white gravel exists to be seen from far off and to mark a threshold: you are
-leaving ordinary ground. Everything is axial and repeated — gate, path, gate,
-steps, hall — because the walk is the ritual. The building at the end is often
-smaller than the approach that leads to it.
+如果说民居是在低语，神社就是在宣告。朱红色与深木色、白砂砾形成强烈对比，既能从远处被看见，也标记着一道边界：从这里开始离开日常空间。一切沿轴线排列并反复出现——鸟居、参道、鸟居、台阶、正殿——因为行进过程本身就是仪式。尽端建筑往往还没有通往它的参道宏大。
 
-## Materials
-- **columns / frame**: red_concrete, red_terracotta, crimson_planks — vermilion
-  is required here and forbidden in domestic work
-- **infill**: white_concrete, smooth_quartz, bone_block
-- **roof**: deepslate_tiles, blackstone, dark_prismarine; weathered copper reads
-  as aged bronze
-- **gravel court**: white_concrete_powder, calcite, diorite, bone_block
-- **light**: rows of lantern; soul_lantern for a colder, stranger shrine
-- **accent**: gold_block, sparingly, at ridge ends and finials
+## 材料
+- **柱子／框架**：red_concrete、red_terracotta、crimson_planks——这里必须使用朱红，而民居中禁止使用
+- **填充墙**：white_concrete、smooth_quartz、bone_block
+- **屋顶**：deepslate_tiles、blackstone、dark_prismarine；风化 copper 可表现老化青铜
+- **砂砾庭院**：white_concrete_powder、calcite、diorite、bone_block
+- **照明**：成排 lantern；更冷峻怪异的神社可用 soul_lantern
+- **强调材料**：gold_block 少量用于屋脊端部和顶饰
 
-## Proportions
-- the **approach** is at least as long as the shrine is wide, usually far longer
-- gates repeat along it at shortening intervals
-- main hall raised 2–3 on a stone platform, reached by steps
-- roof rise 0.5–0.8 of half-span — steeper than a house, eaves still deep
-- strict bilateral symmetry about the path
+## 比例
+- **参道**至少与神社宽度相等，通常要长得多
+- 鸟居沿参道重复排列，间距逐渐缩短
+- 正殿抬高在 2–3 格高的石台上，通过台阶抵达
+- 屋顶高度为半跨的 0.5–0.8，比民居更陡，但屋檐仍然深远
+- 以参道为轴严格左右对称
 
-## Signature moves
-- **Torii** — two columns, two crossbeams; the upper beam longer and slightly
-  curved, the lower one shorter. Repeat it. One torii is a prop; three is a path.
-- **Threshold sequence** — gate, gravel, steps, hall. Never let the visitor
-  arrive at the hall directly.
-- **Paired guardians** flanking the steps: stone blocks, lanterns, or banners.
-- **Ridge finials** — short crossed beams standing on the roof peak.
+## 标志性手法
+- **鸟居**——两根柱、两道横梁；上横梁更长并略带弧度，下横梁较短。要重复设置：一座鸟居只是摆件，三座才构成参道。
+- **门槛序列**——鸟居、砂砾、台阶、正殿。绝不能让访客直接抵达正殿。
+- **成对守护物**——分立台阶两侧，可用石块、灯笼或旗帜表现。
+- **屋脊顶饰**——屋脊上竖立短小交叉横木。
 
-## Variants
-- **inari** — dozens of gates forming a tunnel; small fox shrines along it
-- **mountain shrine** — perched on a cliff, the approach is a long stair
-- **water shrine** — gate standing in water, hall on a pier
-- **forest shrine** — small hall lost among huge trees, rope-marked trunks
+## 变体
+- **稻荷神社**——数十座鸟居形成隧道，沿途设置小型狐狸神龛
+- **山间神社**——位于悬崖之上，参道是一段长阶梯
+- **水上神社**——鸟居立于水中，正殿建在栈桥上
+- **森林神社**——小殿隐藏于巨树之间，树干以注连绳标记
 
-## Avoid
-- domestic restraint; this is the one Japanese style that should be loud
-- asymmetry on the approach axis
-- placing the hall at the entrance with no walk in front of it
+## 避免
+- 民居式克制；这是唯一应该醒目的日本风格
+- 参道轴线不对称
+- 将正殿直接放在入口处，前方没有行进空间

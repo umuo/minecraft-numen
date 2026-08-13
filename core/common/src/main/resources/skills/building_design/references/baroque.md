@@ -1,44 +1,35 @@
 # baroque — 巴洛克
 
-Baroque takes classical parts and bends them for effect. Where a renaissance
-facade would sit flat and calm, baroque pushes the centre forward, curves the
-plan, doubles the columns, and piles ornament exactly where the eye lands. It is
-theatre: the building is staged for an approaching viewer, and the drama peaks
-at the entrance and the dome.
+巴洛克把古典构件弯折并强化戏剧效果。文艺复兴立面原本平静而扁平，巴洛克则让中心前凸、平面弯曲、柱子成对，并把装饰堆积在视线落点。建筑如同为接近它的观众布置的舞台，戏剧高潮位于入口和穹顶。
 
-## Materials
-- **body**: smooth_quartz, quartz_block, calcite, bone_block — pale and rich
-- **order** (columns, pilasters): quartz_pillar, chiseled_quartz_block
-- **trim and mouldings**: quartz_stairs, quartz_slab — used generously in
-  horizontal bands
-- **roof / dome**: copper for verdigris, gray_concrete, deepslate_tiles
-- **accent**: gold_block — this is one of the few styles where gold is correct,
-  concentrated on the centre and the dome
-- **light**: chandeliers of lantern and chain; lanterns lining the approach
+## 材料
+- **主体**：smooth_quartz、quartz_block、calcite、bone_block——浅色而华贵
+- **柱式**：quartz_pillar、chiseled_quartz_block，用于圆柱和壁柱
+- **饰带与线脚**：大量使用 quartz_stairs、quartz_slab 形成水平带
+- **屋顶/穹顶**：带铜绿的铜、gray_concrete、deepslate_tiles
+- **点缀**：gold_block——少数适合黄金的风格之一，但只集中于中心和穹顶
+- **照明**：灯笼与锁链组成吊灯；道路两侧排列灯笼
 
-## Proportions
-- strong central emphasis: the middle third of the facade steps forward 1–2
-- columns paired rather than evenly spaced
-- dome height roughly equal to the drum it stands on
-- generous horizontal cornices at every floor line
-- grand stair at the entrance, wider at the bottom than the top
+## 比例
+- 立面中间三分之一向前凸出 1–2 格
+- 柱子成对布置，而不是等距排列
+- 穹顶高度约等于下方鼓座高度
+- 每条楼层线都有宽大的水平檐口
+- 入口大台阶下宽上窄
 
-## Signature moves
-- **Advancing centre** — break the facade plane forward at the middle. This one
-  move does most of the work.
-- **Paired columns** — two close together, then a gap, then two more.
-- **Dome on a drum** — a cylindrical storey with windows, then the dome, then a
-  lantern on top.
-- **Curved forecourt** — approach with sweeping walls or colonnades that funnel
-  the viewer toward the door.
+## 标志手法
+- **中心前凸**——让立面中部向前突破原平面
+- **成对柱子**——两根紧靠，留出间隔，再放下一对
+- **鼓座上的穹顶**——有窗圆柱层、穹顶及顶部小亭
+- **弧形前庭**——用弧墙或柱廊把视线引向大门
 
-## Variants
-- **palace** — long wings, central pavilion, formal gardens on axis
-- **church** — dome over the crossing, twin bell towers on the facade
-- **garden folly** — small, extremely ornamented, sited as a view stopper
-- **civic hall** — grand stair, clock, sculpture on the skyline
+## 变体
+- **宫殿**——长翼、中央亭和轴线上的正式花园
+- **教堂**——交叉处穹顶，立面两侧钟楼
+- **园林小品**——体量小但装饰极繁，作为视线终点
+- **市政厅**——大台阶、时钟和天际线雕塑
 
-## Avoid
-- flat unbroken facades
-- restraint; this style is supposed to be excessive
-- gothic verticality — baroque reads horizontal and layered
+## 避免
+- 平坦且不分段的立面
+- 过度克制；此风格本就应当华丽
+- 哥特式竖向感；巴洛克强调水平与层叠

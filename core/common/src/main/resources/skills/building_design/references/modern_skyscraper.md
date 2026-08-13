@@ -1,42 +1,34 @@
 # modern_skyscraper — 摩天楼
 
-A tower is a repeated floor plate multiplied until it is tall, so the design
-question is what happens at the three places repetition breaks: the ground, the
-skyline, and any point where the shape changes. Nail those and the middle can be
-pure rhythm. The curtain wall is a skin hung on the frame, not a wall — it
-should read as taut and thin.
+塔楼是把标准楼板重复到足够高，因此真正的设计问题出现在重复被打破的三个位置：地面、天际线，以及形体发生变化的节点。处理好这三处，中段就可以保持纯粹节奏。幕墙是悬挂在框架上的表皮，而非承重墙；必须显得绷紧而轻薄。
 
-## Materials
-- **curtain wall**: glass, tinted_glass, light_blue_stained_glass,
-  gray_stained_glass — the field of the whole building
-- **mullions** (the grid between glass): polished_deepslate, gray_concrete,
-  iron_block — thin and continuous
-- **core / solid ends**: smooth_stone, polished_andesite, white_concrete
-- **podium at street level**: polished_blackstone, stone_bricks — heavier
-- **crown**: iron_bars, sea_lantern, copper for something that catches light
-- **light**: sea_lantern behind glass so the tower glows at night
+## 材料
+- **幕墙**：glass、tinted_glass、light_blue_stained_glass、gray_stained_glass——构成整栋建筑的主要表面
+- **竖梃**（玻璃间网格）：polished_deepslate、gray_concrete、iron_block——纤细且连续
+- **核心筒／实墙端部**：smooth_stone、polished_andesite、white_concrete
+- **临街裙房**：polished_blackstone、stone_bricks——更加厚重
+- **塔冠**：iron_bars、sea_lantern，以及能反光的 copper
+- **照明**：在玻璃后放置 sea_lantern，使塔楼夜间发光
 
-## Proportions
-- height 6–15 times the short plan dimension; commit to slenderness
-- floor rhythm every 3–4 blocks, absolutely regular through the shaft
-- podium 0.1–0.2 of total height and wider than the tower above it
-- setbacks, if used, at 0.5 and 0.75 of the height
+## 比例
+- 高度为平面短边的 6–15 倍，必须坚持修长感
+- 每 3–4 格重复一层，在塔身范围内保持绝对规律
+- 裙房占总高度的 0.1–0.2，并宽于上方塔楼
+- 若采用退台，分别位于总高度的 0.5 和 0.75 处
 
-## Signature moves
-- **Three-part composition** — base, shaft, crown, each visibly different.
-  A tower that is one texture from ground to top reads as a wall.
-- **Continuous vertical mullions** running the full height uninterrupted.
-- **Setback** — step the plan in as it rises; the shoulders are what give a
-  tower a silhouette.
-- **Lit crown** — the top does something at night.
+## 标志性手法
+- **三段式构图**——基座、塔身、塔冠必须清晰不同。从地面到顶部只有一种纹理的塔，看起来会像一面墙。
+- **连续竖梃**——不间断贯穿整个高度。
+- **退台**——平面随高度逐级收进；形成的肩部赋予塔楼鲜明轮廓。
+- **发光塔冠**——顶部在夜间必须有所表现。
 
-## Variants
-- **glass box** — pure curtain wall, minimal crown, corporate
-- **art deco tower** — stepped setbacks, ornamented crown, spire
-- **twisted / tapered** — plan rotating or shrinking each floor
-- **mixed podium** — retail base with a plaza, tower set back above it
+## 变体
+- **玻璃盒塔楼**——纯幕墙、简洁塔冠、企业风格
+- **装饰艺术塔楼**——阶梯退台、装饰塔冠和尖塔
+- **扭转／收分塔楼**——平面逐层旋转或缩小
+- **复合裙房**——带广场的商业基座，塔楼从其上后退升起
 
-## Avoid
-- a uniform texture from bottom to top
-- pitched roofs
-- thick heavy mullions; the skin must look thin
+## 避免
+- 从底到顶使用统一纹理
+- 坡屋顶
+- 粗厚沉重的竖梃；表皮必须看起来轻薄

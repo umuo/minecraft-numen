@@ -1,43 +1,34 @@
 # korean_hanok — 韩屋
 
-Hanok sits between Chinese formality and Japanese restraint and looks like
-neither. The roof line is its own thing: a long, gentle, almost sagging curve
-that lifts only at the very ends. Walls are pale earth between dark timber, the
-plan is usually an L or U opening onto a packed-earth yard, and the whole
-building hugs the ground. It reads warm rather than austere.
+韩屋介于中式庄重与日式克制之间，却不与二者中的任何一种相同。它有独特的屋顶线：修长、柔缓，中部仿佛微微下垂，只在最末端向上翘起。墙体是在深色木框架之间填入的浅色土墙，平面通常呈 L 或 U 形，朝向夯土院落；整体紧贴地面，气质温暖而非冷峻。
 
-## Materials
-- **frame**: dark_oak_log, stripped_dark_oak_log — visible posts and beams
-- **infill**: white_terracotta, bone_block, smooth_quartz, calcite — a warm
-  off-white, never a cold one
-- **roof**: deepslate_tiles, gray_concrete, cobbled_deepslate for tile;
-  hay_block for the thatched variant
-- **floor**: spruce_planks, with screen doors above
-- **footing**: stone, andesite, cobblestone — a visible stone band under the
-  timber
-- **light**: lantern under the eave, low and warm
+## 材料
+- **框架**：dark_oak_log、stripped_dark_oak_log——外露柱梁
+- **填充墙**：white_terracotta、bone_block、smooth_quartz、calcite——温暖的灰白色，不能是冷白
+- **屋顶**：瓦顶使用 deepslate_tiles、gray_concrete、cobbled_deepslate；茅草变体使用 hay_block
+- **地板**：spruce_planks，上方设置格栅门
+- **勒脚**：stone、andesite、cobblestone——木构下方必须有可见石带
+- **照明**：檐下低挂温暖的 lantern
 
-## Proportions
-- long and low; frontage two to three times the depth
-- walls 3–4, plus another 1 for the stone footing
-- roof rise 0.35–0.5 of half-span — **shallower than Japanese**, and the curve
-  matters more than the pitch does
-- eaves 2–3, lifting noticeably at the two ends only
+## 比例
+- 形态狭长低矮；正面宽度为进深的 2–3 倍
+- 墙高 3–4 格，石勒脚另加 1 格
+- 屋顶高度为半跨的 0.35–0.5——**比日式屋顶更平缓**，曲线比坡度更重要
+- 屋檐伸出 2–3 格，只在两端明显起翘
 
-## Signature moves
-- **Sagging ridge, lifted ends** — the roof line dips slightly at the middle and
-  turns up at the corners. Slabs at the ends approximate it well.
-- **L or U plan around a yard** — the yard is packed earth, not a garden.
-- **Stone footing** — a clear band of stone between ground and timber.
-- **Full-bay lattice doors** running floor to eave, not punched windows.
+## 标志性手法
+- **中垂端翘的屋脊**——屋顶线在中部微微下垂，角部再向上转折；端部使用台阶可以很好地近似表现。
+- **围绕院落的 L 或 U 形平面**——院子是夯土地面，不是花园。
+- **石勒脚**——地面与木构之间设置一条清晰石带。
+- **整开间格栅门**——从地面一直延伸到屋檐，而不是墙面上的小窗洞。
 
-## Variants
-- **giwa** — tiled roof, gentry house, larger and more formal
-- **choga** — thatched roof, farmhouse, rounder and softer
-- **pavilion** — open-sided, on a stone platform, overlooking water
-- **village cluster** — several hanok sharing walls around linked yards
+## 变体
+- **瓦家**——瓦顶、士绅住宅，体量更大且更正式
+- **草家**——茅草顶农舍，轮廓更圆润柔和
+- **亭阁**——开放式侧面，坐落于石台上并俯瞰水面
+- **村落组团**——多座韩屋共享墙体，围绕相连院落布置
 
-## Avoid
-- steep roofs and tall walls
-- vermilion columns (Chinese and shrine vocabulary)
-- small punched windows; openings here are full-bay screens
+## 避免
+- 陡屋顶和高墙
+- 朱红色柱子，那属于中式或神社语汇
+- 小型窗洞；这里的开口是整开间屏门

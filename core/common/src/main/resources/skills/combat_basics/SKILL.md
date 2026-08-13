@@ -1,61 +1,61 @@
 ---
 name: combat_basics
-description: Generic combat tactics for the Numen entity - target authorization, what the body decides for you, drops, retreat rules, and aggro pitfalls.
+description: Numen 实体的通用战斗策略——目标授权、身体自动决策、掉落物处理、撤退规则以及仇恨机制陷阱。
 ---
 
-# Skill: combat_basics
+# 技能：战斗基础
 
-Load this support skill before a combat-heavy phase.
+进入战斗密集的阶段前，先加载此辅助技能。
 
-## Choose and authorize targets
+## 选择并授权目标
 
-Combat does not scan by mob type. First call `scan_nearby_entities`, select the exact entities you intend to attack, then pass 1-20 returned runtime integer IDs:
+战斗不会按生物类型自动扫描。先调用 `scan_nearby_entities`，选出确实要攻击的实体，再传入 1–20 个返回的运行时整数 ID：
 
 ```json
 {"entity_ids":[184,207,215]}
 ```
 
-Players and mobs use the same ID field. Never guess IDs and never include an entity you do not intend to attack. The task re-resolves moving targets every tick, paths across terrain when they are far away, and attacks only the authorized IDs.
+玩家和生物使用相同的 ID 字段。绝不要猜测 ID，也不要加入任何无意攻击的实体。任务每个游戏刻都会重新解析移动中的目标；目标距离较远时会跨越地形寻路，并且只攻击已授权的 ID。
 
-## What the body decides, not you
+## 由身体决定，而不是由你决定
 
-`attack` picks the weapon and the range on its own, every tick:
+`attack` 每个游戏刻都会自动选择武器和攻击距离：
 
-- **Can it reach the target?** Then it closes in and swings. This also conserves arrows.
-- **Can it not get there** — the target is flying, across a chasm, on a pillar? Then it shoots, if it has a bow or crossbow with arrows.
-- **Does the target explode?** Then it keeps its distance and shoots, or reports that it cannot take that fight.
+- **能够接近目标吗？** 能够接近时就贴近并挥击，同时节省箭矢。
+- **无法接近目标吗？** 例如目标正在飞行、隔着峡谷或站在柱子上；此时如果有弓或弩及箭矢，就会射击。
+- **目标会爆炸吗？** 此时会保持距离并射击，或者报告当前无法进行这场战斗。
 
-You cannot see the distance at the moment it swings, the line of sight, or the arrow count. Do not try to specify a weapon — there is no parameter for it.
+你无法看到挥击瞬间的距离、视线或箭矢数量。不要尝试指定武器——工具没有这样的参数。
 
-It also picks the strongest weapon you own **against that specific target**: a Smite sword beats a plain better one against undead, and Bane of Arthropods beats it against spiders.
+系统还会针对**当前特定目标**选择你拥有的最强武器：对付亡灵时，带亡灵杀手的剑可能优于基础属性更高的普通剑；对付蜘蛛时，节肢杀手也可能更强。
 
-## Before the fight
+## 战斗前
 
-1. Use `get_self_status` to check HP, equipment, food, and dimension.
-2. Carry a melee weapon, and carry a bow with arrows if the phase involves anything airborne. Without arrows, an unreachable target is simply reported as unreachable.
-3. Keep dense food available and heal with `eat_item` before critical HP. Combat does not interrupt an active eating, potion, bow, or other use action.
+1. 使用 `get_self_status` 检查生命值、装备、食物和所在维度。
+2. 携带近战武器；如果此阶段会遇到空中目标，还要携带弓和箭。没有箭时，无法接近的目标只会被报告为不可达。
+3. 准备高饱食度食物；生命值危险时先用 `eat_item` 恢复。战斗不会打断正在进行的进食、喝药、拉弓或其他使用动作。
 
-## During and after the fight
+## 战斗期间与战斗结束后
 
-The task follows the nearest authorized entity while it is out of reach, waits for weapon switching, target recovery and the vanilla attack cooldown, aims visibly, stops sprinting before the hit, and uses the native attack.
+目标在攻击范围外时，任务会追踪最近的已授权实体；它会等待武器切换、目标恢复和原版攻击冷却，进行可见瞄准，在命中前停止疾跑，并使用原生攻击动作。
 
-After every kill, target selection pauses while the body walks over newly spawned drops around that death point. Do not call `collect_items` for ordinary combat drops. The final result reports defeated, lost and unreachable IDs plus `loot_gained`.
+每次击杀后，目标选择会暂时停止，身体会走到死亡地点附近捡取新生成的掉落物。普通战斗掉落无需再调用 `collect_items`。最终结果会报告已击败、丢失和不可达的 ID，以及 `loot_gained`。
 
-## Retreat rules
+## 撤退规则
 
-Combat runs in the background. Check `task_finished` and `get_self_status` between engagements.
+战斗在后台运行。每轮交战之间检查 `task_finished` 和 `get_self_status`。
 
-- HP <= 8: stop the task, move 20+ blocks away, heal, then scan again because runtime IDs may have changed.
-- Weapon about to break or no arrows: disengage and restock.
-- Before a long `goto`, clear or outrun active pursuers.
-- Avoid cliff edges, lava corridors, deep water, and cramped ledges where knockback or drops become unsafe.
+- 生命值 ≤ 8：停止任务，移动到 20 格以外，恢复后重新扫描，因为运行时 ID 可能已经变化。
+- 武器即将损坏或箭矢耗尽：脱离战斗并补给。
+- 执行长距离 `goto` 前，先清除或甩开正在追击的敌人。
+- 避开悬崖边缘、熔岩走廊、深水和狭窄平台，以免击退或掉落物带来危险。
 
-## Aggro pitfalls
+## 仇恨机制陷阱
 
-- **Creepers**: the body will not melee one — it keeps outside the blast and shoots. Without a bow it reports the creeper as unreachable rather than trading a life for it. That is correct; get a bow or leave it.
-- Zombified piglins group-aggro. Do not authorize one unless the group fight is intentional.
-- Piglins attack players without gold armor.
-- Endermen teleport in a fight; rescanning may be needed if one leaves the loaded world.
-- Wither skeletons apply Wither; kill quickly.
+- **苦力怕**：身体不会与它近战，而会保持在爆炸范围外射击。没有弓时，它会将苦力怕报告为不可达，而不是冒生命危险。这是正确行为；请准备弓或离开。
+- 僵尸猪灵会产生群体仇恨。除非有意与整群战斗，否则不要授权其中任何一只。
+- 未穿金质盔甲时，猪灵会主动攻击玩家。
+- 末影人在战斗中会传送；如果它离开已加载区域，可能需要重新扫描。
+- 凋灵骷髅会施加凋零效果，应尽快击杀。
 
-Per-enemy tactics live in `blaze_rods`, `ender_pearls`, and `dragon_combat`. Gear progression lives in `tier_progression`.
+具体敌人的策略位于 `blaze_rods`、`ender_pearls` 和 `dragon_combat`；装备成长路线位于 `tier_progression`。

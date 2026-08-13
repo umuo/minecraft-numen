@@ -1,43 +1,34 @@
 # witch_hut — 女巫小屋
 
-A hut that has been leaning for a long time and has not fallen yet. Every line
-is slightly off: the walls lean, the roof sags, the chimney is crooked, and the
-whole thing stands on spindly stilts over water that should not be that colour.
-It is small, dark, cluttered with hanging things, and lit from inside by
-something you would rather not identify.
+一间已经倾斜很久、却仍未倒塌的小屋。每条线都有些不正：墙体歪斜、屋顶下垂、烟囱扭曲，整栋建筑架在纤细高脚柱上，立于颜色可疑的水面。它小巧、阴暗，挂满杂物，内部被某种最好不要辨认的东西照亮。
 
-## Materials
-- **walls**: dark_oak_planks, spruce_planks, stripped_dark_oak_log — dark and
-  patched; mix in a couple of mismatched planks
-- **roof**: dark_oak_slab, dried_kelp_block, hay_block — rotting thatch
-- **stilts**: oak_log, dark_oak_log, sometimes at visibly different angles
-- **chimney**: cobblestone, mossy_cobblestone, cracked_stone_bricks — leaning
-- **light**: soul_lantern, soul_campfire, candles, redstone_torch — sickly and
-  cold, never warm yellow
-- **hanging clutter**: vines, cobweb, lanterns on chains, dried_kelp,
-  brewing_stand, cauldron on the porch
+## 材料
+- **墙体**：dark_oak_planks、spruce_planks、stripped_dark_oak_log——深色且经过修补；混入少量不匹配木板
+- **屋顶**：dark_oak_slab、dried_kelp_block、hay_block——腐烂茅草
+- **高脚柱**：oak_log、dark_oak_log，有时明显朝不同角度倾斜
+- **烟囱**：cobblestone、mossy_cobblestone、cracked_stone_bricks——整体歪斜
+- **照明**：soul_lantern、soul_campfire、candle、redstone_torch——病态冷光，绝不能使用温暖黄光
+- **悬挂杂物**：vines、cobweb、链条上的 lantern、dried_kelp，以及门廊上的 brewing_stand、cauldron
 
-## Proportions
-- tiny: one room, walls 3–4
-- stilts 2–5 above swamp water, of uneven length so the floor tilts
-- roof rise 1.0–1.4 of half-span — tall, steep and sagging
-- chimney leaning 1–2 off vertical
+## 比例
+- 体量极小：单室，墙高 3–4 格
+- 高脚柱将房屋抬至沼泽水面上 2–5 格，各柱长度不一，使地板倾斜
+- 屋顶高度为半跨的 1.0–1.4，高、陡且下垂
+- 烟囱偏离垂直方向 1–2 格
 
-## Signature moves
-- **Nothing is plumb** — offset each wall course by a block here and there. The
-  wonkiness *is* the style; a straight witch hut is just a shed.
-- **Uneven stilts** over dark water, with a crooked plank walkway to reach it.
-- **Cauldron and brewing** on the porch, steaming.
-- **Cold light** — soul fire and soul lanterns only. Warm light makes it cosy,
-  which is wrong.
+## 标志性手法
+- **没有任何部分垂直**——墙体每隔几层偶尔错开一格。歪斜本身就是风格；笔直的女巫小屋只是一间棚子。
+- **不等长高脚柱**——立于黑水中，并通过歪斜木板栈道抵达。
+- **门廊炼药区**——放置冒着蒸汽的 cauldron 和 brewing_stand。
+- **冷光**——只使用灵魂火与灵魂灯笼。暖光会让房子显得舒适，这是错误的。
 
-## Variants
-- **swamp hut** — the classic, over stagnant water, mangroves around
-- **forest hovel** — on the ground in deep woods, mushrooms growing on the roof
-- **bone hut** — bone_block frame, skulls on posts, no timber at all
-- **abandoned** — roof caved, cauldron tipped, cobwebs everywhere
+## 变体
+- **沼泽小屋**——经典形式，建在死水上，周围是红树林
+- **森林陋居**——位于密林地面，屋顶长着蘑菇
+- **白骨小屋**——bone_block 框架，柱上放 skull，完全不使用木材
+- **废弃小屋**——屋顶塌陷、坩埚倾倒，到处是蜘蛛网
 
-## Avoid
-- straight walls and level floors
-- warm inviting light
-- clean or new-looking materials
+## 避免
+- 笔直墙体和水平地板
+- 温暖宜人的照明
+- 干净或崭新的材料

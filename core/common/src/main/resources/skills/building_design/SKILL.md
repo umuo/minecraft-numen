@@ -1,402 +1,254 @@
 ---
 name: building_design
-description: Building design doctrine for the build/blueprint tools - planning workflow, size reference, single-floor rule, door alignment, composition order with walls, quality checklist. Load BEFORE designing or building any non-trivial structure.
+description: build/blueprint 工具的建筑设计准则——规划流程、尺寸参考、单层地板规则、门与地面对齐、墙体等构件的组合顺序，以及质量检查清单。设计或建造任何非简单结构前必须加载。
 ---
 
-# Skill: building_design
-
-Load this before designing anything bigger than a few blocks, and again when a
-finished build looks wrong.
-
-## Workflow
-
-1. PLAN first: purpose, footprint, height, one main material + one accent material.
-2. Inspect the site (goto / look around): flat enough? big enough? Note the GROUND
-   level — every vertical decision below is anchored to it.
-3. Build big-to-small in ONE build call where possible: a single ordered `ops`
-   stream — volumes first, stateful details (`set`, `set_door`) last; later ops
-   overwrite earlier cells.
-4. After task_finished, LOOK at the result, run the checklist below, patch gaps
-   with a small follow-up build call.
-
-## Size reference (width x depth x height)
-
-- hut / shed: 7 x 7 x 6      - house / shop: 12 x 10 x 8
-- mansion / temple: 18 x 15 x 12      - castle / cathedral: 30 x 25 x 20
-
-Interior walls at least 3 tall so rooms don't feel cramped.
-
-## THE SINGLE-FLOOR RULE (most common mistake)
-
-A building has EXACTLY ONE floor slab. Pick one of:
-- a 1-thick `box` foundation, then `walls` on top of it; or
-- a hollow `box` whose bottom face IS the floor (then do NOT add a foundation).
-
-NEVER stack a foundation box under a hollow box — the hollow box's bottom face
-adds a second floor, the doorway ends up half-buried, and the door jams against
-the raised interior. Use the `walls` shape (vertical perimeter only, no top or
-bottom face) for wall rings; reserve hollow `box` for fully sealed shells.
-
-## Door & floor alignment
-
-- door opening = TWO air cells, cut AFTER the walls;
-- the LOWER door cell sits at the level a body occupies when standing on the
-  interior floor — i.e. directly above the floor slab;
-- interior walking level should equal outside ground; if the floor slab raises
-  it by one, put a step block outside the door;
-- walk the doorway in your head: outside ground -> (step?) -> door lower cell
-  -> interior floor. Any solid block in that line means the door is jammed.
-
-## Composition order (matches the bottom-up layered builder)
-
-1. foundation slab (`box`, 1 thick — this IS the interior floor)
-2. `walls` perimeter on top of it
-3. `roof` over the wall rect — see the roof section below. For a dome use the
-   top half of a hollow `sphere` instead.
-4. openings: `set` air cells for windows (1-2 above floor); `set_door` cuts and
-   fits the whole door in one op
-5. **interior fittings** — see the Interiors section. This is not a garnish: on
-   an inhabited floor it is 35-50% of the cells, so plan the room purposes and
-   the wall lines before you start writing ops, not after.
-6. exterior details: `set` stairs facing the right way, glass panes, lanterns;
-   `scatter` for flowers and grass around the yard
-
-**Two passes.** She lays everything that stands on its own first, one layer at a
-time from the ground up, and then walks the building again to fit the things that
-need something to hold onto: torches, signs, ladders, carpets, flowers, rails,
-redstone, pressure plates, buttons and hanging lanterns. You do not have to order
-those specially — write them wherever they belong in the ops stream and they get
-deferred for you. It also means an upper-floor lantern is never placed into thin
-air and dropped.
-
-**Liquids are not handled.** Leave `water` and `lava` out of the ops entirely. Dig
-and line the basin, the moat, the canal or the fountain so it is ready to hold
-water, and let the player pour it — one bucket does the whole pond. Existing water
-on the site is never drained either, so pick a dry spot or plan the build around
-it.
-
-## Roofs (the part most builds get wrong)
-
-Give `roof` a **slab** block as `block_id` — `stone_brick_slab`,
-`deepslate_tile_slab`, `spruce_slab`, `waxed_oxidized_cut_copper_slab`. Slabs are
-what a good roof is actually made of, because a slab has three states and the
-generator uses all three: a bottom slab is a tread, a double slab is the riser
-next to it, and the two alternating make a surface that climbs **half a block per
-cell**. Not one full-block step anywhere. Ask for stairs or full blocks and you
-get a staircase — recognisably worse, and the bigger the roof the worse it looks.
-
-The generator also gives the roof its **profile**: shallow at the eaves,
-steepening toward the ridge, ending about 0.6-0.75 of the half-span tall. You do
-not compute any of this. What you choose is the shape, the four material bands,
-and how far the eaves reach.
-
-**Shape** — `roof_shape`. The four Chinese ranks, plus the lean-to:
-
-- `xuanshan` (alias `gable`) — two slopes, ridge along the longer axis, the two
-  ends closed by a bargeboard. The everyday roof, East and West alike.
-- `wudian` (alias `hip`) — four slopes, four diagonal hip ridges, no gable ends.
-  The highest rank; reserve it for the grandest hall on a site.
-- `xieshan` (alias `half_hip`) — four slopes below, a gable with two decorated
-  end panels above. Second in rank and the richest silhouette of the set; the
-  natural choice for a main hall that is not the very grandest. Western builders
-  know the same shape as a Dutch gable.
-- `zuanjian` (alias `pyramid`) — four slopes meeting at a point, for a square
-  footprint. Towers, gazebos, pavilions. Stack one per storey for a pagoda.
-- `shed` — a single slope one way. Lean-tos, porches, factory wings, and anything
-  that was added onto something else.
-
-**Curve** — `roof_curve` is `concave` by default and that default is almost
-always right: real tiled roofs are shallow at the eave and steepen toward the
-ridge, and it is the single reason an East Asian roof reads as curved rather than
-as a stepped pyramid. Ask for `straight` only when you specifically want a hard,
-steep, Gothic or Alpine silhouette.
-
-**The four bands.** These are the whole game. The structure is fixed; what makes
-one roof Chinese, another Gothic and another Mediterranean is which block goes in
-which band:
-
-- `ridge_block` — the ridges, which stand **proud of the tiles**: the crest along
-  the top, the four diagonals of a `wudian`/`zuanjian`, the bargeboards of a
-  `xuanshan`. Pick something that clearly contrasts with the roof. This one line
-  is most of what makes a roof read as designed rather than extruded, and every
-  shape wants it.
-- `eave_block` — the outermost course only, a drip band running right around the
-  edge. One block of width; enormous effect. Copper, dark prismarine, a different
-  wood.
-- `gable_block` — the end walls: the triangle under a `xuanshan` slope, the
-  decorated panel of a `xieshan`. Leave it out and you can see into the attic.
-- `soffit_block` — a second skin one block under the tiles, following the same
-  slope. This is what the roof looks like **from below** and through an open
-  gable. It roughly doubles the cell count, so spend it on roofs people stand
-  under — a porch, a temple, a deep-eaved hall — and skip it on a shed nobody
-  will look up at.
-
-**Eaves** — `overhang`. 0 reads as unfinished almost everywhere. 1-2 suits most
-Western work; East Asian roofs live on their overhang and want 2-4. A deep eave
-buys more character than a taller wall, so when the budget is tight, spend it
-here.
-
-**Corners** — `corner_lift` 1-3 flicks the four eave corners upward. The upturned
-corner is the most recognisable feature of an East Asian roof. Leave it 0 for
-Western buildings.
-
-### What roofs are made of
-
-Roof planes want a **weathered, textured** material. The most common mistake is
-reaching for something bright and metallic — gold and polished blocks read as
-treasure, not as tile, and a large flat plane of them looks worse the bigger it
-gets. Verdigris copper, dark prismarine, deepslate tile, grey concrete and dark
-wood all read as roofing; save any gold for a finial the size of one block.
-
-Mix the roof palette like any other large surface. The roof is usually the
-biggest single plane on the building, which makes it the last place to accept one
-flat colour.
-
-### Under the eave
-
-A deep overhang leaves a visible underside, and leaving it blank wastes the most
-characterful part of an East Asian building. Two details, both cheap `set` ops:
-
-- **Rafter ends** — a full block poking out under the eave every two cells along
-  the eave line. Two is the spacing the roof itself uses, so they line up with
-  the slope.
-- **Bracket clusters** — a band of upside-down stairs (`half=top`) flanking a
-  full block, repeated along the eave. Face the stairs *along* the wall, not
-  outward. This is the detail people recognise the style by.
-
-### Choosing, rather than copying
-
-The style reference tells you what the roof should *feel* like — "low and wide",
-"steep, for snow", "four-sided", "corners lifted", "the roof is the building".
-Turning that into parameters is your call, and two buildings in one style should
-not land on the same numbers.
-
-Decision rules that hold across styles:
-
-- Long thin building → `xuanshan` (the ridge wants a direction). Squat or square
-  → `wudian` or `zuanjian` read better than a gable on a near-square plan.
-- Something added onto something else → `shed`. It is worth reaching for far more
-  often than it gets used; one main roof plus a lean-to instantly looks lived-in
-  rather than designed.
-- Rank matters in Chinese work: **wudian > xieshan > xuanshan**. The roof
-  announces the status of what stands under it, so do not put a `wudian` on an
-  outhouse and a `xuanshan` on the temple beside it.
-- Anything Chinese, Japanese or Korean → keep `concave`, add `corner_lift`, and
-  spend on `overhang`. Without those it will read as a Western house wearing
-  Asian materials.
-- Steeper suits snow, thatch and Gothic; shallower suits sun, tile and anything
-  meant to look calm. Let the climate and the material argue for the pitch.
-
-A pagoda is not one roof — it is `zuanjian` repeated once per storey, each a
-little smaller. Multi-winged buildings likewise get one roof per wing at
-different heights, not a single roof stretched over everything.
-
-## Interiors (this is where builds are actually lost)
-
-**On an inhabited level, 35-50% of the blocks you place are furnishing.** That is
-measured off a hand-built compound: on its living floors, four in ten placed cells
-are a trapdoor, a barrel, a shelf, a carpet or a lantern; across the whole build,
-furnishing is 16% of 5859 cells. If your interior is a bed, a crafting table and
-two torches, you are not slightly under-furnished — you are two orders of
-magnitude short, and the room will read as a storage shed with a bed in it.
-
-Budget for it. A house whose shell is 3000 cells wants roughly 800-1200 more for
-the inside, and the 16384-cell limit has room for that.
-
-### What furniture is actually made of
-
-There is no furniture block in Minecraft, so furniture is ordinary blocks used for
-their shape. Measured frequencies from the same building, in order:
-
-- **Trapdoors — 397 of 941 furnishing cells, across seven different woods.** By a
-  wide margin the most useful detail block in the game, because it is the only
-  thin one you can put in any orientation. All four states earn their keep:
-  - `open=true` → a **thin vertical panel** filling part of a cell: a screen, a
-    shutter, a cupboard front, railing infill, a partition that does not eat the
-    room.
-  - `open=false, half=top` → a **shelf hanging under a beam**, or a ceiling panel.
-  - `open=false, half=bottom` → a **low ledge at floor level**: a step, a hearth
-    lip, the edge of a platform.
-  - Mixing wood types (spruce / oak / dark_oak / jungle / bamboo / acacia) reads
-    as different pieces of furniture rather than one repeated fitting.
-- **Utility blocks used as furniture, in quantity**: `barrel` (68), `composter`
-  (41), `chest` (32), `chiseled_bookshelf` (24), `bookshelf` (20), `loom` (17),
-  `lectern` (12), `smoker`, `cauldron`, `cartography_table`. The key word is
-  quantity — a wall of barrels reads as a storeroom; three barrels reads as three
-  barrels.
-- **`campfire` (78)** — the hearth, and its smoke is free atmosphere. Set
-  `signal_fire=false` for a domestic one; `soul_campfire` for anything eerie.
-- **Carpets in muted colours** — the cheapest way to zone a floor and say "this
-  part of the room is for sitting".
-- **Wall signs and wall banners** — the cheapest "someone lives here" marker.
-- **`lantern`, `candle`, `soul_lantern`** — sparingly, and hung, not scattered.
-- **`scaffolding`, `ladder`** — open frameworks and vertical circulation that
-  read as built rather than as a hole in the floor.
-
-**A bed, a crafting table and a furnace is a survival starter base, not a home.**
-None of those three appear in the reference building's twenty most-used blocks.
-Place them if the player will use them, but never mistake them for furnishing.
-
-### Rules that measured out
-
-- **98% of furniture touches a wall** (390 of 399 pieces; nine free-standing).
-  Furniture in the middle of a room reads as an obstacle, because in a game where
-  the player is two blocks tall, it is one. Leave the centre clear and line the
-  walls.
-- **Furnish every level.** The reference has furnishing on 17 of its 23 layers.
-  An upper floor left as a bare box is the most common way a good exterior is
-  betrayed the moment someone climbs the stairs.
-- **The frame continues indoors** — 30-42 timber cells per storey. Posts and
-  beams do not stop at the outside face; if the style shows its frame, show it in
-  the rooms too.
-- **Light is sparse and comes from above.** 130 light sources across a 40x45
-  compound. Enough that nothing spawns, few enough that the room has shadows in
-  it. Hang lanterns from beams; a torch stuck on a wall at head height is the
-  look of an unfinished build.
-
-### Zone by height
-
-The measured distribution sorts itself into bands, and using them keeps a room
-from being furniture-along-the-floor-and-nothing-else:
-
-- **floor** — carpet, campfire, low ledges (`half=bottom` trapdoors), the odd
-  `decorated_pot`
-- **1-2 above the floor** — the furniture band: barrels, chests, bookshelves,
-  loom, lectern, cauldron. This is where the eye goes and where most cells go.
-- **2-3 above the floor** — the wall band: wall signs, wall banners, shelves
-  (`half=top` trapdoors), a `flower_pot` on a ledge
-- **ceiling** — exposed beams, hanging lanterns, `half=top` trapdoor panels
-  between the beams
-
-### A room is a function, and the props say which
-
-An unlabelled furnished room is still a shed. Give each room one legible purpose
-and let three or four props carry it:
-
-- kitchen — `smoker` or `furnace` + `cauldron` + barrels + a campfire
-- study — `lectern` + `bookshelf`/`chiseled_bookshelf` wall + candles
-- storeroom — barrels and chests in a grid, `composter`, sacks read as `hay_block`
-- workshop — `loom`, `stonecutter`, `grindstone`, `smithing_table`, barrels
-- bedroom — bed, a chest at its foot, a lantern, a carpet, one shelf
-- shrine or hearth room — campfire on a stone plinth, banners, paired lanterns
-
-Two rooms with the same props are one room built twice. Vary the purpose before
-you vary the blocks.
-
-### Writing it in ops
-
-Interior detail is the **last** pass — later ops overwrite earlier cells, so the
-shell goes first and the fittings go on top. Almost all of it is `set` with
-`properties`, because the state is the whole point:
-
-- vertical panel: `set` a trapdoor with `properties {half: bottom, open: true,
-  facing: north}`
-- hanging shelf: `set` a trapdoor with `properties {half: top, open: false}`
-- lit hearth: `set` a campfire with `properties {signal_fire: false, lit: true}`
-- hanging lantern: `set` a lantern with `properties {hanging: true}` under a beam
-
-Carpets, barrels and bookshelves need no properties, so those go in bulk via
-`scatter` on a floor plane or a `line` along a wall.
-
-## Mix your materials
-
-Every block_id accepts a weighted mix — `"stone_bricks*8, mossy_stone_bricks*2,
-cracked_stone_bricks"` — and each cell picks one, the same way every time.
-
-A large surface in one flat colour is the single most reliable way to make a
-build look fake, so **put a mix on every wall, floor and roof that covers real
-area**. 10-20% of a weathered or contrasting variant is usually enough; the eye
-reads it as texture rather than as a pattern.
-
-## Quality checklist
-
-- exactly one floor layer; doorway passable per the alignment rule above
-- large surfaces are mixes, not one flat colour
-- roofs have eaves (`overhang`), a ridge that stands proud (`ridge_block`), and
-  closed end walls (`gable_block`)
-- windows 1-2 above the floor; panes or glass in the openings
-- **every inhabited level furnished, not just the ground floor** — if an upper
-  room is a bare box, the build is not finished
-- furniture along the walls, room centres clear
-- each room has one legible purpose, carried by three or four props
-- lit well enough that nothing spawns, dim enough to still have shadows
-- one main material family + one accent beats a single-material box
-
-## Tool mapping
-
-- everything goes through `build`'s ordered `ops` stream: set / box / walls /
-  line / cylinder / sphere / roof / set_door / scatter; hollow variants;
-  block_id minecraft:air carves; later ops overwrite earlier cells, so details
-  go last
-- whole structure files: `blueprint` tool (action=list first, then action=build
-  at a flat anchor); liquids are always skipped
-
-## Style references — how to read them
-
-A style file is a **vocabulary, not a template**. It gives you the character of
-a style and the reasoning behind it; composing the actual building stays yours.
-
-- **Materials** are semantic slots (frame / infill / roof / floor / accent /
-  light) with SEVERAL candidates each and a note on why they read that way.
-  Choose per site, per biome, and per what she actually carries. Never default
-  to the first candidate just because it is first.
-- **Proportions** are ratios and ranges, never fixed dimensions. A style says
-  "roof rise about 0.4–0.7 of the half-span"; it never says "13x9x3".
-- **Signature moves** state the INTENT first and one possible execution second.
-  Hit the intent however the site allows — the listed method is an example.
-- **Variants** exist so two buildings in one style are not twins. Pick one, or
-  blend two.
-- **Avoid** is the sharpest section. Negative constraints carry more style
-  information than positive ones, and they are what keeps a style recognisable
-  while everything else varies.
-
-**Two buildings in the same style SHOULD differ** in footprint, height, massing
-and exact blocks. If yours come out as twins, you are reading the reference as a
-template — go back and re-roll the proportions and the material picks.
-
-A style file deliberately never names tool parameters. It says the roof is "low
-and wide with lifted corners"; translating that into `roof_shape`,
-`roof_curve`, `overhang` and `corner_lift` is yours to do, and doing it
-differently on two buildings of the same style is the point, not a mistake.
-
-Load one with `load_skill(building_design, file="references/<style>.md")`.
-
-### East Asia
+# 技能：建筑设计
+
+设计任何大于几格的小建筑前都应加载此技能；成品看起来不对时也应重新加载检查。
+
+## 工作流程
+
+1. 先规划：用途、占地、总高、一种主材料和一种点缀材料。
+2. 查看场地（`goto` / 环顾四周）：是否足够平坦、足够宽敞？记下**地面高度**，后续所有垂直决策都以此为基准。
+3. 尽量在一次 `build` 调用中由大到小施工，使用一个有序的 `ops` 流：体块优先，有状态的细节（`set`、`set_door`）最后；后面的操作会覆盖前面的格子。
+4. 收到 `task_finished` 后查看成品，执行下方检查清单，再用一次小型 `build` 修补缺口。
+
+## 尺寸参考（宽 × 深 × 高）
+
+- 小屋/棚屋：7 × 7 × 6
+- 住宅/商店：12 × 10 × 8
+- 府邸/神庙：18 × 15 × 12
+- 城堡/大教堂：30 × 25 × 20
+
+室内墙面至少高 3 格，避免房间显得压抑。
+
+## 单层地板规则（最常见错误）
+
+一栋建筑只能有**一层**地板板层。二选一：
+
+- 先建厚 1 格的 `box` 地基，再在其上建 `walls`；或者
+- 使用底面本身就是地板的空心 `box`，此时**不要**再加地基。
+
+绝不要在地基 `box` 上叠一个空心 `box`。空心盒子的底面会形成第二层地板，门洞会被埋掉一半，门也会被抬高的室内地面卡住。墙环应使用仅含竖直周边、没有顶面和底面的 `walls`；空心 `box` 只用于完全封闭的外壳。
+
+## 门与地面对齐
+
+- 门洞是上下两个空气格，必须在墙体完成后再切开。
+- 门的**下半格**应位于实体站在室内地板上时身体所占的高度，也就是地板板层正上方。
+- 室内行走高度应与室外地面一致；地板板层若使室内高出一格，就在门外放置台阶。
+- 在脑中走一遍路线：室外地面 →（可能的台阶）→ 门的下半格 → 室内地面。路径中任何实心方块都会把门卡住。
+
+## 组合顺序（与自下而上的分层建造器一致）
+
+1. 地基层（厚 1 格的 `box`，它就是室内地板）
+2. 地基上的 `walls` 周边
+3. 覆盖墙体矩形的 `roof`，具体见下方屋顶章节；圆顶可使用空心 `sphere` 的上半部分
+4. 开口：用 `set` 把距地面 1–2 格的窗格改为空气；`set_door` 一次完成切洞和安装整扇门
+5. **室内陈设**：见“室内”章节。它不是点缀；有人使用的楼层中，陈设占 35–50% 的格子。因此必须在写 `ops` 之前规划房间用途和内墙线，而不是完成外壳后才考虑
+6. 室外细节：用 `set` 放置朝向正确的楼梯、玻璃板和灯笼；用 `scatter` 在庭院散布花草
+
+**两遍施工。** 第一遍自地面向上逐层放置能够独立存在的构件，第二遍再走一遍建筑，安装需要附着物的构件：火把、告示牌、梯子、地毯、花、铁轨、红石、压力板、按钮和悬挂灯笼。你无需特意调整它们在 `ops` 中的顺序，系统会自动延后处理，也就不会把高层灯笼放进空气后掉落。
+
+**不处理液体。** `ops` 中完全不要加入 `water` 或 `lava`。只需挖好并铺设池塘、护城河、运河或喷泉的内壁，留给主人用一桶水灌满。场地已有的水也不会被排干，因此应选择干燥位置，或围绕水体进行设计。
+
+## 屋顶（多数建筑最容易失败的部分）
+
+给 `roof` 的 `block_id` 传入**台阶板**，例如 `stone_brick_slab`、`deepslate_tile_slab`、`spruce_slab`、`waxed_oxidized_cut_copper_slab`。优质屋顶本来就应由台阶板构成，因为台阶板有三种状态，生成器会全部利用：下半台阶板作为踏面，相邻的双层台阶板作为立面，两者交替形成**每格只上升半格**的坡面。全程不会出现整格高的阶梯。若使用楼梯或完整方块，结果会像楼梯，而且屋顶越大越难看。
+
+生成器还会自动塑造屋顶轮廓：檐口较缓，向屋脊逐渐变陡，最终高度约为半跨度的 0.6–0.75。无需自行计算；你只需要选择形状、四个材料带和屋檐伸出距离。
+
+### 形状：`roof_shape`
+
+- `xuanshan`（别名 `gable`）——双坡屋顶，屋脊沿长轴，两个端部以封檐板收口。东西方都常用的日常屋顶。
+- `wudian`（别名 `hip`）——四面坡、四条斜脊，没有山墙。等级最高，只用于场地中最重要的大殿。
+- `xieshan`（别名 `half_hip`）——下部四面坡，上部山墙和两个装饰端面。等级第二、轮廓最丰富，适合重要但非最高等级的主殿；西方建筑中的对应形态是荷兰式山墙。
+- `zuanjian`（别名 `pyramid`）——四面坡汇聚到一点，适合方形平面，用于塔、亭、楼阁；宝塔每层各叠一个。
+- `shed`——单向坡，用于披屋、门廊、厂房侧翼和后来增建的部分。
+
+### 曲线：`roof_curve`
+
+默认为 `concave`，几乎总是正确选择：真实瓦顶在檐口较缓、靠近屋脊逐渐变陡，这正是东亚屋顶看起来有曲线而不是阶梯金字塔的关键。只有明确需要硬朗、陡峭的哥特式或阿尔卑斯轮廓时才使用 `straight`。
+
+### 四个材料带
+
+结构保持不变；决定屋顶呈现为中式、哥特式还是地中海式的，是每个材料带所用的方块：
+
+- `ridge_block`——高出瓦面的屋脊：顶部正脊、`wudian`/`zuanjian` 的四条斜脊，以及 `xuanshan` 的封檐板。选择与屋面明显对比的材料。每种屋顶都需要它，这是屋顶显得经过设计而非简单拉伸的首要因素。
+- `eave_block`——只覆盖最外一圈的滴水带，宽一格但效果巨大，可用铜、暗海晶石或不同木材。
+- `gable_block`——端墙：`xuanshan` 坡面下的三角墙，或 `xieshan` 的装饰面板。省略后会直接看到阁楼内部。
+- `soffit_block`——位于瓦面下方一格、沿相同坡度延伸的第二层表皮，决定从下方和开放山墙中看到的样子。它会使格子数接近翻倍，因此只用于人会站在下面仰看的屋顶，如门廊、神庙和深檐大殿；无人仰看的棚屋可以省略。
+
+### 屋檐：`overhang`
+
+在几乎所有风格中，0 都显得未完成。西方建筑通常用 1–2，东亚屋顶依赖深檐，应使用 2–4。预算有限时，深屋檐比加高墙面更能塑造个性。
+
+### 翘角：`corner_lift`
+
+设置 1–3 可使四个檐角上翘，这是东亚屋顶最具识别度的特征。西方建筑保持 0。
+
+### 屋面材料
+
+屋顶平面需要**经风化且有纹理**的材料。最常见错误是使用明亮金属：黄金和抛光方块看起来像宝藏而不是瓦片，大面积铺设会更糟。铜绿、暗海晶石、深板岩瓦、灰色混凝土和深色木材都像屋面；黄金只应作为一格大小的顶饰。
+
+屋面也要像其他大表面一样混合材质。它通常是建筑最大的单一平面，最不能接受整片单色。
+
+### 屋檐下方
+
+深檐会暴露明显的底面，留空等于浪费东亚建筑最有个性的区域。可用两类低成本 `set` 细节：
+
+- **椽头**——沿檐线每隔两格，让完整方块从檐下伸出。间距 2 与屋顶坡面本身一致。
+- **斗拱组合**——用一对倒置楼梯（`half=top`）夹住一个完整方块，沿檐重复。楼梯应顺着墙面朝向，而不是向外。这是最容易被识别为该风格的细节。
+
+### 选择参数，而不是复制模板
+
+风格参考描述屋顶应有的感觉，例如“低而宽”“为积雪设计的陡坡”“四面坡”“檐角上翘”“屋顶就是建筑主体”。具体参数由你决定；同一风格的两栋建筑不应得到完全相同的数值。
+
+跨风格通用的决策规则：
+
+- 狭长建筑使用 `xuanshan`，因为屋脊需要明确方向；矮胖或接近方形的平面使用 `wudian` 或 `zuanjian`，比近方形上的山墙更协调。
+- 附加在其他体块上的部分使用 `shed`。它常被低估；一个主屋顶加一个披屋，会立刻显得有人长期使用，而不是一次性设计出来。
+- 中式建筑要讲等级：**wudian > xieshan > xuanshan**。屋顶会宣告下方建筑的地位，不要让厕所使用 `wudian`，而旁边的神庙只用 `xuanshan`。
+- 中式、日式或韩式建筑应保留 `concave`，加入 `corner_lift`，并把预算投入 `overhang`。缺少这些特征时，只会像西式房屋换了亚洲材料。
+- 陡坡适合积雪、茅草和哥特式；缓坡适合阳光、瓦片和宁静气质。坡度应由气候与材料共同决定。
+
+宝塔不是单个屋顶，而是每层重复一次、逐层缩小的 `zuanjian`。多翼建筑也应在不同高度为每个翼部单独建屋顶，不能把一个屋顶拉伸覆盖全部体块。
+
+## 室内（建筑真正失败的地方）
+
+**有人使用的楼层中，陈设应占全部放置方块的 35–50%。** 对一座手工复合建筑的测量显示：居住层每十个格子约有四个是活板门、木桶、搁板、地毯或灯笼；整座 5859 格的建筑中，陈设占 16%。如果室内只有床、工作台和两个火把，那不是稍显空旷，而是少了两个数量级，只会像放了一张床的仓库。
+
+必须为陈设预留预算。外壳约 3000 格的住宅，室内应再准备约 800–1200 格；16384 格的限制完全容得下。
+
+### 家具由什么构成
+
+Minecraft 没有专门的家具方块，因此要利用普通方块的形状。按同一参考建筑中的使用频率排列：
+
+- **活板门——941 个陈设格中占 397 个，使用七种木材。** 它是最有用的细节方块，因为它很薄并可任意定向。四种状态都有用途：
+  - `open=true`：占据部分格子的**竖直薄板**，可做屏风、百叶窗、柜门、栏杆填充和不占满房间的隔断。
+  - `open=false, half=top`：梁下悬挂的**搁板**或天花板面板。
+  - `open=false, half=bottom`：地面高度的**低矮边缘**，可做台阶、壁炉唇边或平台边缘。
+  - 混用 spruce / oak / dark_oak / jungle / bamboo / acacia，会让它们像不同家具，而不是重复同一个构件。
+- **大量使用功能方块充当家具**：`barrel`（68）、`composter`（41）、`chest`（32）、`chiseled_bookshelf`（24）、`bookshelf`（20）、`loom`（17）、`lectern`（12），以及 `smoker`、`cauldron`、`cartography_table`。关键在于数量：一整面木桶墙像储藏室，三个木桶只像三个木桶。
+- **`campfire`（78）**：用作壁炉，烟雾还会免费营造氛围。家用壁炉设 `signal_fire=false`，诡异场景可用 `soul_campfire`。
+- **低饱和色地毯**：划分地面用途最便宜的方式，能说明“房间的这一部分用于休息”。
+- **墙上告示牌和旗帜**：最便宜的“有人居住”标记。
+- **`lantern`、`candle`、`soul_lantern`**：少量使用并悬挂起来，不要随意散布。
+- **`scaffolding`、`ladder`**：形成开放框架和垂直交通，看起来像有意建造，而不是地板上的洞。
+
+**一张床、一个工作台和一个熔炉只是生存初期基地，不是家。** 这三种方块均未进入参考建筑使用量前二十名。玩家需要时当然应放置，但绝不能把它们误当作完整陈设。
+
+### 测量得到的规则
+
+- **98% 的家具贴墙放置**（399 件中 390 件，只有 9 件独立摆放）。房间中央的家具会像障碍物，因为两格高的玩家确实会被它阻挡。保持中央通畅，沿墙布置。
+- **每一层都要布置。** 参考建筑 23 层高度中有 17 层包含陈设。优秀外观最常在玩家爬上楼、发现上层只是空盒子时露馅。
+- **结构框架要延续到室内**——每层约 30–42 个木结构格。柱梁不应止于外墙表面；如果风格强调外露框架，室内也要显示。
+- **光源稀疏并来自上方。** 40×45 的建筑群只用了 130 个光源：足以阻止刷怪，又保留阴影。把灯笼挂在梁下；头部高度随意插在墙上的火把会显得建筑尚未完成。
+
+### 按高度分区
+
+测量结果自然分成以下高度带，可避免所有家具都贴着地面、上方完全空白：
+
+- **地面**：地毯、营火、低矮边缘（`half=bottom` 活板门）以及少量 `decorated_pot`
+- **地面以上 1–2 格**：主要家具带——木桶、箱子、书架、织布机、讲台、炼药锅；视线和大多数陈设格都集中于此
+- **地面以上 2–3 格**：墙面带——墙上告示牌、旗帜、搁板（`half=top` 活板门）以及搁板上的 `flower_pot`
+- **天花板**：外露横梁、悬挂灯笼、梁间的 `half=top` 活板门面板
+
+### 房间必须有用途，并由道具说明用途
+
+没有明确用途的精装房仍像棚屋。给每个房间一个清晰功能，让三四件道具表达出来：
+
+- 厨房——`smoker` 或 `furnace` + `cauldron` + 木桶 + 营火
+- 书房——`lectern` + `bookshelf`/`chiseled_bookshelf` 墙 + 蜡烛
+- 储藏室——网格排列的木桶和箱子、`composter`，用 `hay_block` 表现货袋
+- 工坊——`loom`、`stonecutter`、`grindstone`、`smithing_table`、木桶
+- 卧室——床、床尾箱子、灯笼、地毯和一个搁板
+- 神龛或壁炉室——石台上的营火、旗帜和成对灯笼
+
+使用相同道具的两个房间，只是同一个房间建了两遍。先改变用途，再改变方块。
+
+### 在 ops 中表达室内细节
+
+室内细节是**最后一遍**；后面的操作会覆盖前面的格子，因此先建外壳，再把陈设叠上去。大多数细节都使用带 `properties` 的 `set`，因为状态本身就是重点：
+
+- 竖直面板：`set` 活板门并设置 `properties {half: bottom, open: true, facing: north}`
+- 悬挂搁板：`set` 活板门并设置 `properties {half: top, open: false}`
+- 点燃的壁炉：`set` 营火并设置 `properties {signal_fire: false, lit: true}`
+- 悬挂灯笼：在梁下 `set` 灯笼并设置 `properties {hanging: true}`
+
+地毯、木桶和书架无需属性，可用 `scatter` 批量放在地面平面上，或用 `line` 沿墙排列。
+
+## 混合材料
+
+每个 `block_id` 都接受加权混合，例如 `"stone_bricks*8, mossy_stone_bricks*2, cracked_stone_bricks"`；每个格子会以稳定、可重复的方式选择一种。
+
+大表面只有一种纯色，是让建筑显假的最稳定方式。因此，**所有真正具有面积的墙、地板和屋面都应使用混合材料**。通常加入 10–20% 的风化或对比变种即可；眼睛会把它识别为纹理，而不是规则图案。
+
+## 质量检查清单
+
+- 只有一层地板；门洞符合上述对齐规则并可通行
+- 大表面使用材质混合，而不是单一纯色
+- 屋顶有屋檐（`overhang`）、高出瓦面的屋脊（`ridge_block`）和封闭端墙（`gable_block`）
+- 窗户位于地板以上 1–2 格，开口内装有玻璃板或玻璃
+- **每个有人使用的楼层都已布置，而不只是底层**；上层房间仍是空盒子时，建筑尚未完成
+- 家具沿墙放置，房间中央保持通畅
+- 每个房间有一个清晰用途，并由三四件道具表达
+- 照明足以防止刷怪，同时仍保留阴影
+- 一个主材料家族加一种点缀材料，胜过单一材料盒子
+
+## 工具对应关系
+
+- 所有内容都通过 `build` 的有序 `ops` 流完成：set / box / walls / line / cylinder / sphere / roof / set_door / scatter，以及相应空心变种；`block_id` 为 `minecraft:air` 时用于挖空；后续操作覆盖前面格子，因此细节最后处理
+- 完整结构文件使用 `blueprint` 工具：先 `action=list`，再在平坦锚点执行 `action=build`；液体始终跳过
+
+## 风格参考——如何阅读
+
+风格文件是一套**词汇，而不是模板**。它描述风格特征和背后的理由，具体建筑仍由你自行组合。
+
+- **材料**是语义槽位（框架 / 填充 / 屋顶 / 地板 / 点缀 / 照明），每个槽位有多个候选，并说明它们为何呈现该效果。应根据场地、群系和实际携带材料选择，绝不要只因排在第一位就使用第一个候选。
+- **比例**使用比值和范围，而不是固定尺寸。风格会说“屋顶起高约为半跨度的 0.4–0.7”，不会说“13×9×3”。
+- **标志手法**先说明意图，再给出一种可能实现。应按场地条件实现意图；列出的方法只是示例。
+- **变体**用于避免同风格建筑成为双胞胎。选择一种，或混合两种。
+- **避免事项**是最关键的部分。负面约束比正面描述携带更多风格信息，能在其他元素变化时仍保持辨识度。
+
+**同一风格的两栋建筑本来就应不同**：占地、层高、体块和具体方块都应变化。如果结果像双胞胎，说明把参考当成了模板；应重新选择比例与材料。
+
+风格文件刻意不写工具参数。它只说屋顶“低而宽、檐角上翘”；如何转化成 `roof_shape`、`roof_curve`、`overhang` 和 `corner_lift` 由你决定。同风格建筑采用不同参数正是目标，并非错误。
+
+使用 `load_skill(building_design, file="references/<style>.md")` 加载参考。
+
+### 东亚
 `japanese_minka` 和风民居 · `japanese_shrine` 神社 · `japanese_castle` 天守 ·
 `chinese_classical` 中式官式 · `korean_hanok` 韩屋
 
-### South & Southeast Asia
+### 南亚与东南亚
 `southeast_stilt` 高脚屋 · `indian_temple` 印度石庙
 
-### Historic Europe
+### 欧洲历史风格
 `medieval_rustic` 中世纪村舍 · `medieval_castle` 城堡 · `tudor` 都铎半木 ·
 `gothic` 哥特 · `baroque` 巴洛克 · `nordic_viking` 维京长屋 ·
 `mediterranean` 地中海 · `alpine_chalet` 阿尔卑斯木屋
 
-### Ancient
+### 古代文明
 `greek_classical` 古希腊 · `roman_imperial` 古罗马 · `egyptian` 古埃及 ·
 `mesoamerican` 中美洲金字塔
 
-### Middle East & Desert
+### 中东与沙漠
 `islamic` 伊斯兰 · `desert_adobe` 沙漠土坯
 
-### Modern
+### 现代
 `modern_minimalist` 现代极简 · `modern_skyscraper` 摩天楼 · `brutalist` 粗野主义 ·
 `art_deco` 装饰艺术 · `industrial` 工业厂房 · `scandinavian_modern` 北欧现代
 
-### Vernacular
+### 乡土建筑
 `farmhouse` 农舍谷仓 · `log_cabin` 原木小屋 · `lighthouse_coastal` 海岸灯塔 ·
 `wild_west` 西部小镇 · `victorian` 维多利亚
 
-### Fantasy
+### 奇幻
 `elven_nature` 精灵 · `dwarven_hall` 矮人 · `witch_hut` 女巫 ·
 `steampunk` 蒸汽朋克 · `cyberpunk` 赛博朋克 · `fantasy_floating` 浮空 ·
 `underwater` 水下
 
-`ruins_overgrown` 废墟 is not a style of its own — it is a **treatment you apply
-on top of any other one**. Load it together with the base style whenever the
-player asks for something ruined, abandoned, ancient or reclaimed.
+`ruins_overgrown` 废墟不是独立风格，而是叠加在其他风格上的**处理方式**。玩家要求破败、废弃、古老或被自然重新占据的建筑时，应与基础风格一同加载。
 
-Also `references/decoration.md` — finishing-touch recipes (windows, paths,
-gardens, chimneys, interiors); load it before the detail pass of any build.
-
+另有 `references/decoration.md`，包含窗户、道路、花园、烟囱和室内等收尾配方；任何建筑进入细节阶段前都应加载。

@@ -1,91 +1,62 @@
-# Decoration recipes — 让房子像有人住
+# 装饰配方——让房子像有人住
 
-Snippets for the pass AFTER the shell. Pick what the building needs; running all
-of them makes a showroom, not a home.
+这些片段用于外壳完成后的细节阶段。只选择建筑需要的内容；全部套用会变成展厅，而不是住宅。
 
-Read the Interiors section of SKILL.md first for the budget and the rules. The
-short version: on an inhabited floor, 35-50% of the cells are fittings, 98% of
-furniture stands against a wall, and every level gets furnished.
+先阅读 SKILL.md 的“室内”章节，了解预算和规则。简要原则：有人使用的楼层中 35–50% 的格子属于陈设，98% 的家具贴墙摆放，而且每一层都要布置。
 
-## The trapdoor, four ways
+## 活板门的四种用法
 
-Trapdoors are the most useful detail block in the game — measured at 397 of 941
-furnishing cells on a hand-built compound, in seven different woods. They are the
-only thin block you can put in every orientation, so learn all four states:
+活板门是最有用的细节方块：参考建筑 941 个陈设格中有 397 个活板门，使用七种木材。它是唯一可在各方向放置的薄方块，应掌握全部状态：
 
-| properties | reads as |
+| properties | 表现形式 |
 | --- | --- |
-| `half=bottom, open=true` | a vertical panel: screen, shutter, cupboard front, railing infill |
-| `half=top, open=false` | a shelf hanging under a beam; a ceiling panel |
-| `half=bottom, open=false` | a low ledge: a step, a hearth lip, a platform edge |
-| `half=top, open=true` | a panel hanging down from above; a valance under an eave |
+| `half=bottom, open=true` | 竖直面板：屏风、百叶窗、柜门、栏杆填充 |
+| `half=top, open=false` | 梁下搁板或天花板面板 |
+| `half=bottom, open=false` | 低矮边缘：台阶、壁炉唇边、平台边 |
+| `half=top, open=true` | 从上方垂下的面板或檐下帷板 |
 
-Mix wood types across one room — spruce, oak, dark_oak, jungle, bamboo — and the
-fittings read as separate pieces of furniture instead of one repeated part.
+在一个房间中混用 spruce、oak、dark_oak、jungle、bamboo 等木材，会让构件像不同家具，而不是反复复制同一零件。
 
-## Interior fittings by room
+## 按房间选择陈设
 
-Three or four props make a room's purpose legible. More than that and it turns
-into a shop display.
+三四件道具足以说明房间用途；再多就会像商店陈列。
 
-- **kitchen** — `smoker` + `cauldron` + a run of `barrel` + `campfire`
-  (`signal_fire=false`); a `composter` in the corner
-- **study** — `lectern` facing a chair, a wall of `bookshelf` /
-  `chiseled_bookshelf`, `candle` on a `half=top` trapdoor shelf
-- **storeroom** — `barrel` and `chest` in a grid two or three high, `hay_block`
-  sacks, `composter`
-- **workshop** — `loom`, `stonecutter`, `grindstone`, `smithing_table`, barrels
-  underneath, `lantern` overhead
-- **bedroom** — bed against the wall, `chest` at its foot, `carpet` beside it,
-  one shelf, one hanging lantern
-- **hearth room / shrine** — `campfire` on a stone plinth, wall banners, paired
-  lanterns, `decorated_pot`
+- **厨房**——`smoker` + `cauldron` + 一排 `barrel` + `campfire`（`signal_fire=false`），角落放 `composter`
+- **书房**——朝向座椅的 `lectern`、`bookshelf`/`chiseled_bookshelf` 墙，以及 `half=top` 活板门搁板上的 `candle`
+- **储藏室**——两三格高的 `barrel` 和 `chest` 网格、用 `hay_block` 表现货袋、`composter`
+- **工坊**——`loom`、`stonecutter`、`grindstone`、`smithing_table`，下方木桶、上方灯笼
+- **卧室**——贴墙的床、床尾 `chest`、床边 `carpet`、一个搁板和一盏悬挂灯笼
+- **壁炉室/神龛**——石台上的 `campfire`、墙旗、成对灯笼和 `decorated_pot`
 
-Furniture goes **along the walls**; the middle of a room is circulation, and a
-block in the way of a two-block-tall player is an obstacle, not a feature.
+家具应**沿墙摆放**；房间中央用于通行。挡住两格高玩家的方块是障碍，不是特色。
 
-## Height bands
+## 高度带
 
-Work a room in bands so it is not all furniture-on-the-floor:
+- **地面**——用 `carpet` 分区、用 `campfire` 做壁炉、`half=bottom` 活板门矮边和 `decorated_pot`
+- **地面以上 1–2 格**——主要家具带，大多数格子放在这里
+- **地面以上 2–3 格**——墙面带：告示牌、旗帜、`half=top` 活板门搁板及其上的 `flower_pot`
+- **天花板**——外露横梁（`stripped_*_log`、`*_wood`）、悬挂灯笼（`hanging=true`）和梁间活板门面板
 
-- **floor** — `carpet` to zone, `campfire` for the hearth, `half=bottom`
-  trapdoor ledges, `decorated_pot`
-- **1-2 above floor** — the furniture band; most of your cells go here
-- **2-3 above floor** — the wall band: wall signs, wall banners, `half=top`
-  trapdoor shelves, a `flower_pot` on a ledge
-- **ceiling** — exposed beams (`stripped_*_log`, `*_wood`), hanging lanterns
-  (`hanging=true`), trapdoor panels between the beams
+## 天花板与框架
 
-## Ceilings and the frame
+头顶一整片木板只像盖子。每隔 2–4 格横穿一根去皮原木梁，与屋顶节奏一致，并从梁下悬挂灯笼。外部展示结构框架的风格，内部也必须延续；参考建筑每层都有 30–42 个木结构格。
 
-A flat plane of planks overhead reads as a lid. Run beams across it — stripped
-logs every 2-4 cells, the same rhythm as the roof — and hang the lanterns from
-them. On a build whose style shows its frame outside, the frame must continue
-inside: the reference compound carries 30-42 timber cells on every storey.
+## 照明
 
-## Lighting
+40×45 的建筑群使用 130 个光源：足够防刷怪，同时仍保留阴影。
 
-130 light sources across a 40x45 compound: enough that nothing spawns, few enough
-that the rooms still have shadows.
+- 从梁下悬挂灯笼（`hanging=true`），不要在头部高度随意插墙火把；那是未完工建筑最明显的标志
+- 营火既照明又免费提供烟雾
+- `candle` 每格可放 1–4 根，形成微弱暖光
+- 寒冷、诡异或亡灵场景使用 `soul_lantern` / `soul_campfire`
+- 室外只照亮门口和道路，其余保持黑暗
 
-- hang lanterns (`hanging=true`) from beams rather than sticking torches on walls
-  at head height — that is the clearest single sign of an unfinished build
-- a campfire lights a room and adds smoke for free
-- `candle` (1-4 per cell) for a small, warm, low light
-- `soul_lantern` / `soul_campfire` for anything cold, eerie or undead
-- outside: light the doorway and the path, and let the rest go dark
+## 室外收尾
 
-## Exterior finishing
-
-- **windows** — trapdoor shutters flanking the opening; a `flower_pot` or lantern
-  on the sill; panes set back one cell into the wall so the opening has depth
-- **doorstep** — one stone step, two lanterns flanking, and a `scatter` path of
-  `dirt_path` / `gravel` / `coarse_dirt` leading away
-- **garden** — `scatter` `short_grass` plus two or three flower types at density
-  0.15-0.3; a single tree off-axis beats a symmetrical pair
-- **chimney** — a 1x1 column past the ridge with a `campfire` on top for smoke
-- **fence yard** — a `walls`-shaped fence rect with a gap or a `set` fence_gate
-- **roof interest** — a `bell` or `lightning_rod` near the ridge; lanterns hung
-  under the eave corners
-- **rafter ends** — a full block poking out under the eave every 2 cells, which
-  is the spacing the roof slope itself uses
+- **窗户**——开口两侧放活板门百叶窗，窗台放 `flower_pot` 或灯笼；玻璃板向墙内退一格以形成深度
+- **门阶**——一格石台阶、两侧灯笼，并用 `scatter` 铺出 dirt_path / gravel / coarse_dirt 小路
+- **花园**——以 0.15–0.3 密度 `scatter` short_grass 和两三种花；偏离轴线的一棵树优于对称两棵
+- **烟囱**——1×1 柱越过屋脊，顶部放 `campfire` 产生烟雾
+- **围栏院子**——用 `walls` 形栅栏矩形留出缺口，或 `set` fence_gate
+- **屋顶趣味点**——屋脊附近放 `bell` 或 `lightning_rod`；檐角下悬挂灯笼
+- **椽头**——檐下每隔 2 格伸出一个完整方块，与屋顶坡面节奏一致

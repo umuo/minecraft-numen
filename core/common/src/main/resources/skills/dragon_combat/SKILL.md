@@ -1,68 +1,68 @@
 ---
 name: dragon_combat
-description: Final boss. End arena layout, crystal destruction from a safe distance (caged ones via auto-pillar + mine), dragon attack patterns and the perch melee window, HP discipline over a long fight.
+description: 最终首领战。涵盖末地战场布局、从安全距离摧毁水晶（对铁笼水晶自动搭柱后挖开）、末影龙的攻击模式、栖息时的近战窗口，以及长时间战斗中的生命值管理。
 ---
 
-# Skill: dragon_combat
+# 技能：末影龙战斗
 
-Phase 6 — the final boss. The Ender Dragon has 200 HP and heals from the end crystals while any survive. Mistakes here cost the whole run, mostly via the void.
+这是第 6 阶段——最终首领战。末影龙拥有 200 点生命值，只要仍有末地水晶存在就会持续恢复。这里的失误可能毁掉整次行动，最主要的危险来自虚空。
 
-## Done when
+## 完成条件
 
-The dragon's HP reaches 0: death animation plays, ~the exit portal opens in the central bedrock fountain, a dragon egg appears on top. Tell your owner congratulations.
+末影龙生命值降至 0，播放死亡动画，中央基岩祭坛中的返回传送门开启，顶部出现龙蛋。向主人表示祝贺。
 
-## Packlist (verify with `get_self_status` BEFORE entering the portal)
+## 物资清单（进入传送门前用 `get_self_status` 核对）
 
-- Diamond sword + bow, **32+ arrows** (10 crystals + air shots + misses)
-- **128+ cobblestone** — the spawn platform is often ~100 blocks from the island and navigation bridges the gap with your blocks
-- **32+ cooked food**, plus a golden_apple if you have one (emergency heal)
-- Armor on, sword in hand (`get_self_status` to confirm)
+- 钻石剑和弓，**至少 32 支箭**（10 个水晶、空中射击以及射失的余量）
+- **至少 128 个 cobblestone**——出生平台常与主岛相隔约 100 格，导航会消耗方块搭桥
+- **至少 32 份熟食**，如果有金苹果也带上（紧急恢复）
+- 已穿好盔甲并手持剑（用 `get_self_status` 确认）
 
-## The arena
+## 战场
 
-- You arrive on a small obsidian platform out in the void. The **central island** (end stone, Y≈60) holds everything; `goto` toward (0, 62, 0) — navigation bridges across. **Falling into the void destroys you and everything you carry.** Fight near the island centre, never at the rim.
-- **10 obsidian pillars** ring the centre, each topped by an **end crystal**. The 2 tallest crystals sit inside iron-bar cages.
-- Intact crystals continuously heal the dragon — damaging it before they're gone is wasted effort. **Crystals first, always.**
+- 你会出现在虚空中的一小块黑曜石平台上。**中央主岛**（末地石，Y≈60）包含全部目标；使用 `goto` 前往约 (0, 62, 0)，导航会自动搭桥。**掉入虚空会让你和携带的全部物品消失。** 应在岛屿中心附近战斗，绝不要靠近边缘。
+- 中心周围有 **10 根黑曜石柱**，每根顶部都有一个**末地水晶**；最高的两根柱子上的水晶被铁栏杆笼罩。
+- 尚存的水晶会不断治疗末影龙，在摧毁它们前攻击龙几乎是在浪费伤害。**始终先处理水晶。**
 
-## Step 1 — the 8 open crystals
+## 第 1 步——8 个开放水晶
 
-Carry a bow with arrows, then `scan_nearby_entities` → `attack({"entity_ids":[crystal_ids]})`. Crystals die to one arrow and **explode with twice a creeper's power**, so `attack` refuses to close on one at all: it holds 12 blocks off and shoots. Without arrows it reports them unreachable rather than walking into the blast — that is the tool working, not failing.
+携带弓和箭，调用 `scan_nearby_entities`，再调用 `attack({"entity_ids":[crystal_ids]})`。水晶被一支箭即可摧毁，并会以两倍于苦力怕的威力爆炸，因此 `attack` 绝不会靠近，而会保持 12 格距离射击。没有箭时会报告目标不可达，而不是走进爆炸范围——这是工具在正确工作，并非失败。
 
-## Step 2 — the 2 caged crystals
+## 第 2 步——2 个铁笼水晶
 
-Per caged pillar:
+对每根带铁笼的柱子执行：
 
-1. `goto(pillar_top_x, top_y + 1, pillar_top_z)` — navigation pillars up the side on its own (this is what the spare cobblestone is for).
-2. `mine(iron_bars)` to open the cage.
-3. `goto` back down/away, then scan that crystal and call `attack({"entity_ids":[id]})` — it keeps its own distance from there.
+1. `goto(pillar_top_x, top_y + 1, pillar_top_z)`——导航会自行沿柱侧向上搭柱（备用圆石正用于此处）。
+2. 使用 `mine(iron_bars)` 打开铁笼。
+3. 用 `goto` 回到地面或拉开距离，重新扫描该水晶，再调用 `attack({"entity_ids":[id]})`；此后身体会自行保持安全距离。
 
-While you're up high, the dragon may strafe the pillar — if `get_self_status` shows falling HP, finish the bars and get down first.
+身处高处时末影龙可能冲击柱子；如果 `get_self_status` 显示生命值正在下降，先尽快挖开铁栏杆并下到地面。
 
-## Step 3 — kill the dragon
+## 第 3 步——击杀末影龙
 
-Two modes, alternating:
+战斗会在两种模式间交替：
 
-- **Flying**: scan the dragon runtime ID, then `attack({"entity_ids":[id]})` — out of reach means it shoots. Head shots take full damage, body shots are reduced; accept slow progress.
-- **Perched** (it lands on the central fountain periodically, more often at low HP): the same `attack` call now reaches it and swings — the melee window does the real damage. Back off (`goto` 10+ blocks sideways) when it takes off again.
+- **飞行中**：扫描末影龙的运行时 ID，再调用 `attack({"entity_ids":[id]})`；目标不可近身时会自动射击。击中头部造成完整伤害，身体伤害较低，应接受较慢的推进速度。
+- **栖息中**（它会周期性落在中央祭坛，低生命值时更频繁）：同一个 `attack` 调用此时能靠近并挥剑，近战窗口是主要输出机会。它再次起飞后，用 `goto` 横向移动至少 10 格并拉开距离。
 
-### Its attacks and your answers
+### 攻击方式与应对
 
-| Attack | Effect | Answer |
+| 攻击 | 效果 | 应对方式 |
 |---|---|---|
-| Dive/charge | ~10 dmg + heavy knockback | Stay near the island centre so knockback can't reach the void |
-| Dragon's breath | Lingering purple cloud, ~3 dmg/s | `goto` sideways immediately; **never stand or fight in purple** |
-| Wing buffet (perched) | ~5 dmg + knockback | Expected cost of the melee window; eat between perches |
+| 俯冲/冲锋 | 约 10 点伤害并造成强击退 | 保持在岛屿中心，避免被击退到虚空 |
+| 龙息 | 持续存在的紫色云雾，每秒约 3 点伤害 | 立即使用 `goto` 横向离开；**绝不要站在紫色区域中战斗** |
+| 翼击（栖息时） | 约 5 点伤害并击退 | 这是近战窗口的预期代价；两次栖息之间进食恢复 |
 
-### HP discipline
+### 生命值管理
 
-This is a long fight. Between every tool call: `get_self_status`; **HP ≤ 10 → disengage to centre, `eat_item`, only then re-engage.** The dragon doesn't rush you — patience is free, death isn't.
+这是一场持久战。每次工具调用之间都使用 `get_self_status`；**生命值 ≤ 10 时，立即脱离战斗并回到中心，调用 `eat_item`，恢复后再接战。** 末影龙不会持续贴身追击，耐心没有成本，死亡才有。
 
-## After the kill
+## 击杀之后
 
-- The exit portal (bedrock fountain, centre) returns you to the overworld spawn — `goto` into it when your owner is ready.
-- The dragon egg on the fountain is a trophy your owner may want; it teleports when punched, so leave its extraction to them.
-- Mark the entire endgame plan `completed` in `todowrite`.
+- 中央基岩祭坛中的返回传送门会把你送回主世界出生点；主人准备好后再用 `goto` 进入。
+- 祭坛顶部的龙蛋是主人可能想保留的纪念品；击打后它会传送，因此把取蛋工作留给主人。
+- 在 `todowrite` 中把整套末期流程标记为 `completed`。
 
-## If you die
+## 如果死亡
 
-Your run ends where your body fell. If your owner recovers your gear, re-verify the packlist (`get_self_status`), reload this skill, and walk back in through the still-active stronghold portal — the dragon keeps whatever damage it already took.
+装备会留在身体坠落的位置。如果主人找回装备，重新用 `get_self_status` 核对物资清单，重新加载此技能，然后从仍然激活的要塞传送门再次进入末地；末影龙会保留此前已经受到的伤害。

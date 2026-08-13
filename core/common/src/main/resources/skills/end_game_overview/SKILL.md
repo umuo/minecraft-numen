@@ -1,46 +1,48 @@
 ---
 name: end_game_overview
-description: High-level roadmap to defeat the Ender Dragon. Load this FIRST when the owner asks for any end-game / "kill the dragon" goal — it tells you which specialised skill to load for the current phase.
+description: 击败末影龙的总体路线图。主人提出任何末期游戏或“屠龙”目标时，首先加载此技能；它会告诉你当前阶段应加载哪个专项技能。
 ---
 
-# Skill: end_game_overview
+# 技能：末期游戏总览
 
-Your owner has asked you to **defeat the Ender Dragon** — the canonical end-game of vanilla Minecraft. This skill is the map; the other skills are the territory. Each phase below maps 1:1 to a specialised skill you load on demand.
+主人要求你**击败末影龙**——这是原版 Minecraft 的标志性终局目标。此技能是地图，其他技能是沿途的具体道路。下面每个阶段都一一对应一个按需加载的专项技能。
 
-## How to run the journey
+## 如何执行整段旅程
 
-The full path from "fresh world" to "dead dragon" spans dozens of actions across three dimensions. Don't plan it all in one turn:
+从“全新世界”走到“末影龙死亡”需要跨越三个维度、执行数十项操作。不要试图在一轮中计划全部细节：
 
-1. **Use `todowrite`** to write the 6 mainline phases as a top-level todo list, phase 1 `in_progress`.
-2. **Load the matching skill** with `load_skill` only when you actually start that phase — loading all skills up front wastes tokens.
-3. **Verify each phase's "done when" with `get_self_status`** before marking it `completed` — never assume an item is in your inventory.
-4. Keep exactly one phase `in_progress` at a time.
+1. 使用 `todowrite` 把 6 个主线阶段写成顶层待办列表，并将第 1 阶段设为 `in_progress`。
+2. 只有真正开始某阶段时，才用 `load_skill` 加载对应技能；提前加载全部技能会浪费上下文。
+3. 每阶段标记为 `completed` 前，用 `get_self_status` 核对其“完成条件”；绝不要凭空假定物品已在背包中。
+4. 任意时刻只能有一个阶段处于 `in_progress`。
 
-## The 6 mainline phases
+## 六个主线阶段
 
-These mirror the vanilla advancement chain, so your owner can track your progress on their own advancement screen.
+它们与原版进度链对应，主人可以在自己的进度界面中查看进展。
 
-| # | Phase | Skill to load | Done when | Vanilla advancement |
+| # | 阶段 | 加载技能 | 完成条件 | 原版进度 |
 |---|---|---|---|---|
-| 1 | Tier up to diamond | `tier_progression` | Diamond pickaxe + diamond sword, iron-or-better armor, bow + 32 arrows, 32+ cooked food, 64+ cobblestone | "Diamonds!" |
-| 2 | Build a Nether portal, enter | `nether_entry` | Standing in the Nether with the packlist intact | "We Need to Go Deeper" |
-| 3 | Farm blaze rods | `blaze_rods` | ≥7 blaze rods in inventory | "Into Fire" |
-| 4 | Acquire ender pearls | `ender_pearls` | ≥12 ender pearls in inventory | — |
-| 5 | Find the stronghold, activate the End portal | `stronghold_finding` | Standing at the activated End portal | "Eye Spy" |
-| 6 | Kill the dragon | `dragon_combat` | Ender Dragon HP → 0 | "Free the End" |
+| 1 | 提升至钻石等级 | `tier_progression` | 钻石镐和钻石剑、铁质或更好的盔甲、弓和 32 支箭、32+ 熟食、64+ 圆石 | “钻石！” |
+| 2 | 建造并进入下界传送门 | `nether_entry` | 携带完整物资站在下界 | “勇往直下” |
+| 3 | 刷取烈焰棒 | `blaze_rods` | 背包中有 ≥7 根烈焰棒 | “与火共舞” |
+| 4 | 获取末影珍珠 | `ender_pearls` | 背包中有 ≥12 颗末影珍珠 | — |
+| 5 | 找到要塞并激活末地传送门 | `stronghold_finding` | 站在已激活的末地传送门旁 | “隔墙有眼” |
+| 6 | 击杀末影龙 | `dragon_combat` | 末影龙生命值降至 0 | “解放末地” |
 
-One **support skill**: `combat_basics` — load before any combat-heavy phase (blazes, endermen, the dragon). HP management, target authorization, retreat rules.
+另有一个**辅助技能**：`combat_basics`。在烈焰人、末影人、末影龙等战斗密集阶段前加载，用于生命值管理、目标授权和撤退规则。
 
-## What you can do yourself
+## 你可以自行完成的事情
 
-You have the full toolset: `goto` (navigation digs, bridges and pillars on its own — but only digs what your held tool can harvest, so travel with a pickaxe in hand), `mine` (finds and travels to blocks by id), `build` (construction — one cell or many: place blocks from inventory at explicit coords/orientation, or pass `air` at a cell to clear/break what's there; travels, climbs and bridges to reach each cell), `collect_items`, `equip_item`, `eat_item` (your healing), `attack` (it picks melee or bow/crossbow by what it can reach), `interact_at`/`interact_entity` (native crosshair use/attack on blocks, air, entities — flint & steel, ender eyes, levers, …), `locate_structure` (strongholds, fortresses, #village, …). For any container or machine, the GUI primitives: `interact_at` to open it, `inspect_gui` to read the slots, `transfer` to move items (deposit / take / load / swap), `close_gui` when done. **Crafting** = `lookup_recipe` for the layout then `transfer` the ingredients into a grid (2×2 on your own, 3×3 on a crafting table you place); **smelting** = a furnace loaded the same way (input + fuel, then `wait`). Plus `drop_items`, `wait` (furnace batches, nightfall), and perception (`get_self_status` — HP, equipment AND full inventory in one call — `get_world_info`, `scan_blocks`, `scan_nearby_entities`, `inspect_block`). Load the `containers` skill for the GUI/crafting/smelting details.
+你拥有完整工具集：`goto`（导航会自行挖掘、搭桥和搭柱，但只能挖掉当前手持工具能够采集的方块，因此旅行时应手持镐）、`mine`（按 ID 寻找方块并前往开采）、`build`（按明确坐标/朝向放置背包中的方块；可构建单格或多格，也可在某格传入 `air` 清除方块；会自行移动、攀爬和搭桥抵达每格）、`collect_items`、`equip_item`、`eat_item`（恢复生命值）、`attack`（按目标是否可达自动选择近战或弓/弩）、`interact_at`/`interact_entity`（使用原生准星与方块、空气或实体交互/攻击，可处理打火石、末影之眼、拉杆等），以及 `locate_structure`（查找要塞、下界要塞、`#village` 等）。
 
-The whole route is therefore yours to execute autonomously. You can drive almost any GUI block this way — chests, furnaces, crafting tables, brewing stands, modded machines. Use `scan_storage(storage_type=items)` when you need a chest or inventory in an unfamiliar modpack; it detects actual storage capabilities instead of guessing block ids. The exception is picking an enchantment at an enchanting table (the enchant choice is a menu button, not a slot you can `transfer`): if the owner offers to enchant your gear, accept; never plan to enchant yourself.
+面对任何容器或机器，可以用 `interact_at` 打开 GUI、`inspect_gui` 查看槽位、`transfer` 存入/取出/装料/交换物品，完成后用 `close_gui` 关闭。**合成**流程是用 `lookup_recipe` 获取布局，再用 `transfer` 把材料放入合成格（自身 2×2，放置工作台后可用 3×3）；**烧炼**流程是以同样方式给熔炉装入原料和燃料，再 `wait`。此外还有 `drop_items`、`wait`（等待熔炉批次或夜晚）以及感知工具：`get_self_status`（一次获取生命值、装备和完整背包）、`get_world_info`、`scan_blocks`、`scan_nearby_entities`、`inspect_block`。GUI、合成和烧炼细节参见 `containers`。
 
-## When the owner narrows the goal
+因此，你可以自主执行整条路线，也能用相同方式操作箱子、熔炉、工作台、酿造台和模组机器等大多数 GUI 方块。在陌生整合包中需要寻找箱子或库存时，使用 `scan_storage(storage_type=items)`；它按真实存储能力识别设施，而不是猜测方块 ID。唯一例外是附魔台：附魔选项是菜单按钮，不是 `transfer` 能操作的槽位。如果主人愿意帮你附魔，应接受帮助；不要自行规划附魔步骤。
 
-If the owner asks for something more focused — *"just get to the Nether"*, *"find a stronghold"* — skip irrelevant phases and load only the skill(s) you need. Phases assume the previous phase's inventory; check `get_self_status` and backfill gaps instead of blindly starting from phase 1.
+## 主人缩小目标范围时
 
-## What to load next
+如果主人只要求“进入下界”或“找到要塞”等更具体的目标，应跳过无关阶段，只加载需要的技能。各阶段默认继承前一阶段的物资；先用 `get_self_status` 检查并补齐缺口，不要机械地从第 1 阶段重来。
 
-Fresh world, no gear: `load_skill(name="tier_progression")`.
+## 接下来加载什么
+
+全新世界且没有装备：调用 `load_skill(name="tier_progression")`。

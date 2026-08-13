@@ -1,42 +1,33 @@
 # indian_temple — 印度石庙
 
-A carved stone mountain. The tower rises in tiers that shrink while repeating
-their own shape, so the silhouette comes out dense and busy rather than clean.
-Surfaces are meant to be covered — bands, niches, mouldings — because in this
-tradition blank stone is unfinished stone. Heavy, warm-coloured, horizontally
-banded all the way up.
+一座雕刻而成的石山。塔楼以不断缩小、同时重复自身形态的层级向上升起，因此轮廓应密集繁复，而非简洁利落。表面需要被横带、壁龛和线脚覆盖，因为在这一传统中，空白石面就等于尚未完成。整体厚重、温暖，并从底到顶保持水平分层。
 
-## Materials
-- **body**: sandstone, cut_sandstone, smooth_sandstone, red_sandstone — mix the
-  warm sandstones heavily; this style lives on stone variety
-- **bands and mouldings**: sandstone_stairs, sandstone_slab, chiseled_sandstone
-- **platform**: smooth_stone, polished_andesite
-- **accent**: gold_block at the very top finial only
-- **light**: torches in wall niches, low and orange
+## 材料
+- **主体**：sandstone、cut_sandstone、smooth_sandstone、red_sandstone——大量混合暖色砂岩；这种风格依赖石材变化
+- **横带与线脚**：sandstone_stairs、sandstone_slab、chiseled_sandstone
+- **基台**：smooth_stone、polished_andesite
+- **强调材料**：gold_block 只用于最顶端的尖顶饰
+- **照明**：壁龛内放置低矮、橙色的 torch
 
-## Proportions
-- a tall stepped tower over a comparatively small sanctum
-- tower height 2–3 times the sanctum's width
-- each tier 0.85–0.92 of the one below — **many shallow steps**, not a few big
-  ones
-- broad platform extending 2–4 past the building on every side
+## 比例
+- 相对较小的圣所上方设置高耸的阶梯塔
+- 塔高为圣所宽度的 2–3 倍
+- 每一层为下一层的 0.85–0.92——使用**许多浅小台阶**，而不是少数几个大台阶
+- 宽阔基台在建筑四面各伸出 2–4 格
 
-## Signature moves
-- **Repeating tiers** — the tower is one motif shrinking upward. Ten small steps
-  read far better than three large ones.
-- **Horizontal banding** — a course of stairs or slabs every 2–3 blocks the whole
-  way up. This is what makes the mass look carved rather than stacked.
-- **Niches** — recess single cells into the wall at a rhythm and put something
-  in them.
-- **Finial** — one clear ornament capping the peak.
+## 标志性手法
+- **重复层级**——整座塔由同一个母题不断缩小并向上叠加。十个小台阶远胜三个大台阶。
+- **水平分带**——从底到顶每隔 2–3 格设置一圈楼梯或台阶；这能让体量显得经过雕刻，而非简单堆叠。
+- **壁龛**——按固定节奏在墙面凹入单格空间，并在其中放置物件。
+- **尖顶饰**——峰顶必须有一个清晰的收束装饰。
 
-## Variants
-- **nagara** — north Indian: curving beehive tower, single peak
-- **dravida** — south Indian: rectangular stepped pyramid, elaborate gate tower
-- **cave temple** — carved into a cliff face, no free-standing mass at all
-- **stepwell** — inverted: descending tiers of stairs into the ground
+## 变体
+- **北印度式**——曲线蜂巢形塔体，单一顶峰
+- **南印度式**——矩形阶梯金字塔，配有华丽门楼
+- **石窟寺**——完全开凿在悬崖立面中，不设置独立体量
+- **阶梯井**——反向构成：层层台阶向地下深入
 
-## Avoid
-- blank unmodulated wall surfaces
-- cool grey stone; keep the palette warm
-- a smooth cone or dome — the tower must be stepped and busy
+## 避免
+- 空白且毫无变化的墙面
+- 冷灰色石材；配色应保持温暖
+- 光滑圆锥或穹顶；塔体必须层层退进且细节繁复

@@ -1,60 +1,40 @@
 # chinese_classical — 中式官式
 
-Official Chinese architecture makes hierarchy visible: a strict north–south
-axis, symmetric courtyards, and a roof whose weight and colour announce the rank
-of what stands beneath it. The bracket cluster under the eave is the signature —
-a deliberately complex transition between column and roof. Colour is coded, not
-chosen for taste: red columns, grey walls, and a glazed roof whose colour you do
-not get to pick freely.
+中式官式建筑把等级直接表现出来：严格的南北轴线、对称院落，以及以重量和颜色宣告下方建筑等级的屋顶。檐下斗拱是标志——它在柱与屋顶之间形成有意复杂的过渡。颜色遵循制度而非个人喜好：红柱、灰墙，以及不能随意选色的琉璃屋顶。
 
-## Materials
-- **columns**: red_concrete, red_terracotta, crimson_planks — evenly spaced and
-  clearly structural
-- **walls**: gray_concrete, stone_bricks, smooth_stone; the wall is infill, the
-  columns carry the eye
-- **roof**: this is where most attempts go wrong. The historic glazed tile was
-  imperial yellow, but **gold_block reads as treasure, not as a roof** — it is
-  too bright, too flat and too obviously metal. What actually works is a
-  weathered, textured surface. One combination that holds up on a hand-built
-  hall, band by band:
-  - tiles `stone_brick_slab` — grey, textured, and it takes the light well
-  - ridges `dark_prismarine` — deep blue-green, clearly darker than the tile, so
-    the crest and the four diagonals read from across the courtyard
-  - eave band `waxed_oxidized_cut_copper_slab` — one course of verdigris right
-    around the edge
-  - soffit `oak_slab*5, jungle_slab*4, spruce_slab*2` — three woods mixed, seen
-    from under the deep eave
-  Substitutes that work in the same slots: deepslate_tiles or gray_concrete for
-  grey tile, warped_planks for an unusual teal. Reserve any yellow for a finial
-  one block big, never a whole roof plane.
-- **brackets and beams**: dark_oak_log, spruce_planks
-- **paving**: stone, andesite, polished_andesite in a regular grid
-- **light**: paired lanterns flanking every doorway
+## 材料
+- **柱子**：red_concrete、red_terracotta、crimson_planks——等距并具有清晰结构感
+- **墙面**：gray_concrete、stone_bricks、smooth_stone；墙是填充，柱子才承担视觉结构
+- **屋顶**：皇家琉璃瓦历史上为黄色，但 gold_block 看起来像宝藏而不是屋顶。应使用风化、有纹理的表面：
+  - 瓦面 stone_brick_slab——灰色、有纹理且受光良好
+  - 屋脊 dark_prismarine——深蓝绿色，使正脊和斜脊能跨院识别
+  - 檐口带 waxed_oxidized_cut_copper_slab——沿边缘一圈铜绿
+  - 檐底 oak_slab*5, jungle_slab*4, spruce_slab*2——混合三种木材
+  灰瓦可替换为 deepslate_tiles 或 gray_concrete，特殊青色可用 warped_planks。黄色只用于一格大小的顶饰，绝不要铺满屋面。
+- **斗拱与梁**：dark_oak_log、spruce_planks
+- **铺地**：stone、andesite、polished_andesite 组成规则网格
+- **照明**：每扇门两侧成对放置灯笼
 
-## Proportions
-- an odd number of bays across the front (3, 5, 7); the centre bay is the door
-- roof rise 0.6–0.75 of half-span — measured off hand-built halls, and the
-  generator's `concave` curve already lands there
-- eaves overhang 2–3, deeper at the corners
-- rafter ends every 2 cells along the eave, which is the spacing the slope itself
-  uses
-- platform base 1–2 above the courtyard, with a central stair or ramp
+## 比例
+- 正面开间数为奇数（3、5、7），中央开间设门
+- 屋顶起高为半跨度的 0.6–0.75；生成器的 concave 曲线会自然落在此范围
+- 屋檐伸出 2–3 格，角部更深
+- 沿檐每 2 格设置一个椽头
+- 台基高出院落 1–2 格，中央设台阶或坡道
 
-## Signature moves
-- **Axis** — everything mirrors about one line, and the visitor walks it.
-- **Courtyard sequence** — gate, court, hall, court, hall. The space between
-  buildings matters as much as the buildings.
-- **Bracket band** — a visually busy horizontal layer between column top and
-  eave. Stacked stairs and slabs read as brackets from any distance.
-- **Upturned corners** — the eave corner lifts more sharply than Japanese work.
+## 标志手法
+- **轴线**——一切关于同一条线镜像，访客也沿此线行进
+- **院落序列**——门、院、殿、院、殿；建筑之间的空间同样重要
+- **斗拱带**——柱顶与屋檐间形成视觉繁密的水平层
+- **翘角**——檐角上翘比日式建筑更明显
 
-## Variants
-- **palace hall** — yellow roof, wide platform, ceremonial scale
-- **garden pavilion** — small, open on every side, beside water
-- **temple** — grey roof, incense court, drum and bell towers flanking
-- **siheyuan** — four wings enclosing one private courtyard
+## 变体
+- **宫殿大殿**——黄色屋顶、宽阔台基和礼仪尺度
+- **园林亭**——小巧、四面开放、邻水
+- **寺庙**——灰色屋顶、香火院落，两侧钟鼓楼
+- **四合院**——四翼围合一个私密院落
 
-## Avoid
-- breaking symmetry on the main axis
-- yellow roofs on ordinary buildings; it outranks them
-- exposed rough stone — surfaces here are finished
+## 避免
+- 破坏主轴对称
+- 普通建筑使用黄色屋顶；其等级过高
+- 暴露粗糙石材；这里的表面都经过处理

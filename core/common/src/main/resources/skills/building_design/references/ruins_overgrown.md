@@ -1,44 +1,33 @@
 # ruins_overgrown — 废墟
 
-Not a style of its own — a treatment applied to any other style. A ruin is a
-building minus the parts that fail first: roof, floors, glass, timber. What
-survives is masonry, and it survives unevenly. The craft is entirely in the
-irregularity: a wall that steps down at random, rubble that gathers where the
-wall fell, and plant life that started at the base and worked upward.
+这不是独立风格，而是可以应用于任何其他风格的处理方式。废墟就是建筑失去最先损坏的部分：屋顶、楼板、玻璃和木构。剩下的是砖石，而且残存程度极不均匀。全部技巧都在于不规则：墙体随机逐段降低，碎石堆积在坍塌位置，植物从墙脚开始向上蔓延。
 
-## Materials
-- **surviving masonry**: whatever the original style used, plus its cracked and
-  mossy variants — cracked_stone_bricks, mossy_stone_bricks, mossy_cobblestone
-  should be 30–50% of every wall
-- **rubble**: cobblestone, gravel, stone, andesite scattered at the base
-- **growth**: moss_block, moss_carpet, vines, glow_lichen, azalea, grass,
-  saplings and full trees inside the shell
-- **water**: puddles, or a stream running through where the floor gave way
-- **remains**: a single intact arch, a fragment of column, a doorway with no wall
+## 材料
+- **残存砌体**：沿用原风格材料，并加入其开裂和长苔变体；cracked_stone_bricks、mossy_stone_bricks、mossy_cobblestone 应占每面墙的 30–50%
+- **瓦砾**：在墙脚散落 cobblestone、gravel、stone、andesite
+- **植物**：moss_block、moss_carpet、vines、glow_lichen、azalea、grass、sapling，以及长在建筑壳体内的完整树木
+- **积水**：水洼，或从楼板塌陷处流过的小溪
+- **残件**：一座完整拱券、一截柱子，或没有相连墙体的门洞
 
-## Proportions
-- wall heights vary wildly: some sections full height, some down to 1–2
-- roof entirely gone, or one small section surviving over a corner
-- rubble piles 1–3 tall banked against the inside of fallen walls
-- vegetation covering 0.3–0.6 of horizontal surfaces, less on vertical ones
+## 比例
+- 墙体高度差异巨大：有些保留全高，有些只剩 1–2 格
+- 屋顶完全消失，或只有角落上方留下一小部分
+- 瓦砾堆高 1–3 格，倚靠在倒塌墙体内侧
+- 植物覆盖 0.3–0.6 的水平表面，竖直表面覆盖较少
 
-## Signature moves
-- **Uneven collapse** — never step the wall down in a regular pattern. Long
-  intact runs, then a sudden gap, then a stub.
-- **Rubble where the wall went** — the missing blocks are on the ground nearby,
-  not vanished.
-- **One thing intact** — a single arch, doorway or column still standing whole
-  gives the eye the original scale.
-- **Growth from the ground up** — moss and vines heaviest at the base, thinning
-  with height. Moss on a high wall top with a clean base looks wrong.
+## 标志性手法
+- **不均匀坍塌**——绝不能按规则阶梯降低墙体。应先有一长段完整墙，再突然断开，随后只剩短墙桩。
+- **墙倒石留**——缺失墙块应以瓦砾形式出现在附近地面，而不是凭空消失。
+- **保留一件完整物**——一座完整拱券、门洞或柱子可让人判断原建筑尺度。
+- **植物由下而上**——苔藓和藤蔓在底部最密集，随高度变稀。墙顶长苔、墙脚洁净会显得错误。
 
-## Variants
-- **overgrown** — jungle reclaiming it, trees through the floor
-- **frozen** — snow and ice instead of plants, everything muted
-- **burned** — charred timber stubs, blackened stone, no growth yet
-- **flooded** — water to waist height inside, kelp and lily pads
+## 变体
+- **丛林侵蚀**——丛林重新占领建筑，树木穿过地板生长
+- **冰冻遗迹**——用冰雪代替植物，整体色彩低沉
+- **火灾遗迹**——焦黑木桩、熏黑石材，植物尚未生长
+- **水淹遗迹**——内部水深及腰，长有 kelp 和 lily_pad
 
-## Avoid
-- symmetrical or regular damage
-- damage without rubble
-- uniform moss coverage; it must have a gradient
+## 避免
+- 对称或有规律的破坏
+- 只有破损却没有瓦砾
+- 苔藓均匀覆盖；必须形成由下而上的梯度

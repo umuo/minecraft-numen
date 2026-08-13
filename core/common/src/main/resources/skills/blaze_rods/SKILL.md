@@ -1,45 +1,45 @@
 ---
 name: blaze_rods
-description: Locate a Nether fortress, fight blazes at their spawner, and collect ≥7 blaze rods (each grinds into 2 blaze powder; 12 eyes of ender need 12 powder = 6 rods, +1 margin).
+description: 寻找下界要塞，在烈焰人刷怪笼附近战斗，并收集至少 7 根烈焰棒（每根可分解为 2 份烈焰粉；12 个末影之眼需要 12 份烈焰粉，即 6 根烈焰棒，再多留 1 根余量）。
 ---
 
-# Skill: blaze_rods
+# 技能：收集烈焰棒
 
-Phase 3 of the dragon route. Eyes of ender need blaze powder; `locate_structure` means you waste zero eyes on throwing, so **7 rods (14 powder) is enough** with margin.
+这是屠龙路线的第 3 阶段。末影之眼需要烈焰粉；使用 `locate_structure` 后无需投掷末影之眼来寻路，因此**收集 7 根烈焰棒（14 份烈焰粉）就足够，而且还有余量**。
 
-## Done when
+## 完成条件
 
-- `get_self_status` shows **≥7 blaze_rod**
-- You're back at the Nether portal (or another safe spot), ready for phase 4
+- `get_self_status` 显示拥有**至少 7 个 blaze_rod**
+- 已回到下界传送门或其他安全地点，准备进入第 4 阶段
 
-## Finding a fortress
+## 寻找下界要塞
 
-1. **`locate_structure("minecraft:fortress")`** — exact coordinates, direction and distance in one call (must be called while IN the Nether). Don't wander looking for it.
-2. `goto` the returned x/z (the returned y is approximate — travel around y≈70), then `scan_blocks(nether_bricks, radius=128)` to find the actual corridors; the structure spans many y-levels.
-3. Beware the lookalike: blackstone with gold = **bastion** (`minecraft:bastion_remnant`) — different structure, avoid; its piglin brutes attack on sight.
-4. Track your portal's coordinates so you can navigate home.
+1. **`locate_structure("minecraft:fortress")`**——一次调用即可获得精确坐标、方向和距离（必须身处下界时调用）。不要漫无目的地寻找。
+2. 使用 `goto` 前往返回的 x/z 坐标（返回的 y 仅供参考，建议在 y≈70 附近移动），随后使用 `scan_blocks(nether_bricks, radius=128)` 找到真正的走廊；要塞会跨越多个高度层。
+3. 小心外观相似的结构：带金块的黑石建筑是**堡垒遗迹**（`minecraft:bastion_remnant`），不是下界要塞，应当避开；其中的猪灵蛮兵会主动攻击。
+4. 记录传送门坐标，以便找到回家的路。
 
-## Blazes
+## 烈焰人
 
-- 20 HP, fly/hover, volley of 3 fireballs (~5 dmg each + sets you on fire) every ~3s at line of sight, fire-immune.
-- They spawn from **blaze spawners**: small fortress rooms with a caged spawner block, plus naturally on fortress bridges.
-- **Carry a bow and ~6 arrows per blaze.** Blazes hover, so `attack` shoots the ones it cannot reach and closes on the ones it can — you do not pick. A diamond sword alone still works when arrows run out (3 hits kill) as long as you carry plenty of cooked food for the fireball damage; what you control is what is in the inventory, not the range.
+- 生命值 20，会飞行和悬浮；看到目标后约每 3 秒发射一轮 3 个火球（每个约造成 5 点伤害并使你着火）；免疫火焰。
+- 它们会从**烈焰人刷怪笼**生成：刷怪笼通常位于要塞中的小平台房间里；要塞桥梁上也会自然生成烈焰人。
+- **携带弓，并按每只烈焰人约 6 支箭准备。** 烈焰人会悬浮，所以 `attack` 会射击无法近身的目标，并接近能够近身的目标——无需由你选择攻击方式。箭用尽时仅使用钻石剑也能应付（三次命中即可击杀），但必须携带足够的熟食承受火球伤害；你需要控制的是背包里的装备，而不是攻击距离。
 
-## Farming loop
+## 刷取循环
 
-1. Find the spawner room (`scan_blocks(spawner)` inside the fortress helps).
-2. `scan_nearby_entities` → `attack({"entity_ids":[id]})` in small batches.
-3. `collect_items` — rods drop on the floor; grab them before they burn in nearby lava... rods are fire-immune items, but lava destroys them. Don't let drops land in lava.
-4. `get_self_status` between batches: HP ≤ 8 → `goto` out of spawner range, eat, return.
-5. Repeat until `get_self_status` shows ≥7 rods. Drop rate is 0–1 per kill (avg 0.5) → expect **~14 kills**, more if unlucky.
+1. 找到刷怪笼房间（在要塞内使用 `scan_blocks(spawner)` 会有帮助）。
+2. 调用 `scan_nearby_entities`，再用 `attack({"entity_ids":[id]})` 分小批攻击。
+3. 使用 `collect_items` 捡取掉在地上的烈焰棒。烈焰棒物品免疫火焰，但仍会被熔岩销毁，因此不要让掉落物落进熔岩。
+4. 每批之间调用 `get_self_status`：生命值 ≤ 8 时，用 `goto` 离开刷怪范围，进食恢复后再回来。
+5. 重复操作，直到 `get_self_status` 显示至少 7 根烈焰棒。每只烈焰人的掉落量为 0–1 根（平均 0.5 根），预计要击杀**约 14 只**，运气差时会更多。
 
-**Do not mine the spawner** — you need it spawning blazes until the count is met. (You *may* `build` a block or two to wall off excess sight-lines if too many blazes volley at once.)
+**不要破坏刷怪笼**——在数量达标前还需要它持续生成烈焰人。（如果同时出现太多烈焰人，可以用 `build` 放置一两个方块，封住部分视线。）
 
-## Hazards
+## 危险因素
 
-- **Wither skeletons** roam fortress corridors; their hits apply Wither (damage over time). scan them and pass one runtime ID at a time to `attack`, or stay out of reach.
-- Fortress bridges have no railings; knockback over the edge usually lands in lava. Fight away from edges (`combat_basics` positioning rules).
+- **凋灵骷髅**会在要塞走廊中活动；它们的攻击会施加凋零效果，持续造成伤害。扫描它们后，每次只把一个运行时 ID 交给 `attack`，或者保持距离。
+- 要塞桥梁没有护栏，被击退后通常会掉入熔岩。应远离边缘战斗（参见 `combat_basics` 中的站位规则）。
 
-## What to load next
+## 接下来加载什么
 
-≥7 rods banked → mark phase 3 `completed`, then `load_skill(name="ender_pearls")`. Warped forests (teal trees, dense endermen) are worth noting on your way out — phase 4 can use them.
+存好至少 7 根烈焰棒后，将第 3 阶段标记为 `completed`，然后调用 `load_skill(name="ender_pearls")`。离开时可以留意诡异森林（青绿色树木、末影人密集）；第 4 阶段可能会用到它。

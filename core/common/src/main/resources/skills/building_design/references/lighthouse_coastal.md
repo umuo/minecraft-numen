@@ -1,43 +1,36 @@
 # lighthouse_coastal — 海岸灯塔
 
-A tower whose entire job is to be seen, attached to a small ordinary house whose
-job is to keep someone alive next to it. The tower tapers, is painted in bands
-so it reads against sea and sky in daylight, and carries a glazed lantern room
-with a gallery round it. Everything is weathered by salt; nothing is delicate.
+一座唯一职责就是被看见的塔，旁边连接着一栋普通小屋，负责让守塔人能够生存。塔身向上收分，并刷成分段色带，使其白天也能从海天背景中清晰辨认；顶部是玻璃灯室，四周环绕平台。所有部分都受到盐雾风化，不能显得精致脆弱。
 
-## Materials
-- **tower bands**: white_concrete alternating with red_concrete or
-  black_concrete — the stripe is functional, not decorative
-- **stone tower variant**: stone_bricks, andesite, mossy_cobblestone for older
-  towers
-- **lantern room**: glass, glass_pane, iron_bars, sea_lantern or glowstone at
-  the centre
-- **gallery**: iron_bars railing on a slab ring corbelled out
-- **keeper house**: white_concrete walls, red or dark roof stairs
-- **rocks and base**: stone, andesite, gravel, mossy_cobblestone
-- **light**: sea_lantern in the lamp; lantern by the house door
+## 材料
+- **塔身色带**：white_concrete 与 red_concrete 或 black_concrete 交替——条纹具有识别功能，而不只是装饰
+- **石塔变体**：老式塔使用 stone_bricks、andesite、mossy_cobblestone
+- **灯室**：glass、glass_pane、iron_bars，中心设置 sea_lantern 或 glowstone
+- **环廊**：用台阶向外挑出一圈平台，并以 iron_bars 作栏杆
+- **守塔人小屋**：white_concrete 墙体，红色或深色楼梯屋顶
+- **礁石与基座**：stone、andesite、gravel、mossy_cobblestone
+- **照明**：灯室内用 sea_lantern；小屋门旁用 lantern
 
-## Proportions
-- tower height 4–8 times its base diameter
-- taper: lose about 1 of radius every 8–12 of height
-- stripes 3–5 tall each, alternating, an odd number of them
-- gallery ring projects 1 past the tower just below the lantern
-- keeper house 1–1.5 storeys, attached or a few blocks away
+## 比例
+- 塔高为底部直径的 4–8 倍
+- 收分：每升高 8–12 格，半径约减少 1 格
+- 每道条纹高 3–5 格，颜色交替，条纹总数为奇数
+- 灯室下方的环廊向塔外伸出 1 格
+- 守塔人小屋高 1–1.5 层，可与塔连接，也可相距数格
 
-## Signature moves
-- **Taper** — the tower must narrow as it rises. A straight cylinder reads as a
-  silo, not a lighthouse.
-- **Gallery** — a walkway ringing the tower under the lamp, railed in iron bars.
-- **Glazed lantern room** with a real light source inside that shows at night.
-- **Rock base** — set it on broken stone at the water's edge, not on flat ground.
+## 标志性手法
+- **收分**——塔身必须向上变窄。笔直圆柱看起来是筒仓，而非灯塔。
+- **环廊**——灯室下方环绕塔身的步道，以 iron_bars 设置栏杆。
+- **玻璃灯室**——内部放置真实光源，夜间必须可见。
+- **礁石基座**——将灯塔建在水边破碎岩石上，而不是平地上。
 
-## Variants
-- **striped classic** — red and white bands, white keeper cottage
-- **stone tower** — unpainted masonry, older, mossy at the base
-- **harbour light** — short, at the end of a stone pier
-- **abandoned** — glass broken, moss on the stripes, no light
+## 变体
+- **经典条纹灯塔**——红白色带，白色守塔人小屋
+- **石砌灯塔**——不刷漆的老式砌体，底部生有苔藓
+- **港口航标灯**——较矮，位于石码头尽端
+- **废弃灯塔**——玻璃破碎，条纹上长出苔藓，灯火熄灭
 
-## Avoid
-- an untapered cylinder
-- a tower with no gallery or no visible lamp
-- siting it inland or on flat featureless ground
+## 避免
+- 不收分的圆柱
+- 没有环廊或看不见灯光的塔
+- 建在内陆或毫无特征的平坦地面上

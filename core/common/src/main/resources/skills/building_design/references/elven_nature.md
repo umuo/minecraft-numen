@@ -1,45 +1,35 @@
 # elven_nature — 精灵
 
-Architecture that was grown rather than assembled. Nothing meets at a right
-angle if a curve will do; structures wrap around living trees instead of
-clearing them, and the boundary between building and forest is deliberately
-unclear. Light is soft and comes from the material itself. It should look like
-the forest agreed to this, not like the forest was cut down for it.
+这种建筑仿佛自然生长而成，而非人工拼装。只要能用曲线，就不采用直角；结构应环绕活树展开，而不是先清空树林。建筑与森林的边界要刻意保持模糊，光线柔和，仿佛从材料内部透出。最终效果应像森林主动接纳了建筑，而不是森林为建筑让路。
 
-## Materials
-- **structure**: stripped_birch_wood, birch_planks, stripped_oak_wood — pale,
-  smooth, warm
-- **accent timber**: stripped_warped_stem, stripped_mangrove_log for a stranger
-  cast
-- **roof**: azalea_leaves, flowering_azalea_leaves, oak_leaves, moss_block —
-  the roof is foliage, not tile
-- **stone**: calcite, diorite, moss_block — pale and mossy where stone appears
-- **glass**: light_blue_stained_glass, white_stained_glass in leaf shapes
-- **light**: glow_lichen, sea_lantern behind leaves, lantern on chains, amethyst
-- **planting**: vines, hanging roots, flowers on every ledge
+## 材料
+- **主体结构**：stripped_birch_wood、birch_planks、stripped_oak_wood——浅色、光滑、温暖
+- **强调木材**：stripped_warped_stem、stripped_mangrove_log，营造更奇异的色调
+- **屋顶**：azalea_leaves、flowering_azalea_leaves、oak_leaves、moss_block——屋顶是枝叶，而非瓦片
+- **石材**：calcite、diorite、moss_block——需要石材时，选择浅色并带苔意的组合
+- **玻璃**：light_blue_stained_glass、white_stained_glass，拼成叶片形状
+- **照明**：藏在树叶后的 glow_lichen、sea_lantern，链条悬挂的 lantern，以及 amethyst
+- **植物**：vines、hanging_roots，并在每个台沿摆放花卉
 
-## Proportions
-- verticality follows the trees: platforms at 8–20 above ground
-- nothing rectangular — curve every plan line you can, taper every tower
-- walkways 2–3 wide, spiralling rather than running straight
-- openings tall, narrow and pointed at the top
+## 比例
+- 竖向高度跟随树木：平台位于地面以上 8–20 格
+- 不要采用矩形：尽量弯曲每条平面轮廓，并让每座塔楼逐渐收分
+- 步道宽 2–3 格，采用螺旋或弧线，避免笔直延伸
+- 开口高而窄，顶部做成尖形
 
-## Signature moves
-- **Build around the tree, never through it.** The trunk passes through the
-  floor and out the roof.
-- **Curved everything** — use cylinders, spheres and diagonal lines. A straight
-  wall over 5 long already reads wrong.
-- **Foliage roof** — leaves and moss over a light frame; let it hang past the edge.
-- **Glowing from within** — light sources hidden behind leaves and glass so the
-  structure seems to shine.
+## 标志性手法
+- **围树而建，绝不穿树破坏。** 树干应穿过地板，再从屋顶伸出。
+- **一切都用曲线**——使用圆柱、球体和斜线。任何超过 5 格的直墙都会显得不对。
+- **枝叶屋顶**——在轻型框架上覆盖树叶和苔藓，并让它们垂出边缘。
+- **由内而亮**——将光源藏在树叶和玻璃后方，让建筑自身仿佛会发光。
 
-## Variants
-- **treehouse village** — platforms and rope bridges between several trunks
-- **grove hall** — a large open pavilion in a clearing, columns like trunks
-- **cliff dwelling** — carved into pale rock with waterfalls and hanging gardens
-- **ruined elven** — the same forms half-reclaimed, the forest winning
+## 变体
+- **树屋村落**——多个树干间的平台和绳桥
+- **林间大厅**——林中空地上的大型开放亭堂，柱子如同树干
+- **悬崖居所**——开凿于浅色岩壁，配有瀑布与空中花园
+- **精灵遗迹**——同样的形态已被森林重新吞没一半
 
-## Avoid
-- right angles, flat rectangular walls, boxy volumes
-- dark or heavy materials
-- clearing the site; the trees should stay
+## 避免
+- 直角、平直的矩形墙面和方盒体量
+- 深色或沉重的材料
+- 清空场地；原有树木必须保留

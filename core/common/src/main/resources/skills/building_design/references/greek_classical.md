@@ -1,44 +1,35 @@
 # greek_classical — 古希腊
 
-A Greek temple is a set of proportional rules made physical. Columns at a fixed
-rhythm carry a horizontal entablature, and above it a shallow triangular pediment
-closes the composition. There is almost no wall visible from outside — the
-colonnade is the facade. Everything is pale stone, everything is symmetrical, and
-the interest lies entirely in proportion and light rather than colour.
+希腊神庙是一套被实体化的比例规则。柱子按固定节奏排列，承托水平檐部，其上再以低缓的三角形山花收束构图。从外部几乎看不到墙，柱廊本身就是立面。所有部分都使用浅色石材并严格对称，视觉重点完全来自比例和光影，而非色彩。
 
-## Materials
-- **columns**: quartz_pillar, smooth_quartz, calcite — fluted if you can imply it
-- **walls and entablature**: smooth_quartz, quartz_block, bone_block, calcite
-- **steps and platform**: smooth_stone, polished_diorite, quartz_stairs
-- **roof**: smooth_quartz_slab, quartz_slab — very shallow
-- **accent**: gold_block only in tiny quantities; blue or red for painted trim,
-  historically correct and rarely expected
-- **light**: braziers of campfire at the steps
+## 材料
+- **柱子**：quartz_pillar、smooth_quartz、calcite——如果条件允许，应暗示出凹槽
+- **墙体与檐部**：smooth_quartz、quartz_block、bone_block、calcite
+- **台阶与基台**：smooth_stone、polished_diorite、quartz_stairs
+- **屋顶**：smooth_quartz_slab、quartz_slab——坡度非常平缓
+- **强调色**：gold_block 只能少量使用；蓝色或红色可用于彩绘收边，虽符合史实，但通常不在人们预期中
+- **照明**：在台阶处用 campfire 制作火盆
 
-## Proportions
-- column height 5.5–7 times its diameter; keep them slender
-- column spacing roughly 2–2.5 times the column diameter, **strictly even**
-- an even number of columns across the front (6 or 8), so no column blocks the
-  centre line
-- pediment rise 0.15–0.25 of the width — very shallow, this is not a gable roof
-- platform of 3 steps all the way round
+## 比例
+- 柱高为柱径的 5.5–7 倍，保持修长
+- 柱间距约为柱径的 2–2.5 倍，并且**严格等距**
+- 正面使用偶数根柱子（6 或 8 根），避免有柱子挡住中轴线
+- 山花高度为总宽度的 0.15–0.25——必须低缓，它不是普通双坡屋顶
+- 四周都设置连续的三级台阶
 
-## Signature moves
-- **Peristyle** — columns on all four sides, not just the front. Half the effect
-  is seeing daylight through them from the corner.
-- **Stepped platform** — three continuous steps, the building floating above the
-  ground.
-- **Entablature band** — a clear horizontal layer between column tops and roof,
-  2–3 blocks deep, unbroken.
-- **Shallow pediment** — the triangle is wide and low. Steep is wrong.
+## 标志性手法
+- **周柱式柱廊**——四面都布置柱子，而不只是正面。从转角看见阳光穿过柱列，是效果的一半。
+- **阶梯基台**——三层连续台阶，使建筑仿佛浮在地面之上。
+- **檐部横带**——柱顶与屋顶之间设置清晰、连续且不间断的水平层，高 2–3 格。
+- **低缓山花**——三角形应宽而低；陡峭就是错误的。
 
-## Variants
-- **temple** — the full peristyle, cella inside
-- **stoa** — a long colonnade with a wall behind, one side open
-- **theatre** — semicircular stepped seating cut into a hillside
-- **ruin** — some columns standing, entablature broken, floor overgrown
+## 变体
+- **神庙**——完整周柱廊，内部设内殿
+- **柱廊厅**——一侧开放，长柱廊后方设墙体
+- **剧场**——依山开凿的半圆形阶梯座席
+- **遗迹**——部分柱子仍然站立，檐部断裂，地面植物丛生
 
-## Avoid
-- steep roofs
-- irregular column spacing
-- warm or dark stone; keep it pale
+## 避免
+- 陡峭屋顶
+- 不规则柱间距
+- 暖色或深色石材；整体保持浅色

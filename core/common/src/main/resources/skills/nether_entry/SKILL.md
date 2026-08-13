@@ -1,59 +1,59 @@
 ---
 name: nether_entry
-description: Acquire obsidian, build a Nether portal with build, ignite it with flint & steel via interact_at, and enter the Nether with the right packlist.
+description: 获取黑曜石，使用 build 建造下界传送门，通过 interact_at 用打火石点燃，并携带正确物资进入下界。
 ---
 
-# Skill: nether_entry
+# 技能：进入下界
 
-Phase 2 of the dragon route. Build a portal, ignite it, walk through. Actual Nether survival starts in `blaze_rods`.
+这是屠龙路线的第 2 阶段：建造传送门、点燃并穿过。真正的下界生存从 `blaze_rods` 开始。
 
-## Done when
+## 完成条件
 
-- A lit Nether portal stands at a known overworld location (**report its coordinates to your owner** — it's the way home)
-- You are standing in the Nether with the packlist below intact
+- 已知的主世界位置有一座点亮的下界传送门（**把坐标报告给主人**，这是回家的路）
+- 携带下列完整物资站在下界中
 
-## Obsidian (need 10)
+## 黑曜石（需要 10 个）
 
-Mine it from a **ruined portal** — a structure that's just standing obsidian, no lava-casting. This is the only route: casting your own (water over lava) leaves every fresh obsidian block touching lava, and I refuse to mine fluid-adjacent blocks (it would flood or burn the dig), so a cast wall is unminable by design.
+从**废弃传送门**开采；那里有直立的现成黑曜石，无需浇筑。这是唯一可靠路线：自行用水浇熔岩得到的新黑曜石会紧邻熔岩，而我拒绝开采紧贴流体的方块（会让流体涌入或烧毁开采区域），因此浇筑墙在设计上不可开采。
 
-1. `locate_structure("#minecraft:ruined_portal")` — searches the whole family and returns the nearest. **Skip `ruined_portal_ocean`** (underwater) if the result names it; re-search or pick a land one — I can't dive.
-2. `equip_item(diamond_pickaxe)` (obsidian needs diamond), `goto` the portal coordinates.
-3. `mine(obsidian, 10)` — it digs the frame's obsidian on its own. ~9.4s per block is normal.
+1. `locate_structure("#minecraft:ruined_portal")`——搜索整个结构家族并返回最近目标。如果结果是水下的 **`ruined_portal_ocean`**，应跳过并重新搜索或选择陆地目标；我无法潜水。
+2. `equip_item(diamond_pickaxe)`（黑曜石需要钻石镐），然后用 `goto` 前往坐标。
+3. `mine(obsidian, 10)`——会自动开采框架中的普通黑曜石。每块约 9.4 秒属于正常速度。
 
-Notes:
-- A portal's frame mixes plain **obsidian** with **crying obsidian** (purple particles). Crying obsidian is a *different block and useless for a portal frame* — `mine(obsidian)` already ignores it, so a single portal may yield fewer than 10. If you come up short, `locate_structure("#minecraft:ruined_portal")` again for the next nearest and top up.
-- If `mine` reports it skipped blocks "against water or lava", that portal sits in a wet/lava pocket — relocate to a cleaner one rather than fighting the fluid.
+注意：
 
-## Portal build
+- 框架混有普通 **obsidian** 和带紫色粒子的 **crying obsidian**。哭泣的黑曜石是不同方块，不能用于传送门框架；`mine(obsidian)` 已会忽略它，所以一个废弃传送门可能不足 10 块。数量不足时再次调用 `locate_structure("#minecraft:ruined_portal")`，前往下一个目标补齐。
+- 如果 `mine` 报告跳过了“against water or lava”的方块，说明该传送门位于水或熔岩口袋中；应换一个更干净的目标，不要强行处理流体。
 
-- Frame: 4 wide × 5 tall, **corners omitted = exactly 10 obsidian**, standing vertically. Inner opening is 2×3 air.
-- Pick flat ground near your base. Build the frame with one `build` call: two side columns of 3, plus top and bottom rows of 2. A single-cell `build` call handles any one-off correction.
-- **Flint & steel**: craft `flint_and_steel` = 1 iron ingot + 1 flint, a 2×2 recipe (`lookup_recipe` + `transfer` into your own grid; see the `containers` skill). Flint drops from `mine(gravel)`, ~10%/block.
-- **Ignite**: `interact_at(button=right, x, y, z, item_id=minecraft:flint_and_steel)` aimed at an **empty air cell INSIDE the frame** (a bottom one), not at the obsidian. The fire lands in that cell and the portal forms.
-- Enter: `goto` the portal cell and stand in it until the dimension changes (`get_self_status` confirms).
+## 建造传送门
 
-## Packlist (verify with `get_self_status` before igniting)
+- 框架竖直放置，宽 4 格、高 5 格，**省略四个角后恰好使用 10 个黑曜石**；内部是 2×3 的空气开口。
+- 在基地附近选择平坦地面。一次 `build` 调用完成框架：两侧各 3 格高的立柱，顶部和底部各 2 格。零散修正可用单格 `build`。
+- **打火石**：`flint_and_steel` = 1 个铁锭 + 1 个燧石，是 2×2 配方。用 `lookup_recipe` 查询并通过 `transfer` 在自身合成格制作（参见 `containers`）。燧石由 `mine(gravel)` 约以 10% 概率掉落。
+- **点燃**：调用 `interact_at(button=right, x, y, z, item_id=minecraft:flint_and_steel)`，目标必须是**框架内部的空空气格**（选择底部一格），而不是黑曜石。火会落在该格并形成传送门。
+- 进入：用 `goto` 前往传送门格并站立，直到维度变化；使用 `get_self_status` 确认。
 
-| Item | Qty | Why |
+## 物资清单（点燃前用 `get_self_status` 核对）
+
+| 物品 | 数量 | 用途 |
 |---|---|---|
-| Cooked food | 32+ | Your healing |
-| Diamond sword + bow | 1 + 1 | Equip for combat only — hold the pickaxe while travelling (navigation digs with the held tool) |
-| Arrows | 32+ | `attack` spends them only on what it cannot reach (~6 per blaze); run low → carry extra food and let it melee |
-| Diamond pickaxe (+ iron backup) | 1 + 1 | Obsidian, digging |
-| Cobblestone | 64+ | Navigation scaffold — bridging lava lakes eats it |
-| Gold helmet (worn) | 1 | Piglin truce; 5 gold ingots if you must craft one |
-| Flint & steel | 1 | Re-light the portal if a ghast blows it out |
+| 熟食 | 32+ | 恢复生命值 |
+| 钻石剑 + 弓 | 1 + 1 | 只在战斗时装备；旅行时手持镐，因为导航使用手持工具挖掘 |
+| 箭 | 32+ | `attack` 只对无法接近的目标消耗箭（每只烈焰人约 6 支）；箭少时多带食物并让身体近战 |
+| 钻石镐（外加铁镐备用） | 1 + 1 | 开采黑曜石及普通挖掘 |
+| 圆石 | 64+ | 导航脚手架；跨越熔岩湖会大量消耗 |
+| 已穿戴的金头盔 | 1 | 避免猪灵敌对；必要时用 5 个金锭制作 |
+| 打火石 | 1 | 恶魂炸灭传送门后重新点燃 |
 
-**Never place or use a bed in the Nether — beds explode there.**
+**绝不要在下界放置或使用床——床会爆炸。**
 
-## Nether ground rules
+## 下界基本规则
 
-- **Don't dig straight down**; lava oceans sit under most terrain. Navigation bridges lava when it must — keep cobblestone stocked.
-- **Water doesn't exist here**: buckets won't place.
-- **Zombified piglins are pacifists until hit — and then they ALL swarm.** Never `attack` them.
-- **Ghasts** snipe from far; their fireballs can break the portal. On arrival, note the Nether-side portal coordinates (`get_self_status`) and report them to your owner. Overworld↔Nether coordinates map 8:1 horizontally.
+- **不要垂直向下挖**；大部分地形下方都有熔岩海。必要时导航会跨熔岩搭桥，因此始终备足圆石。
+- **这里无法放置水**：水桶不起作用。
+- **僵尸猪灵在受击前保持中立，受击后会集体围攻。** 绝不要对它们调用 `attack`。
+- **恶魂**会远距离攻击，火球可能熄灭传送门。抵达后用 `get_self_status` 记录下界侧传送门坐标，并报告给主人。主世界与下界的水平坐标按 8:1 映射。
 
-## What to load next
+## 接下来加载什么
 
-Standing in the Nether, packlist intact → mark phase 2 `completed`, `load_skill(name="blaze_rods")`. Load `combat_basics` too if you haven't — blazes are the first real combat test.
-
+携带完整物资站在下界后，将第 2 阶段标记为 `completed`，调用 `load_skill(name="blaze_rods")`。如果尚未加载，也应加载 `combat_basics`；烈焰人是第一次真正的战斗考验。

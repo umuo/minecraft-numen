@@ -1,40 +1,34 @@
 # southeast_stilt — 东南亚高脚屋
 
-Everything is lifted off the ground because the ground is water, mud, or full of
-things you do not want indoors. The house is a light timber box on posts under
-an enormous roof, with barely any wall — airflow matters more than enclosure.
-Materials are whatever grows nearby: bamboo, palm thatch, rough plank. It should
-look woven rather than built.
+所有部分都抬离地面，因为地面可能是水、泥，或充满不希望进入室内的生物。房屋是在立柱上架起的轻型木盒体，上方覆盖巨大屋顶，墙体极少——通风比封闭更重要。材料取自附近生长的植物，包括竹子、棕榈茅草和粗木板；整体应像编织而成，而不是砌筑而成。
 
-## Materials
-- **posts**: stripped_jungle_log, bamboo_block, stripped_oak_log
-- **walls and screens**: bamboo_planks, jungle_planks, bamboo_fence — open
-  weave, and frequently just a railing instead of a wall
-- **roof**: hay_block, dried_kelp_block, jungle_leaves — thatch, thick and steep
-- **floor**: bamboo_planks, jungle_planks
-- **light**: lantern, torch; sea_lantern under the floor for water reflections
-- **planting**: hanging vines, big leaves, bamboo clumps against the posts
+## 材料
+- **立柱**：stripped_jungle_log、bamboo_block、stripped_oak_log
+- **墙体与屏风**：bamboo_planks、jungle_planks、bamboo_fence——开放编织，经常只设栏杆而没有墙
+- **屋顶**：hay_block、dried_kelp_block、jungle_leaves——厚重陡峭的茅草顶
+- **地板**：bamboo_planks、jungle_planks
+- **照明**：lantern、torch；地板下放 sea_lantern，形成水面倒影
+- **植物**：垂挂 vines、大型叶片，以及倚靠立柱的竹丛
 
-## Proportions
-- floor lifted 2–4 above ground or water on clearly visible posts
-- walls barely present: 2–3 tall, much of that open
-- roof rise 0.7–1.0 of half-span — **steep**; thatch must shed hard rain
-- eaves overhang 2–3, low enough to nearly meet the railing
+## 比例
+- 地板在清晰可见的立柱上抬高至地面或水面以上 2–4 格
+- 墙体几乎不存在：高 2–3 格，其中大部分保持开放
+- 屋顶高度为半跨的 0.7–1.0，必须保持**陡峭**，以便茅草排走暴雨
+- 屋檐伸出 2–3 格，低到几乎接触栏杆
 
-## Signature moves
-- **Visible understory** — the space beneath the floor is part of the design.
-  Leave it open; put a boat or storage down there.
-- **Steep thatch, low eave** — the roof dominates and the wall is an afterthought.
-- **Ladder or plank ramp**, never a proper stair.
-- **Verandah all round**, railed in bamboo.
+## 标志性手法
+- **可见架空层**——地板下方空间也是设计的一部分。保持开放，可放置小船或储物。
+- **陡茅顶、低屋檐**——屋顶占主导地位，墙体只是次要部分。
+- **梯子或木板坡道**——绝不使用正式楼梯。
+- **环绕式走廊**——四周设置走廊并用竹栏杆围护。
 
-## Variants
-- **over-water** — posts in a lagoon, plank walkways linking houses
-- **longhouse** — one very long shared roof over many family bays
-- **field hut** — tiny, one room, standing alone in farmland
-- **canopy house** — built against huge trunks, vines everywhere
+## 变体
+- **水上村落**——立柱插入潟湖，木板步道连接各户
+- **长屋**——一个极长的共用屋顶覆盖多个家庭开间
+- **田间小屋**——非常小的单室建筑，独立位于农田中
+- **树冠住宅**——依附巨大树干建造，到处垂挂藤蔓
 
-## Avoid
-- solid enclosed walls
-- stone or brick in any structural role
-- building directly on the ground
+## 避免
+- 实心封闭墙体
+- 让石材或砖承担任何结构作用
+- 直接建在地面上

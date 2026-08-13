@@ -1,44 +1,34 @@
-# dwarven_hall — 矮人
+# dwarven_hall — 矮人大厅
 
-Carved out of the mountain rather than built on it, so the architecture is
-subtractive: you are shaping a void, and every column is stone that was left in
-place. Scale is deliberately superhuman — doors five times a person's height —
-while the detail is fine and geometric. Warm forge light against cold stone, and
-gold used as structure rather than trim.
+建筑从山体中凿出，而不是建在山上，因此设计以减法为主：塑造的是空洞，每根柱子都是刻意留下的岩石。尺度远超人类，门可高达人体五倍，但细节精密且几何化。冷石与温暖炉火形成对比，黄金作为结构而非装饰线。
 
-## Materials
-- **rock**: deepslate, cobbled_deepslate, polished_deepslate, stone, andesite,
-  tuff — mix heavily; a hall of one stone reads as a texture, not a mountain
-- **worked masonry**: deepslate_bricks, cracked_deepslate_bricks, deepslate_tiles,
-  chiseled_deepslate, stone_bricks
-- **metal**: gold_block, raw_gold_block, copper_block, iron_block — inlaid in
-  bands and around portals
-- **gems**: emerald_block, amethyst_cluster, diamond_block in small deliberate
-  points
-- **light**: lava behind iron_bars, lantern, campfire, glowstone — always warm
-- **floor**: polished_andesite and gold in geometric panels
+## 材料
+- **岩体**：deepslate、cobbled_deepslate、polished_deepslate、stone、andesite、tuff；大量混合，单一石材只像纹理而不像山
+- **加工石砌**：deepslate_bricks、cracked_deepslate_bricks、deepslate_tiles、chiseled_deepslate、stone_bricks
+- **金属**：gold_block、raw_gold_block、copper_block、iron_block，嵌入水平带和门套
+- **宝石**：emerald_block、amethyst_cluster、diamond_block，只在少量明确位置使用
+- **照明**：铁栏后的熔岩、lantern、campfire、glowstone，始终使用暖光
+- **地板**：polished_andesite 与黄金组成几何镶嵌
 
-## Proportions
-- ceilings 8–20 high in the halls; the void must feel oversized
-- columns very stout, height only 4–6 times width, deeply fluted
-- doorways 4–8 tall, framed by a heavy carved surround
-- everything strictly symmetrical and axial
+## 比例
+- 大厅净高 8–20 格，空洞必须显得超大
+- 柱子极粗，高度只有宽度的 4–6 倍，并有深凹槽
+- 门洞高 4–8 格，带厚重雕刻门套
+- 一切严格对称并沿轴线组织
 
-## Signature moves
-- **Great gate** — an enormous portal in a cliff face, carved surround, small
-  door within it.
-- **Column avenues** — rows of massive piers marching down a hall, arches
-  between them.
-- **Lava channels** — molten light running in cut stone gutters along the floor.
-- **Gold inlay** — geometric bands of gold set into stone at cornice height.
+## 标志手法
+- **巨门**——崖壁上的巨大门套，内部只有一扇较小的真实门
+- **柱列大道**——成排巨柱沿大厅延伸，柱间架拱
+- **熔岩渠**——熔融光线沿地面切石沟槽流动
+- **黄金镶嵌**——檐口高度处在石材中嵌入几何金带
 
-## Variants
-- **great hall** — throne at the far end, columns, banners, forge glow
-- **mine** — rougher, rails, supports, ore veins in the walls
-- **forge** — lava, anvils, chimneys venting through the mountain
-- **gate city** — the exterior: a fortified facade carved into a mountainside
+## 变体
+- **大殿**——尽端王座、柱列、旗帜和锻炉光
+- **矿井**——更粗糙，有铁轨、支撑和墙内矿脉
+- **锻造大厅**——熔岩、铁砧和穿山排烟道
+- **关城**——雕刻进山坡的防御立面
 
-## Avoid
-- timber as a structural material
-- daylight and windows; light comes from fire and stone
-- small-scale cosy proportions
+## 避免
+- 木材作为结构材料
+- 日光与窗户；光应来自火焰和石体
+- 小巧温馨的人类尺度

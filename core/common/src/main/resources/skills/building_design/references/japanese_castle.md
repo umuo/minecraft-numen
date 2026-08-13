@@ -1,41 +1,33 @@
 # japanese_castle — 天守
 
-A Japanese keep is a stack of shrinking roofed boxes on a colossal battered
-stone base. The base does the defending and holds most of the volume; the white
-tower above is comparatively light and exists to be seen. Every storey carries
-its own full roof, so the silhouette is a series of horizontal lines climbing to
-a point — the opposite of a European tower's single vertical shaft.
+日本天守由一组逐层缩小、各自带屋顶的盒体叠在巨大倾斜石垣之上。石垣负责防御并承载大部分体量；上方白色塔楼相对轻盈，主要用于展示威势。每层都有完整屋顶，因此轮廓是一系列向顶点攀升的水平线，与欧洲塔楼单一竖向体量恰好相反。
 
-## Materials
-- **base** (battered stone): cobblestone, andesite, stone, mossy_cobblestone,
-  deepslate — mix heavily; this surface must look rough and old
-- **tower walls**: white_concrete, smooth_quartz, bone_block
-- **frame / trim**: dark_oak_log, blackstone, polished_deepslate
-- **roof**: deepslate_tiles, gray_concrete, dark_prismarine; copper for aged
-  bronze fittings
-- **accent**: gold_block only on the topmost ornaments
+## 材料
+- **倾斜石垣**：cobblestone、andesite、stone、mossy_cobblestone、deepslate——大量混合，表面必须粗糙古老
+- **塔楼墙体**：white_concrete、smooth_quartz、bone_block
+- **框架／收边**：dark_oak_log、blackstone、polished_deepslate
+- **屋顶**：deepslate_tiles、gray_concrete、dark_prismarine；使用 copper 表现老化青铜配件
+- **强调材料**：gold_block 只用于最顶部装饰
 
-## Proportions
-- the stone base is 0.4–0.6 of total height and **slopes inward** as it rises;
-  a plumb vertical base kills the style
-- 3–6 storeys above it, each 0.75–0.85 the footprint of the one below
-- every storey gets its own roof with visible gable ends
-- eaves overhang 1–2 past each storey
+## 比例
+- 石垣占总高度的 0.4–0.6，并且必须**随高度向内倾斜**；垂直石垣会彻底破坏风格
+- 石垣上方设置 3–6 层，每层占地为下一层的 0.75–0.85
+- 每层都有自己的屋顶，并露出清晰山墙端
+- 屋檐在每层墙外伸出 1–2 格
 
-## Signature moves
-- **Battered base** — step the stone inward every few courses. Curved if you can
-  manage it, stepped if you cannot. Never plumb.
-- **A roof per storey** — the stack of horizontal roof lines is the whole idea.
-- **Gable dormers** facing different directions on different storeys.
-- **Moat and bridge** at the foot, even a token one.
+## 标志性手法
+- **倾斜石垣**——每隔几层将石材向内退进。能做曲线就用曲线，否则使用阶梯近似；绝不能垂直。
+- **每层一顶**——层层叠加的水平屋顶线就是整个核心。
+- **山墙老虎窗**——不同楼层朝向不同方向。
+- **护城河与桥**——即使规模很小，也要在石垣脚下设置。
 
-## Variants
-- **hilltop keep** — base merges into the terrain, no moat
-- **water castle** — broad moat, base rising straight out of the water
-- **ruined keep** — base intact, tower partly collapsed, trees in the ward
-- **castle town** — keep plus a walled lower ward of small houses
+## 变体
+- **山城天守**——石垣融入地形，不设护城河
+- **水城**——宽阔护城河，石垣直接从水中升起
+- **天守遗迹**——石垣完整，塔楼部分坍塌，城郭内长出树木
+- **城下町**——天守加围墙下郭，内部布置小型住宅
 
-## Avoid
-- unbroken vertical walls; the base must taper
-- one single roof spanning the whole tower
-- bright colour anywhere except the finial
+## 避免
+- 连续垂直墙面；石垣必须收分
+- 用一个屋顶覆盖整座塔楼
+- 除顶饰外出现明亮颜色

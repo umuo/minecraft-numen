@@ -1,43 +1,34 @@
 # nordic_viking — 维京长屋
 
-The roof is the building. Walls are barely a metre of turf and stave before the
-enormous shingled roof takes over and comes down almost to the ground, because
-snow load and wind matter more than headroom at the edges. Everything is long
-rather than wide — one continuous hall — and the ornament is carved into the
-structure itself: dragon heads on the gable ends, patterned stave doors.
+屋顶就是整栋建筑。墙体只有一米左右高的草皮和竖木板，随后就被巨大木瓦屋顶接管；屋檐几乎落到地面，因为积雪荷载和风力比边缘净高更重要。一切都强调长度而非宽度，形成一个连续大厅；装饰直接雕刻在结构上，例如山墙端的龙头和带图案的竖板门。
 
-## Materials
-- **walls / staves**: spruce_planks, dark_oak_planks, stripped_spruce_log —
-  vertical boards, not horizontal courses
-- **roof**: spruce_slab, dark_oak_slab for shingle; grass_block or moss_block
-  for a turf roof, which is very much in period
-- **base**: cobblestone, andesite, mossy_cobblestone — a low stone footing
-- **posts**: oak_log, spruce_log — heavy and few
-- **light**: campfire down the centre line, lantern on the posts
-- **accent**: carved gable ends; banners inside the hall
+## 材料
+- **墙体／竖板**：spruce_planks、dark_oak_planks、stripped_spruce_log——竖向木板，而非水平叠层
+- **屋顶**：spruce_slab、dark_oak_slab 表现木瓦；grass_block 或 moss_block 表现符合时代特征的草皮顶
+- **基座**：cobblestone、andesite、mossy_cobblestone——低矮石勒脚
+- **柱子**：oak_log、spruce_log——粗壮且数量少
+- **照明**：沿中轴布置 campfire，柱上放 lantern
+- **强调细节**：雕刻山墙端；大厅内悬挂 banner
 
-## Proportions
-- length 3–5 times the width — commit to the long thin hall
-- walls very low, 2–3, and the eave comes down to nearly meet the ground
-- roof rise 0.8–1.2 of half-span, and the roof is 0.6–0.75 of total height
-- no windows to speak of; light comes from the door and a roof vent
+## 比例
+- 长度为宽度的 3–5 倍，必须坚持狭长大厅形态
+- 墙体很低，只有 2–3 格，屋檐几乎落到地面
+- 屋顶高度为半跨的 0.8–1.2，并占总高度的 0.6–0.75
+- 几乎不设窗户；光线来自大门和屋顶排烟口
 
-## Signature moves
-- **Roof to the ground** — extend the eave down past the wall until it almost
-  touches the earth. This single move is the style.
-- **Turf roof** — grass on top with the shingle edge showing at the eave.
-- **Carved gable finials** — crossed beams or a dragon head at each end of the
-  ridge.
-- **Central hearth** — a fire line down the middle of the hall, smoke hole above.
+## 标志性手法
+- **屋顶贴近地面**——让屋檐越过墙体继续向下，直到几乎触地。仅这一动作就能确立风格。
+- **草皮屋顶**——上方覆盖草地，檐口仍露出木瓦边缘。
+- **雕刻山墙顶饰**——屋脊两端放置交叉木梁或龙头。
+- **中央火塘**——大厅中部沿轴线设火，正上方开排烟口。
 
-## Variants
-- **longhouse** — the standard hall, family and animals sharing it
-- **stave church** — the same logic gone vertical: stacked shrinking roofs,
-  dark shingle, extremely steep
-- **boathouse** — open at one gable end, a ship inside
-- **hillside farm** — dug into a slope, turf roof continuing the hill
+## 变体
+- **长屋**——标准大厅，家庭与牲畜共居
+- **木板教堂**——同一逻辑转为竖向：层层缩小的屋顶、深色木瓦、极陡坡度
+- **船屋**——一个山墙端完全开放，内部停船
+- **山坡农庄**——部分挖入坡地，草皮屋顶连续融入山丘
 
-## Avoid
-- tall walls or large windows
-- clean bright materials; everything here is weathered
-- square footprints — length is the point
+## 避免
+- 高墙或大窗
+- 干净明亮的材料；所有部分都应有风化感
+- 方形平面；狭长才是重点

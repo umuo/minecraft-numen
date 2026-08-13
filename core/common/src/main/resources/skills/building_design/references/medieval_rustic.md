@@ -1,42 +1,34 @@
 # medieval_rustic — 中世纪村舍
 
-A village house built by the people living in it, out of whatever the woods and
-the field gave them. Nothing is plumb, nothing repeats exactly, and the upper
-floor usually overhangs the lower because ground-floor area was what got taxed.
-It looks handmade because it was: heavy timber, rough infill, and a roof far
-larger than the walls holding it up.
+一栋由居住者亲手建造的村屋，材料来自周围树林与田野。没有任何部分绝对垂直，也没有两个部分完全重复；上层通常挑出下层之外，因为当时按首层面积征税。建筑看起来手工粗造，因为事实正是如此：厚重木框架、粗糙填充墙，以及远大于承重墙体的屋顶。
 
-## Materials
-- **frame**: oak_log, spruce_log, stripped_oak_log — heavy, visible, irregular
-- **infill**: white_terracotta, bone_block, clay, smooth_quartz for daub
-- **base course**: cobblestone, mossy_cobblestone, stone — mix heavily so it
-  looks laid by hand, never one flat colour
-- **roof**: dark_oak_slab or spruce_slab for shingle; hay_block for thatch
-- **light**: torch, lantern on a fence post, campfire in the yard
-- **accent**: barrels, a woodpile, a cart — clutter belongs to this style
+## 材料
+- **框架**：oak_log、spruce_log、stripped_oak_log——厚重、外露且不规则
+- **填充墙**：white_terracotta、bone_block、clay、smooth_quartz，表现抹灰墙
+- **基墙**：cobblestone、mossy_cobblestone、stone——大量混合，使其像手工砌筑，不能只有单一平坦颜色
+- **屋顶**：dark_oak_slab 或 spruce_slab 表现木瓦；hay_block 表现茅草
+- **照明**：torch、围栏柱上的 lantern、院内 campfire
+- **陈设**：barrel、柴堆、手推车——杂乱感属于这种风格
 
-## Proportions
-- small footprint, tall roof: the roof takes 0.5–0.7 of total height
-- walls 3–5, often with an upper floor jettied 1 past the lower
-- roof rise 0.8–1.2 of half-span — **steep**, for snow and thatch
-- eaves 1–2, low enough to nearly brush a standing player
+## 比例
+- 占地小、屋顶高：屋顶占总高度的 0.5–0.7
+- 墙高 3–5 格，上层常向外挑出下层 1 格
+- 屋顶高度为半跨的 0.8–1.2——为排雪和茅草需要保持**陡峭**
+- 屋檐伸出 1–2 格，低到几乎擦过站立玩家
 
-## Signature moves
-- **Jetty** — the upper storey oversails the lower by a block. Instantly
-  medieval, and it costs two ops.
-- **Stone base, timber above** — a course or two of rough stone before the wood
-  begins, because damp rots timber.
-- **Crooked repetition** — vary post spacing and wall height by a block here and
-  there. Perfect regularity is the wrong century.
-- **Chimney** — a stone stack breaking through the roof, smoking.
+## 标志性手法
+- **挑楼**——上层比下层外伸一格，只需少量操作即可立刻呈现中世纪感。
+- **石基木构**——木墙开始前先砌一两层粗石，因为潮气会腐蚀木材。
+- **歪斜重复**——柱间距和墙高偶尔相差一格。完全规整不属于这个时代。
+- **烟囱**——石砌烟囱穿破屋顶并冒出烟雾。
 
-## Variants
-- **cottage** — one room, thatch, a garden plot
-- **longhouse** — animals at one end, family at the other, one roof over both
-- **shop** — open ground floor, living quarters jettied over it
-- **mill** — the same house plus a wheel and a race
+## 变体
+- **村舍**——单室、茅草顶和一小块菜园
+- **长屋**——牲畜位于一端，家庭位于另一端，共用一个屋顶
+- **商铺**——首层开放经营，上层住宅向外挑出
+- **磨坊**——同类住宅加水轮和引水渠
 
-## Avoid
-- clean symmetry and identical bays
-- polished or manufactured-looking blocks
-- large glass; openings are small and shuttered
+## 避免
+- 整洁对称和完全相同的开间
+- 抛光或具有工业制品感的方块
+- 大面积玻璃；开口应小，并设置窗板

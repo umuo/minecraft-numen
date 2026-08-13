@@ -1,43 +1,35 @@
 # victorian — 维多利亚
 
-Industrial-age abundance. Machine-cut ornament became cheap, so it went
-everywhere: turned porch posts, fretwork brackets, patterned shingles, bay
-windows, and a roofline broken by turrets and dormers into as many pieces as
-possible. The plan is asymmetrical on purpose, and the colour scheme runs to
-three or more shades on one house.
+工业时代的繁复与富足。机器切割使装饰变得便宜，于是旋制门廊柱、镂空托架、图案木瓦、凸窗、塔楼和老虎窗遍布建筑，并把屋顶轮廓拆分成尽可能多的部分。平面刻意不对称，一栋住宅通常同时使用三种或更多颜色。
 
-## Materials
-- **walls**: any two of white_terracotta, light_gray_concrete, cyan_terracotta,
-  purple_terracotta, brown_terracotta — Victorians painted boldly and in
-  multiple colours per house
-- **trim**: white_concrete, bone_block picked out against the body colour
-- **roof**: dark_oak_slab, deepslate_tiles, or patterned bands of two stairs
-- **porch**: oak_fence posts, oak_stairs, trapdoors as fretwork brackets
-- **windows**: glass_pane in tall narrow openings, bay windows projecting 1
-- **light**: lantern by the door, warm interior glow
-- **accent**: iron_bars cresting along the ridge
+## 材料
+- **墙体**：从 white_terracotta、light_gray_concrete、cyan_terracotta、purple_terracotta、brown_terracotta 中任选两种——维多利亚住宅用色大胆且一栋多色
+- **收边**：white_concrete、bone_block，与主体色形成对比
+- **屋顶**：dark_oak_slab、deepslate_tiles，或用两种楼梯形成图案色带
+- **门廊**：oak_fence 柱、oak_stairs，并用 trapdoor 表现镂空托架
+- **窗户**：高窄洞口内使用 glass_pane，凸窗向外伸出 1 格
+- **照明**：门旁 lantern，室内透出暖光
+- **强调细节**：屋脊上沿使用 iron_bars 饰带
 
-## Proportions
-- 2–3 storeys, tall narrow windows twice as high as wide
-- roof rise 0.9–1.4 of half-span, and **broken into several pieces**: main gable,
-  cross gable, dormers, a turret
-- porch wraps at least the front, 2–3 deep
-- turret, if present, 1–2 storeys taller than the main roof
+## 比例
+- 建筑高 2–3 层，高窄窗的高度为宽度两倍
+- 屋顶高度为半跨的 0.9–1.4，并且**拆分成多个部分**：主山墙、横向山墙、老虎窗和塔楼
+- 门廊至少环绕正面，深 2–3 格
+- 若设塔楼，其顶部比主屋顶高 1–2 层
 
-## Signature moves
-- **Broken roofline** — no two roof planes at the same height. Turret, cross
-  gable and dormers all fighting for the skyline.
-- **Wraparound porch** with turned posts and bracket fretwork in every corner.
-- **Bay window** projecting from the front, its own little roof on top.
-- **Polychrome** — body colour, trim colour, accent colour, all visible at once.
+## 标志性手法
+- **破碎屋顶线**——屋面不能全在同一高度；塔楼、横向山墙和老虎窗共同争夺天际线。
+- **环绕门廊**——使用旋制感柱子，并在每个转角设置镂空托架。
+- **凸窗**——从正面向外突出，并拥有自己的小屋顶。
+- **多色并置**——主体色、收边色和强调色同时可见。
 
-## Variants
-- **queen anne** — turret, wraparound porch, maximum fretwork
-- **gothic revival** — steeper, pointed windows, vertical board siding
-- **townhouse row** — narrow, shared walls, bay windows, stoop to the street
-- **haunted** — the same house grey and peeling, boarded windows, dead garden
+## 变体
+- **安妮女王式**——塔楼、环绕门廊和最多的镂空装饰
+- **哥特复兴式**——更陡峭、尖窗和竖向木板墙
+- **联排住宅**——狭窄、共享墙体、凸窗以及临街门阶
+- **鬼屋**——同一住宅变得灰暗脱漆，窗户封死，花园枯萎
 
-## Avoid
-- symmetry
-- a single unbroken roof plane
-- restraint in either ornament or colour
+## 避免
+- 对称
+- 单一连续屋面
+- 在装饰或色彩上过度克制

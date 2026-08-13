@@ -1,42 +1,35 @@
 # mesoamerican — 中美洲金字塔
 
-A stepped mountain with a very small building on top, and a staircase so steep
-it is nearly a ladder. The pyramid is a platform, not a tomb — the point is the
-temple at the summit and the climb to reach it. Stone is grey-green and eaten by
-jungle; carving concentrates on the stair balustrades and the temple crest.
+一座阶梯状山体，顶部放置非常小的建筑，楼梯陡得几乎像梯子。金字塔是平台，而非陵墓——重点在峰顶神庙以及抵达它的攀登过程。石材呈灰绿色并受到丛林侵蚀；雕刻集中在楼梯栏板和神庙顶冠。
 
-## Materials
-- **body**: stone, cobblestone, andesite, mossy_cobblestone, mossy_stone_bricks
-  — mix moss in heavily; this style should look reclaimed by forest
-- **stairs**: stone_brick_stairs, cobblestone_stairs
-- **temple at the summit**: stone_bricks, chiseled_stone_bricks
-- **carved detail**: chiseled_stone_bricks, stone_brick_wall
-- **accent**: gold_block and emerald_block, very sparingly, at the summit
-- **planting**: vines, jungle_leaves, moss_block creeping over the lower tiers
-- **light**: campfire at the summit, torches along the stair
+## 材料
+- **主体**：stone、cobblestone、andesite、mossy_cobblestone、mossy_stone_bricks——大量混入苔藓；应像正在被森林重新占领
+- **楼梯**：stone_brick_stairs、cobblestone_stairs
+- **峰顶神庙**：stone_bricks、chiseled_stone_bricks
+- **雕刻细节**：chiseled_stone_bricks、stone_brick_wall
+- **强调材料**：峰顶极少量使用 gold_block 和 emerald_block
+- **植物**：vines、jungle_leaves、moss_block 向下层蔓延
+- **照明**：峰顶使用 campfire，楼梯沿线放 torch
 
-## Proportions
-- 4–9 tiers, each stepping back 1–2 and losing 2–4 of height
-- stair rise nearly 1:1 — dangerously steep is correct
-- the summit temple is small: 0.2–0.3 of the base footprint
-- often a broad plaza at the foot, as wide as the pyramid is tall
+## 比例
+- 设置 4–9 层，每层向内退 1–2 格，高度减少 2–4 格
+- 楼梯坡度接近 1:1；危险般陡峭才是正确效果
+- 峰顶神庙很小，只占基底面积的 0.2–0.3
+- 底部通常设置宽阔广场，宽度与金字塔高度相当
 
-## Signature moves
-- **Steep single stair** — one dominant stairway up one face, flanked by solid
-  balustrades. Stairs on all four faces is the grander variant.
-- **Talud-tablero** — each tier is a sloping band with a framed vertical panel
-  above it. This alternation is the signature profile.
-- **Roof comb** — a tall decorative wall standing above the summit temple,
-  taller than the temple itself.
-- **Jungle reclamation** — moss and vines on the lower tiers, clean at the top.
+## 标志性手法
+- **单一陡梯**——一面设置一条占主导地位的楼梯，两侧由实心栏板夹住；四面都有楼梯是更宏大的变体。
+- **斜坡—台板构图**——每层由斜面带和其上的带框竖直面板组成，交替形成标志性轮廓。
+- **屋顶梳脊**——峰顶神庙上方竖立高装饰墙，其高度超过神庙本身。
+- **丛林侵蚀**——下层覆盖苔藓与藤蔓，顶部保持洁净。
 
-## Variants
-- **step pyramid** — the classic, temple on top
-- **ball court** — two long sloped walls facing each other across a sunken lane
-- **palace complex** — low ranges of rooms around courtyards, not a pyramid
-- **ruined city** — several structures half-swallowed by jungle
+## 变体
+- **阶梯金字塔**——经典形式，顶部设神庙
+- **球场**——两道长斜墙隔着下沉通道相对而立
+- **宫殿群**——围绕庭院布置的低矮房间组，而非金字塔
+- **失落城市**——多座建筑被丛林吞没一半
 
-## Avoid
-- smooth unstepped slopes
-- gentle stairs
-- clean unweathered stone
+## 避免
+- 光滑且没有阶梯的坡面
+- 平缓楼梯
+- 干净、毫无风化的石材

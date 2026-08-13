@@ -1,42 +1,35 @@
 # farmhouse — 农舍谷仓
 
-A working yard where the barn matters more than the house. Buildings are simple
-gabled boxes arranged loosely around open ground, painted or weathered, with
-huge doors sized for carts and animals rather than people. Nothing is composed;
-things were added as they were needed, and the pleasure of the style is in the
-clutter — fences, troughs, stacked hay, a well.
+这是一个谷仓比住宅更重要的生产院落。建筑是围绕空地松散布置的简单双坡顶盒体，表面可能刷漆，也可能已经风化；大门要按车和牲畜的尺度设计，而不是只供人通行。这里不追求精心构图，各部分都像因实际需要陆续增建。风格魅力来自围栏、食槽、草垛和水井等杂物。
 
-## Materials
-- **barn walls**: red_concrete, red_terracotta, spruce_planks, dark_oak_planks
-  — the painted red barn is a real and very readable choice
-- **house walls**: white_concrete, bone_block, oak_planks
-- **roof**: dark_oak_slab, spruce_slab, deepslate_tiles; hay_block on the
-  smaller sheds
-- **trim / frame**: white_concrete against red, or stripped_oak_log
-- **ground**: dirt_path, coarse_dirt, gravel, farmland — the yard is not paved
-- **light**: lantern on a post, campfire
-- **clutter**: hay_block stacks, barrel, composter, fence pens, a water trough
+## 材料
+- **谷仓墙体**：red_concrete、red_terracotta、spruce_planks、dark_oak_planks——红色谷仓辨识度很高，也是可靠的选择
+- **住宅墙体**：white_concrete、bone_block、oak_planks
+- **屋顶**：dark_oak_slab、spruce_slab、deepslate_tiles；小棚可使用 hay_block
+- **收边／框架**：红墙配 white_concrete，或使用 stripped_oak_log
+- **地面**：dirt_path、coarse_dirt、gravel、farmland——院子不应铺满硬质地面
+- **照明**：柱上的 lantern、campfire
+- **杂物**：hay_block 草垛、barrel、composter、围栏畜圈和水槽
 
-## Proportions
-- barn considerably larger than the house: 1.5–2.5 times the footprint
-- barn roof rise 0.8–1.2 of half-span, tall enough for a hay loft
-- house is a plain gable, 1–1.5 storeys
-- buildings sit 6–15 apart around an open yard, not touching
+## 比例
+- 谷仓明显大于住宅：占地为住宅的 1.5–2.5 倍
+- 谷仓屋顶高度为半跨的 0.8–1.2 倍，要足以容纳干草阁楼
+- 住宅采用朴素双坡顶，高 1–1.5 层
+- 建筑围绕开放院落布置，彼此相距 6–15 格，不相连
 
-## Signature moves
-- **Cart doors** — an opening 3 wide and 4 tall in the barn gable end, far
-  bigger than any door on the house.
-- **Hay loft hatch** — a small high door in the gable with a beam above it.
-- **White trim on red** — corners, door surrounds and window frames picked out.
-- **The yard** — leave real open ground and fill it with working clutter.
+## 标志性手法
+- **车门**——谷仓山墙端开一个宽 3 格、高 4 格的洞口，远大于住宅中的任何门。
+- **干草阁楼舱门**——山墙高处设置小门，上方伸出吊装横梁。
+- **红墙白边**——用白色强调墙角、门套和窗框。
+- **生产院落**——保留真正的开放地面，并摆满具有生产用途的杂物。
 
-## Variants
-- **dairy farm** — long low byre, pasture fences, silo
-- **grain farm** — tall barn, granary on staddle stones, fields on the axis
-- **homestead** — one house, one shed, a garden plot, minimal
-- **abandoned** — roof partly fallen, fences broken, grass through the yard
+## 变体
+- **奶牛农场**——狭长低矮的牛舍、牧场围栏和筒仓
+- **谷物农场**——高谷仓、架在石墩上的粮仓，以及沿轴线展开的农田
+- **自给农庄**——一栋住宅、一间小棚和一块菜地，规模精简
+- **废弃农场**——屋顶部分坍塌、围栏破损，院中杂草丛生
 
-## Avoid
-- symmetry or a designed-looking layout
-- masonry as the main material
-- a house that outshines the barn
+## 避免
+- 对称或明显经过设计的布局
+- 以砖石作为主材
+- 住宅比谷仓更抢眼

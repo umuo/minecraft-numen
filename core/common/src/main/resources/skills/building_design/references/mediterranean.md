@@ -1,44 +1,35 @@
 # mediterranean — 地中海
 
-Whitewashed mass against hard sun. Walls are thick and lime-washed to bounce
-heat, openings are small and deeply recessed, and the roof is either flat and
-usable or covered in warm terracotta at a shallow pitch. Buildings stack and
-merge into each other on a slope rather than standing alone, and the good spaces
-are outdoors: terraces, courtyards, shaded loggias.
+强烈阳光下的白色粉刷体量。墙体厚实并涂石灰，以反射热量；开口小而深；屋顶可以是可使用的平顶，也可以用暖色陶瓦做成低缓坡顶。建筑在坡地上层层叠放、彼此融合，而不是孤立站立；最舒适的空间位于室外，包括露台、庭院和遮阴廊。
 
-## Materials
-- **walls**: white_concrete, smooth_quartz, bone_block, calcite, white_terracotta
-  — mix two or three so the whitewash looks applied rather than printed
-- **roof**: terracotta, brick_slab, granite_slab — warm orange-red, shallow
-- **trim / arches**: smooth_quartz_stairs, quartz_slab
-- **floor and terrace**: terracotta, polished_andesite, stone
-- **planting**: azalea, flowering_azalea, vines over the terrace, potted plants
-- **light**: lantern in a wall niche; warm and sparse
-- **accent**: blue — light_blue_concrete or blue_terracotta on doors and domes
+## 材料
+- **墙体**：white_concrete、smooth_quartz、bone_block、calcite、white_terracotta——混合两三种，让白灰显得是涂抹上去，而非印刷纹理
+- **屋顶**：terracotta、brick_slab、granite_slab——暖橙红色，坡度低缓
+- **收边／拱券**：smooth_quartz_stairs、quartz_slab
+- **地面与露台**：terracotta、polished_andesite、stone
+- **植物**：azalea、flowering_azalea、攀过露台的 vines 和盆栽
+- **照明**：壁龛内放 lantern；暖色且数量稀少
+- **强调色**：蓝色——门和穹顶使用 light_blue_concrete 或 blue_terracotta
 
-## Proportions
-- walls thick: build 2 deep where it shows, especially at openings
-- openings small, 1x2 or 2x2, and **recessed 1** into the wall
-- roof rise 0.25–0.4 of half-span — shallow — or flat with a parapet
-- terraces and stairs outside take as much area as the interior
+## 比例
+- 墙体必须显厚：在可见位置做成 2 格深，尤其是洞口周围
+- 开口小，尺寸为 1×2 或 2×2，并向墙内**凹进 1 格**
+- 屋顶高度为半跨的 0.25–0.4，保持低缓；也可采用带女儿墙的平顶
+- 室外露台和楼梯占用的面积应与室内一样多
 
-## Signature moves
-- **Recessed openings** — set every window and door back a block. The shadow is
-  what makes the wall read as thick.
-- **Stacked massing** — build several boxes at different heights, merging, as if
-  added over generations on a hillside.
-- **Outdoor room** — a terrace, pergola or courtyard that is clearly meant to be
-  lived in.
-- **Blue against white** — one saturated cool accent, used only on openings and
-  domes.
+## 标志性手法
+- **内凹洞口**——每扇门窗都后退一格；阴影会让墙体显得厚实。
+- **叠合体量**——建造多个高度不同并相互融合的盒体，仿佛几代人在山坡上陆续增建。
+- **室外房间**——设置明显用于日常生活的露台、棚架或庭院。
+- **白底蓝饰**——只使用一种饱和冷色强调门窗和穹顶。
 
-## Variants
-- **greek island** — pure white cubes, blue domes, no roof tile at all
-- **tuscan** — terracotta roofs, ochre walls, cypress trees
-- **coastal village** — houses stacked up a cliff, stairs threading between them
-- **villa** — single larger building around a colonnaded courtyard
+## 变体
+- **希腊海岛**——纯白方块体量、蓝色穹顶，完全不用瓦顶
+- **托斯卡纳**——陶瓦屋顶、赭色墙体和柏树
+- **海岸村落**——房屋沿悬崖层叠，楼梯从建筑之间穿过
+- **别墅**——围绕柱廊庭院布置的单栋较大建筑
 
-## Avoid
-- large glazed openings
-- dark or cool grey walls
-- steep roofs
+## 避免
+- 大面积玻璃开口
+- 深色或冷灰色墙体
+- 陡屋顶

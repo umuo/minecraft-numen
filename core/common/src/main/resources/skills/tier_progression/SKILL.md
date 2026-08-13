@@ -1,59 +1,59 @@
 ---
 name: tier_progression
-description: Progress from nothing → wood → stone → iron → diamond tier with concrete tool workflows (mining, crafting, smelting, food, bow + arrows). The foundation for every subsequent phase of the dragon route.
+description: 从一无所有依次提升至木、石、铁和钻石等级，包含明确的工具流程（采矿、合成、烧炼、食物、弓箭）。这是后续屠龙阶段的基础。
 ---
 
-# Skill: tier_progression
+# 技能：装备等级成长
 
-Phase 1 of the dragon route. You need diamond tools before you can mine obsidian and survive the Nether. Skip nothing here — under-geared Nether trips end in a lost inventory.
+这是屠龙路线的第 1 阶段。你必须拥有钻石工具，才能开采黑曜石并在下界生存。不要跳过步骤；装备不足时进入下界往往会丢失整个背包。
 
-## Done when (verify with `get_self_status`)
+## 完成条件（用 `get_self_status` 核对）
 
-- **Diamond pickaxe** (required for obsidian) and **diamond sword**, equipped as appropriate
-- **Iron-or-better armor** worn (full iron is fine; diamond chestplate first if diamonds allow)
-- **Bow + 32 arrows** (the dragon's crystals must be shot; blazes are safest shot too)
-- **32+ cooked food** (cooked_beef / cooked_porkchop preferred)
-- **64+ cobblestone** kept in inventory at all times — navigation consumes it as scaffold when bridging/pillaring
+- **钻石镐**（开采黑曜石必需）和**钻石剑**，并在适当场景装备
+- 已穿戴**铁质或更好的盔甲**（全套铁甲足够；钻石充足时优先钻石胸甲）
+- **弓 + 32 支箭**（末地水晶必须远程射击，烈焰人也适合射击）
+- **至少 32 份熟食**（优先 cooked_beef / cooked_porkchop）
+- 背包始终保留**至少 64 个 cobblestone**；导航在搭桥和搭柱时会把它当作脚手架消耗
 
-## Tool tier chain
+## 工具等级链
 
-`mine` checks your held tool: a too-low tier breaks the block with **no drop**. `equip_item` the right pickaxe before mining, and `inspect_block` when unsure.
+`mine` 会检查手持工具：等级过低时方块会被破坏但**不会掉落**。采矿前用 `equip_item` 装备正确的镐，不确定时先用 `inspect_block`。
 
-The same rule gates navigation: **`goto` only digs through blocks your held tool can harvest.** Descending into stone with a sword in hand fails with "no path" — travel with the pickaxe in your main hand; switch to a weapon only for the fight, then switch back.
+导航也受同一规则限制：**`goto` 只能挖掉手持工具能够采集的方块。** 手持剑向下穿过石层会以“no path”失败；旅行时应把镐放在主手，只在战斗时换武器，结束后再换回。
 
-| Tier | Unlocks mining | Recipe |
+| 等级 | 可开采 | 配方 |
 |---|---|---|
-| Hand | logs, dirt, gravel | — |
-| Wooden pickaxe | stone, coal | 3 planks + 2 sticks |
-| Stone pickaxe | iron, lapis | 3 cobblestone + 2 sticks |
-| Iron pickaxe | diamond, gold, redstone | 3 iron ingots + 2 sticks |
-| Diamond pickaxe | obsidian | 3 diamonds + 2 sticks |
+| 空手 | 原木、泥土、沙砾 | — |
+| 木镐 | 石头、煤矿 | 3 个木板 + 2 根木棍 |
+| 石镐 | 铁矿、青金石矿 | 3 个圆石 + 2 根木棍 |
+| 铁镐 | 钻石矿、金矿、红石矿 | 3 个铁锭 + 2 根木棍 |
+| 钻石镐 | 黑曜石 | 3 个钻石 + 2 根木棍 |
 
-## Where ores live (1.21+ worldgen)
+## 矿物分布（1.21+ 世界生成）
 
-Below Y 0 every ore is its **deepslate variant** — always pass both ids to `mine` / `scan_blocks` (e.g. `diamond_ore` *and* `deepslate_diamond_ore`).
+Y 0 以下的矿石会变成对应的**深层变种**；调用 `mine` / `scan_blocks` 时始终同时传入两个 ID，例如 `diamond_ore` 和 `deepslate_diamond_ore`。
 
-| Resource | Target Y | Notes |
+| 资源 | 目标高度 | 说明 |
 |---|---|---|
-| Coal | Y 90–136 | Surface hillsides are fastest |
-| Iron | Y 16 (or mountain surface Y 200+) | Drops `raw_iron`, smelt it |
-| **Diamond** | **Y -58 to -59** | Highest density; lava pools at this depth — mine carefully |
+| 煤 | Y 90–136 | 从地表山坡开采最快 |
+| 铁 | Y 16（或高山地表 Y 200+） | 掉落 `raw_iron`，需要烧炼 |
+| **钻石** | **Y -58 至 -59** | 密度最高；此高度熔岩池很多，应谨慎开采 |
 
-## Recommended order
+## 推荐顺序
 
-1. **Wood**: `mine` 8+ logs (any `*_log`; hand works) → craft planks → sticks → a `wooden_pickaxe`. Crafting = `lookup_recipe` then `transfer` the ingredients into a grid (load the `containers` skill for the how). 2×2 recipes (planks, sticks) use your own grid; a 3×3 (the pickaxe) needs a crafting table — once you have planks, craft one, `build` it (a single cell), then `interact_at` to open it. Remember the table's coordinates and reuse it.
-2. **Stone**: `equip_item(wooden_pickaxe)` → `mine(stone, 20)` (drops cobblestone) → craft a `stone_pickaxe`, `stone_sword`, and a `furnace`.
-3. **Food**: scan cows/pigs/chickens and pass their runtime IDs to `attack` (6+ total) → cook the raw meat: `interact_at` a furnace, `transfer` the raw food into the top slot + fuel (coal or planks) below, then `wait` and `transfer` the cooked food out (see the `containers` skill). Always cook; raw meat barely heals.
-4. **Iron**: descend (`goto(x, 16, z)` — navigation digs its own way down) → `equip_item(stone_pickaxe)` → `mine(iron_ore, deepslate_iron_ore, 10+)` → smelt `raw_iron` (same furnace flow) → craft an `iron_pickaxe`, `iron_sword`, then armor as ingots allow (helmet 5, chestplate 8, leggings 7, boots 4).
-5. **Diamonds**: `goto(x, -58, z)` → `equip_item(iron_pickaxe)` → `mine(deepslate_diamond_ore, diamond_ore, 5+)`. Minimum 5 (pickaxe 3 + sword 2); 8+ if you also want a chestplate later. Watch HP near lava.
-6. **Diamond gear**: craft a `diamond_pickaxe` + `diamond_sword` on the crafting table. Keep the pickaxe in hand for travel and mining; equip the sword only when a fight starts.
-7. **Bow + arrows**: bow = 3 sticks + 3 string (scan spiders at night and pass their runtime IDs to `attack` for string); arrows = 1 flint + 1 stick + 1 feather → 4 (flint drops from `mine(gravel)` at ~10%, feathers from chickens). Target 32 arrows — more is comfort, not requirement; melee + food covers what arrows don't.
-8. **Top up**: 32+ cooked food, 64+ cobblestone. Re-run `get_self_status` against the "done when" list.
+1. **木材**：用 `mine` 空手采集至少 8 个任意 `*_log`，再合成木板、木棍和 `wooden_pickaxe`。合成流程是 `lookup_recipe` 后用 `transfer` 把材料摆入合成格（具体方法参见 `containers`）。木板和木棍等 2×2 配方使用自身合成格；镐是 3×3 配方，需要先制作工作台，再用单格 `build` 放置，通过 `interact_at` 打开。记录工作台坐标并复用。
+2. **石器**：`equip_item(wooden_pickaxe)` → `mine(stone, 20)`（掉落圆石）→ 制作 `stone_pickaxe`、`stone_sword` 和 `furnace`。
+3. **食物**：扫描牛、猪或鸡，把至少 6 个运行时 ID 交给 `attack`；再烹饪生肉：用 `interact_at` 打开熔炉，通过 `transfer` 把生肉放入上槽、煤或木板放入下方燃料槽，随后等待并用 `transfer` 取出熟食（参见 `containers`）。始终烹饪，生肉恢复效果太差。
+4. **铁器**：使用 `goto(x, 16, z)` 向下移动，导航会自行挖路；`equip_item(stone_pickaxe)` → `mine(iron_ore, deepslate_iron_ore, 10+)` → 烧炼 `raw_iron` → 制作 `iron_pickaxe`、`iron_sword`，再按铁锭数量制作盔甲（头盔 5、胸甲 8、护腿 7、靴子 4）。
+5. **钻石**：`goto(x, -58, z)` → `equip_item(iron_pickaxe)` → `mine(deepslate_diamond_ore, diamond_ore, 5+)`。最低需要 5 个（镐 3 + 剑 2）；如果还想做胸甲，应取得 8 个以上。靠近熔岩时留意生命值。
+6. **钻石装备**：在工作台制作 `diamond_pickaxe` 和 `diamond_sword`。旅行和采矿时手持镐，只在战斗开始后装备剑。
+7. **弓箭**：弓需要 3 根木棍 + 3 根线（夜晚扫描蜘蛛并把运行时 ID 交给 `attack` 获取线）；每 1 个燧石 + 1 根木棍 + 1 根羽毛可制作 4 支箭（`mine(gravel)` 约有 10% 概率掉燧石，鸡掉羽毛）。目标为 32 支；更多只是提高容错，箭不足的部分可由近战和食物弥补。
+8. **补足物资**：确保有 32+ 熟食和 64+ 圆石，再调用 `get_self_status` 对照“完成条件”逐项检查。
 
-## Enchanting
+## 附魔
 
-You cannot operate an enchanting table (GUI block). If your owner offers to enchant your gear — Sharpness on the sword, Power on the bow, Efficiency on the pickaxe — accept before moving on; it meaningfully raises dragon-fight odds. Never plan an enchanting step for yourself.
+你无法操作附魔台（其 GUI 不是可转移槽位）。如果主人愿意为装备附魔——剑的锋利、弓的力量、镐的效率——应在继续前接受，这会显著提高屠龙成功率。绝不要自行规划附魔步骤。
 
-## What to load next
+## 接下来加载什么
 
-Checklist verified → mark phase 1 `completed` in `todowrite`, then `load_skill(name="nether_entry")`.
+清单确认完成后，在 `todowrite` 中把第 1 阶段标记为 `completed`，再调用 `load_skill(name="nether_entry")`。

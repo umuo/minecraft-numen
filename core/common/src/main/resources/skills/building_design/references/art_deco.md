@@ -1,43 +1,34 @@
 # art_deco — 装饰艺术
 
-Machine-age glamour: everything reaches upward in stepped tiers, and the
-ornament is geometric — chevrons, sunbursts, fluted bands — rather than floral.
-Materials look expensive and polished. It is symmetrical, confident, and
-theatrical in a way that later modernism deliberately stripped out, and the
-skyline crown is where it spends its budget.
+机器时代的华丽风格：所有体块以阶梯状层级向上伸展，装饰采用人字纹、放射纹和凹槽带等几何图案，而非花草。材料应显得昂贵、光洁；构图对称、自信而富戏剧性，刻意保留后来现代主义所抛弃的装饰，预算集中在天际线的冠部。
 
-## Materials
-- **body**: smooth_quartz, quartz_block, bone_block, calcite — pale and crisp
-- **vertical fluting**: quartz_pillar, chiseled_quartz_block in continuous strips
-- **dark contrast**: polished_blackstone, black_concrete, polished_deepslate
-- **metal accent**: gold_block, copper_block, raw_gold_block — this style earns
-  its gold, used in thin lines and at the crown
-- **glass**: glass_pane in vertical strips between fluted piers
-- **light**: sea_lantern behind fluting so the vertical strips glow
+## 材料
+- **主体**：smooth_quartz、quartz_block、bone_block、calcite——浅色而利落
+- **竖向凹槽**：quartz_pillar、chiseled_quartz_block，形成连续条带
+- **深色对比**：polished_blackstone、black_concrete、polished_deepslate
+- **金属点缀**：gold_block、copper_block、raw_gold_block——只用于细线和冠部
+- **玻璃**：竖向凹槽柱之间的 glass_pane 条带
+- **照明**：在凹槽后放 sea_lantern，使竖条发光
 
-## Proportions
-- stepped setbacks: 3–5 tiers, each losing 0.1–0.2 of the plan
-- strong vertical strips running unbroken through several storeys
-- crown 0.15–0.25 of total height, and clearly the most worked part
-- strict bilateral symmetry on the main facade
+## 比例
+- 3–5 级逐层退台，每级平面缩小 0.1–0.2
+- 强烈的竖向条带连续跨越多层
+- 冠部占总高 0.15–0.25，并且明显是细节最丰富的部分
+- 主立面严格左右对称
 
-## Signature moves
-- **Stepped ziggurat massing** — set the tower back repeatedly as it rises. This
-  is the silhouette people recognise.
-- **Vertical fluting** — alternating raised and recessed strips over the whole
-  facade, unbroken by floor lines.
-- **Chevron and sunburst** — geometric ornament concentrated over the entrance
-  and at the crown.
-- **Grand entrance** — a tall portal with metal trim, disproportionately large
-  for the door inside it.
+## 标志手法
+- **阶梯金字塔体块**——塔楼上升时反复退台，是最具识别度的轮廓
+- **竖向凹槽**——凸凹条带覆盖整个立面，不被楼层线打断
+- **人字纹与放射纹**——集中在入口上方和冠部
+- **宏大入口**——带金属饰边的高大门套，尺度远大于其中的门
 
-## Variants
-- **tower** — the classic stepped skyscraper with a spire
-- **cinema** — low, wide, huge marquee and vertical sign
-- **hotel** — pale stucco, curved corners, ribbon windows, seaside
-- **civic** — symmetrical block, sculptural reliefs flanking the entrance
+## 变体
+- **塔楼**——经典退台摩天楼并带尖顶
+- **电影院**——低而宽，巨型雨棚和竖向招牌
+- **酒店**——浅色灰泥、圆角、带状窗和海滨气质
+- **市政建筑**——对称体块，入口两侧带雕塑浮雕
 
-## Avoid
-- floral or organic ornament
-- asymmetry
-- rustic or unfinished materials
+## 避免
+- 花卉或有机装饰
+- 不对称
+- 乡土或未加工材料

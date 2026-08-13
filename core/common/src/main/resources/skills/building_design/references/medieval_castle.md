@@ -1,44 +1,34 @@
 # medieval_castle — 城堡
 
-A castle is a machine for holding ground, and every part of it earns its place
-by making an attacker's life harder. Walls are thick and battered at the base,
-towers project so defenders can shoot along the wall face, and the entrance is
-the most heavily worked point of the whole structure. Read it as fortification
-first and architecture second — the moment it looks decorative, it stops looking
-like a castle.
+城堡是一台守住土地的机器，每个部分都必须让进攻者更难行动。城墙厚重且底部外倾，塔楼伸出墙面，使守军能沿墙根射击；入口则是整座结构防护最严密的位置。应先把它看作防御工事，其次才是建筑——一旦显得只为装饰，它就不再像城堡。
 
-## Materials
-- **walls**: stone_bricks, cobblestone, andesite, mossy_stone_bricks,
-  cracked_stone_bricks — mix at least three; a uniform wall reads as a texture
-  swatch, not masonry
-- **trim and crenellations**: stone_brick_stairs, stone_brick_slab, stone_brick_wall
-- **roofs** (tower caps): dark_oak_slab, deepslate_tiles, blackstone
-- **timber** (hoardings, gates, floors): dark_oak_planks, oak_log
-- **light**: torch and lantern on the wall walk; campfire in the ward
-- **accent**: banners on the keep and above the gate
+## 材料
+- **墙体**：stone_bricks、cobblestone、andesite、mossy_stone_bricks、cracked_stone_bricks——至少混合三种；材质单一的墙看起来像样板，而非砌体
+- **收边与城垛**：stone_brick_stairs、stone_brick_slab、stone_brick_wall
+- **屋顶**（塔帽）：dark_oak_slab、deepslate_tiles、blackstone
+- **木材**（悬楼、城门、楼板）：dark_oak_planks、oak_log
+- **照明**：墙顶步道上使用 torch 和 lantern；内院使用 campfire
+- **强调物**：主楼及城门上方悬挂 banner
 
-## Proportions
-- curtain wall 6–12 tall, thick enough to walk on (2–3)
-- towers rise 1.3–1.8 times the curtain wall and **project outward** past it
-- keep noticeably taller and bulkier than everything else
-- battlement merlons every 2 with a 1 gap; keep the rhythm consistent
+## 比例
+- 外城墙高 6–12 格，厚 2–3 格，足以在顶部行走
+- 塔楼高度为城墙的 1.3–1.8 倍，并且必须**向墙外突出**
+- 主楼明显高大于其他所有结构
+- 每 2 格设置一个垛口实体段，中间留 1 格缺口；节奏保持一致
 
-## Signature moves
-- **Projecting towers** — they must stick out from the wall line, otherwise they
-  cannot cover it and the whole thing reads as decoration.
-- **Battered base** — the bottom 2–3 courses splay outward.
-- **Gatehouse** — the entrance gets two flanking towers and a passage between
-  them, never a hole in a flat wall.
-- **Ward** — enclosed open ground inside the walls. A castle without a courtyard
-  is a tower.
+## 标志性手法
+- **外突塔楼**——塔楼必须伸出墙线，否则无法掩护墙面，只会像装饰。
+- **外倾墙基**——最下方 2–3 层向外展开。
+- **门楼**——入口两侧各有一座塔，中间形成通道，绝不能只是平墙上的洞。
+- **城郭内院**——城墙内部必须有封闭的开放地面。没有庭院的“城堡”只是一座塔。
 
-## Variants
-- **motte-and-bailey** — timber tower on an earth mound, palisade below
-- **concentric** — two rings of wall, inner higher than outer
-- **coastal keep** — built onto a cliff, one side needing no wall at all
-- **ruin** — walls broken to varying heights, trees in the ward, roofs gone
+## 变体
+- **土丘木郭城堡**——土丘上的木塔，下方设置木栅围场
+- **同心城堡**——两圈城墙，内墙高于外墙
+- **海岸要塞**——依悬崖而建，其中一侧完全不需要城墙
+- **城堡遗迹**——墙体破损且高度不一，内院长树，屋顶消失
 
-## Avoid
-- flush towers that do not project
-- thin one-block walls
-- symmetrical fairy-tale silhouettes; this is a working building
+## 避免
+- 不突出墙线的贴平塔楼
+- 只有一格厚的薄墙
+- 对称的童话式轮廓；这是具有实际用途的建筑

@@ -1,42 +1,34 @@
 # fantasy_floating — 浮空
 
-An island torn out of the ground and left hanging. The whole illusion rests on
-the underside: a ragged inverted cone of rock with roots and stone trailing off
-it, narrowing to nothing. Get that wrong and it reads as a flat platform. On top
-it can be anything — but it should be small, precious, and clearly cut off from
-the world below.
+一座从大地中撕裂并悬在空中的岛屿。整个幻觉都取决于底部：粗粝的倒锥形岩体向下收窄，根须和碎石从中拖曳而出，直到消失。底部做错，就只会像一块悬空平台。岛顶可以放置任何主题，但应小巧、珍贵，并明确与下方世界隔绝。
 
-## Materials
-- **underside rock**: stone, andesite, deepslate, tuff, cobblestone — mixed and
-  ragged; no straight edges anywhere below
-- **top soil layer**: grass_block, dirt, moss_block, coarse_dirt
-- **trailing roots**: hanging_roots, vines, mangrove_roots, chains
-- **building above**: pale and light — calcite, smooth_quartz, birch_planks
-- **waterfall**: water pouring off an edge and simply ending in air
-- **light**: sea_lantern under the island so it glows from below, amethyst,
-  glow_lichen in the rock
+## 材料
+- **底部岩体**：stone、andesite、deepslate、tuff、cobblestone——混合且粗粝；下方绝不能出现笔直边缘
+- **顶部土层**：grass_block、dirt、moss_block、coarse_dirt
+- **垂落根系**：hanging_roots、vines、mangrove_roots、chains
+- **顶部建筑**：选择轻盈的浅色材料——calcite、smooth_quartz、birch_planks
+- **瀑布**：水从边缘倾泻，并直接消失在空中
+- **照明**：在岛底放置 sea_lantern，使其从下方发光；岩体中加入 amethyst、glow_lichen
 
-## Proportions
-- the underside is 1–2 times as deep as the island is wide — **most of the mass
-  is below**
-- taper the underside irregularly; each layer down loses 0.15–0.3 of the radius
-- the structure on top occupies under half the island area; leave open ground
-- if there are several islands, vary size by 3x or more and stagger heights
+## 比例
+- 底部深度为岛屿宽度的 1–2 倍——**大部分体量位于下方**
+- 底部应不规则收分；每下降一层，半径减少 0.15–0.3
+- 顶部建筑占地不超过岛面的一半；保留开放地面
+- 多座浮岛之间的尺寸至少相差 3 倍，并错开高度
 
-## Signature moves
-- **Ragged inverted cone** — the underside is the whole trick. Irregular, never
-  smooth, with lumps and overhangs.
-- **Trailing roots and chains** hanging into the void, some long, some short.
-- **Waterfall into nothing** — water leaving the edge and fading.
-- **Bridges between islands** — rope, chain, or broken arcs that no longer reach.
+## 标志性手法
+- **粗粝倒锥体**——岛底是整个效果的关键。形状必须不规则、不光滑，并带有凸块和悬挑。
+- **垂落的根须和锁链**——悬入虚空，长短不一。
+- **落入虚无的瀑布**——水流离开边缘后逐渐消失。
+- **岛间桥梁**——使用绳索、锁链，或已经断裂、无法抵达对岸的拱桥。
 
-## Variants
-- **single sanctuary** — one small island, one small temple, very still
-- **archipelago** — many islands linked by bridges at different heights
-- **ruin fall** — an island that broke apart, pieces drifting away
-- **anchored** — chains tethering the island to the ground far below
+## 变体
+- **单体圣所**——一座小岛、一座小庙，氛围极其宁静
+- **浮空群岛**——许多不同高度的岛屿由桥梁连接
+- **崩裂遗迹**——岛屿已经碎裂，残片向外漂散
+- **锚定浮岛**——用锁链将岛屿系在遥远下方的地面上
 
-## Avoid
-- a flat or smooth underside
-- symmetry in the rock mass
-- filling the whole island with building
+## 避免
+- 平坦或光滑的底部
+- 岩体呈对称形
+- 用建筑塞满整座岛屿

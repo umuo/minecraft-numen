@@ -1,46 +1,36 @@
 # islamic — 伊斯兰
 
-Geometry instead of figures. Because the tradition avoids depicting living
-things, the entire decorative energy goes into pattern, calligraphy and light —
-tile work covering whole walls, screens that turn sunlight into lace, and
-repeated arches that build rhythm rather than tell a story. The plan turns
-inward: a plain outer wall, and everything beautiful facing a courtyard with
-water at its centre.
+用几何图案取代人物形象。由于传统上避免描绘生命形象，所有装饰活力都集中于纹样、书法和光线：瓷砖覆盖整面墙，花格屏风将阳光切成蕾丝般的光影，重复拱券以节奏组织空间，而非讲述故事。平面向内收拢：外墙朴素，所有华美部分都朝向中央带水景的庭院。
 
-## Materials
-- **walls**: smooth_sandstone, calcite, bone_block, white_concrete — plain and
-  pale on the outside
-- **tile work**: light_blue_glazed_terracotta, cyan_glazed_terracotta,
-  blue_concrete, prismarine — concentrated on portals and domes
-- **arches and screens**: iron_bars, sandstone_stairs, quartz_stairs
-- **dome**: prismarine, dark_prismarine, copper for verdigris, blue_concrete
-- **floor**: polished_andesite, smooth_sandstone in geometric panels
-- **water**: a still pool on the courtyard axis
-- **light**: lanterns and chains hung low over the court
+## 材料
+- **墙体**：smooth_sandstone、calcite、bone_block、white_concrete——外部保持朴素浅淡
+- **瓷砖装饰**：light_blue_glazed_terracotta、cyan_glazed_terracotta、blue_concrete、prismarine——集中用于入口和穹顶
+- **拱券与屏风**：iron_bars、sandstone_stairs、quartz_stairs
+- **穹顶**：prismarine、dark_prismarine、表现铜绿的 copper、blue_concrete
+- **地面**：用 polished_andesite、smooth_sandstone 拼出几何分区
+- **水景**：庭院轴线上设置静水池
+- **照明**：用 chain 将 lantern 低垂悬挂在庭院上方
 
-## Proportions
-- courtyard occupies 0.3–0.5 of the total footprint
-- arcade arches repeat evenly around all four sides of the court
-- minarets 2–4 times the height of the surrounding roofline, slender
-- dome span roughly equal to the room below it
-- portal (iwan) noticeably taller than the wall it sits in
+## 比例
+- 庭院占总占地的 0.3–0.5
+- 拱廊在庭院四面严格等距重复
+- 宣礼塔高度为周边屋顶线的 2–4 倍，形态修长
+- 穹顶跨度约等于下方房间宽度
+- 伊旺入口明显高于所在墙体
 
-## Signature moves
-- **Courtyard with water** — a still reflecting pool on the axis. Half the
-  effect is the reflection.
-- **Iwan portal** — a huge recessed arch framing a small door, the one place the
-  outer wall becomes elaborate.
-- **Muqarnas** — stalactite-like stepped corbelling in the arch head. Layers of
-  stairs and slabs approximate it.
-- **Screens** — pierced panels instead of glass; iron_bars in a pattern.
+## 标志性手法
+- **带水景的庭院**——轴线上放置静水倒影池；倒影本身占视觉效果的一半。
+- **伊旺入口**——巨大的内凹拱券包围一扇小门，这是朴素外墙唯一变得华丽的位置。
+- **蜂窝状拱顶**——拱顶处设置钟乳石般逐层出挑的结构，可用多层楼梯和台阶近似表现。
+- **花格屏风**——使用镂空面板而不是玻璃；用 iron_bars 拼成图案。
 
-## Variants
-- **mosque** — courtyard, arcade, dome over the prayer hall, minaret
-- **madrasa** — same logic at smaller scale, cells around the court
-- **palace** — several courts in sequence, gardens, fountains
-- **caravanserai** — fortified outer wall, one gate, stables around the court
+## 变体
+- **清真寺**——庭院、拱廊、祈祷大厅上方的穹顶和宣礼塔
+- **经学院**——采用同样逻辑但尺度更小，庭院四周布置房间
+- **宫殿**——多个连续庭院、花园和喷泉
+- **商队旅馆**——坚固外墙、单一入口，庭院四周设马厩
 
-## Avoid
-- figurative statues or painted figures
-- an elaborate outer facade; the exterior stays plain except at the portal
-- steep pitched roofs
+## 避免
+- 具象雕像或人物绘画
+- 华丽的外立面；除入口外，建筑外部应保持朴素
+- 陡峭坡屋顶

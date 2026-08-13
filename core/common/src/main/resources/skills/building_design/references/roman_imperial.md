@@ -1,43 +1,36 @@
 # roman_imperial — 古罗马
 
-Rome took the Greek vocabulary and added the two things Greece lacked: the arch
-and concrete. That combination lets you span wide, stack storeys, and enclose
-enormous interior volume — so Roman buildings are about mass and interior space
-where Greek ones are about outline. Columns survive but often become decoration
-applied to an arched wall that does the actual work.
+罗马继承了希腊建筑语汇，并加入希腊所缺少的两样东西：拱券和混凝土。两者结合后可以跨越更大空间、叠加楼层并围合巨大室内体量。因此，罗马建筑重视质量感和内部空间，而希腊建筑更重视外部轮廓。柱子仍然存在，但往往只是附加在真正承重的拱墙表面的装饰。
 
-## Materials
-- **body**: smooth_stone, stone_bricks, polished_andesite, calcite — grey-warm
-  and heavy
-- **brick facing**: bricks, mud_bricks — Roman concrete was brick-faced
-- **columns and trim**: quartz_pillar, smooth_quartz, chiseled_stone_bricks
-- **arches**: stone_brick_stairs, smooth_stone_slab
-- **roof / dome**: terracotta, brick_slab; copper for a verdigris dome
-- **floor**: polished_andesite and calcite in alternating panels for mosaic
-- **light**: braziers, lanterns on the arcade piers
+## 材料
+- **主体**：smooth_stone、stone_bricks、polished_andesite、calcite——暖灰、厚重
+- **砖饰面**：bricks、mud_bricks——罗马混凝土常以砖包面
+- **柱子与收边**：quartz_pillar、smooth_quartz、chiseled_stone_bricks
+- **拱券**：stone_brick_stairs、smooth_stone_slab
+- **屋顶／穹顶**：terracotta、brick_slab；用 copper 表现铜绿穹顶
+- **地面**：polished_andesite 与 calcite 交替分区，表现马赛克
+- **照明**：火盆，以及拱廊墩柱上的 lantern
 
-## Proportions
-- arch openings roughly twice as tall as they are wide
-- arcades repeat 4–8 bays; repetition is the whole aesthetic
-- multi-storey elevations: heavier order below, lighter above
-- dome span can equal the drum height; Rome built wide, not tall
+## 比例
+- 拱洞高度约为宽度的两倍
+- 拱廊重复 4–8 个开间；重复本身就是整体美感
+- 多层立面下部柱式厚重，上部更轻盈
+- 穹顶跨度可与鼓座高度相等；罗马建筑强调宽阔，而非高耸
 
-## Signature moves
-- **Arcade** — a run of identical arches on piers. Nothing says Rome faster.
-- **Engaged columns** — half-columns applied to the face of an arched pier, doing
-  no structural work at all.
-- **Stacked orders** — the storeys change character as they rise.
-- **Barrel vault or dome** enclosing a large interior; an oculus at the top of a
-  dome is period-correct and dramatic.
+## 标志性手法
+- **连续拱廊**——相同拱券在墩柱上连续排列，这是最直接的古罗马信号。
+- **附墙柱**——半根柱附着在拱墩表面，完全不承担结构功能。
+- **叠层柱式**——不同楼层随高度改变构图特征。
+- **筒形拱顶或穹顶**——围合大型室内空间；穹顶顶部设置圆形天窗既符合时代，也具有戏剧性。
 
-## Variants
-- **basilica** — long hall, aisles, apse at one end
-- **bath complex** — huge vaulted rooms, pools, hypocaust floor
-- **aqueduct** — arcade alone, marching across the landscape
-- **forum** — colonnaded square with a temple at one end
-- **amphitheatre** — elliptical, stacked arcades all the way round
+## 变体
+- **巴西利卡**——长大厅、侧廊，一端设置半圆形后殿
+- **浴场建筑群**——巨大拱顶空间、水池和地板下供暖系统
+- **高架渠**——只有拱廊，连续穿越景观
+- **广场**——柱廊围绕的广场，一端设神庙
+- **圆形竞技场**——椭圆平面，四周叠加多层拱廊
 
-## Avoid
-- Greek restraint; Rome is bigger, heavier and more enclosed
-- pointed arches
-- timber as a visible structural material
+## 避免
+- 希腊式克制；罗马建筑更大、更重、更封闭
+- 尖拱
+- 将木材作为可见结构材料

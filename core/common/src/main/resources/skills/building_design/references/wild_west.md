@@ -1,42 +1,35 @@
 # wild_west — 西部小镇
 
-Cheap timber buildings thrown up fast, each hiding behind a tall flat false
-front so the street looks like a real town. Behind that parapet the building is
-usually a plain shed. Boardwalks run along the street because the street itself
-is dust, and every shopfront carries a big painted sign — the signage is doing
-the architecture's job.
+快速搭建的廉价木建筑，每栋都躲在高大平直的假立面后方，让街道看起来像一座真正城镇。女儿墙后通常只是一间朴素棚屋。由于街道本身全是尘土，沿街设置连续木栈道；每家店面都挂着巨大彩绘招牌——招牌承担了原本属于建筑的识别功能。
 
-## Materials
-- **walls**: spruce_planks, oak_planks, stripped_oak_wood — horizontal boards,
-  weathered, mixed tones
-- **frame / posts**: oak_log, spruce_log — thin, holding up the porch roof
-- **roof** (behind the false front): spruce_slab, gray_concrete
-- **boardwalk**: oak_planks, spruce_slab
-- **street**: dirt_path, coarse_dirt, gravel — never paved
-- **light**: lantern on the porch posts
-- **accent**: signs, barrels, hitching rails, a water trough
+## 材料
+- **墙体**：spruce_planks、oak_planks、stripped_oak_wood——水平木板、风化并混合色调
+- **框架／柱子**：oak_log、spruce_log——较细，用于支撑门廊屋顶
+- **屋顶**（藏在假立面后）：spruce_slab、gray_concrete
+- **木栈道**：oak_planks、spruce_slab
+- **街道**：dirt_path、coarse_dirt、gravel——绝不铺装
+- **照明**：门廊柱上的 lantern
+- **陈设**：sign、barrel、拴马栏和水槽
 
-## Proportions
-- **false front rises 1–3 above the actual roof** and is flat-topped or stepped
-- buildings 1–2 storeys, narrow frontage, deep plan
-- covered boardwalk 2–3 deep along the whole street frontage, roof on posts
-- buildings share side walls or sit very close, forming a continuous street
+## 比例
+- **假立面比真实屋顶高 1–3 格**，顶部平直或呈阶梯形
+- 建筑高 1–2 层，临街面狭窄，进深较长
+- 整个沿街正面设置深 2–3 格的有顶木栈道，屋顶由柱子支撑
+- 建筑共享侧墙或彼此非常接近，形成连续街道
 
-## Signature moves
-- **False front** — a flat parapet wall hiding a pitched roof behind. Without
-  this the style does not exist.
-- **Continuous boardwalk** — a raised plank walk with a porch roof, running the
-  length of the street.
-- **Big sign board** across the false front, wider than the door.
-- **Balcony** over the boardwalk on the two-storey buildings.
+## 标志性手法
+- **假立面**——用平直女儿墙遮住后方坡屋顶。没有它，这种风格就不存在。
+- **连续木栈道**——抬高的木板步道配门廊屋顶，沿整条街延伸。
+- **大型招牌板**——横跨假立面，宽于门洞。
+- **阳台**——两层建筑在木栈道上方设置阳台。
 
-## Variants
-- **saloon** — swinging doors, balcony, the tallest false front on the street
-- **general store** — wide porch, goods stacked outside
-- **sheriff / jail** — the one stone or brick building, barred windows
-- **ghost town** — boards missing, signs hanging crooked, tumbleweed
+## 变体
+- **酒馆**——双向摆门、阳台，以及整条街最高的假立面
+- **杂货店**——宽门廊，货物堆在室外
+- **警长办公室／监狱**——全镇唯一的石或砖建筑，窗户安装铁栏
+- **鬼城**——木板缺失、招牌歪挂，风滚草穿街而过
 
-## Avoid
-- masonry as the general material
-- paved streets
-- pitched roofs visible from the street side
+## 避免
+- 普遍使用砖石材料
+- 铺装街道
+- 从街道一侧看见坡屋顶

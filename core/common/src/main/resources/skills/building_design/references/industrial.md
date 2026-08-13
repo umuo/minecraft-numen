@@ -1,43 +1,35 @@
 # industrial — 工业厂房
 
-A building shaped entirely by what happens inside it. Long clear spans, roofs
-made of repeated trusses, walls that are mostly window because daylight was
-cheaper than lamps, and brick where it needs to be tough. Every visible part is
-doing a job — the chimney vents, the crane rail lifts, the sawtooth roof faces
-north. Nothing is styled, and that is the style.
+建筑形态完全由内部生产活动决定：长距离无柱空间、重复桁架构成的屋顶、因日光比灯具便宜而大面积开窗的墙，以及需要耐用之处采用的砖砌体。每个外露部件都承担功能——烟囱排气、起重机轨道吊运、锯齿屋顶朝向北方。这里没有刻意造型，而这本身就是风格。
 
-## Materials
-- **walls**: bricks, mud_bricks, deepslate_bricks — dark red or grey brick,
-  mixed with cracked and weathered variants
-- **frame and truss**: iron_block, iron_bars, chain, polished_deepslate
-- **glazing**: glass_pane in large gridded panels, often the entire upper wall
-- **roof**: gray_concrete, deepslate_tiles, iron trapdoors for corrugation
-- **floor**: smooth_stone, polished_andesite, iron_block plates
-- **light**: lantern hung on chain from the truss line
-- **accent**: copper (weathering), redstone_lamp, hoppers and barrels
+## 材料
+- **墙体**：bricks、mud_bricks、deepslate_bricks——深红或灰色砖材，并混入开裂、风化变体
+- **框架与桁架**：iron_block、iron_bars、chain、polished_deepslate
+- **玻璃**：glass_pane 组成大型网格窗，往往覆盖整个上半部墙体
+- **屋顶**：gray_concrete、deepslate_tiles；使用 iron_trapdoor 表现波纹板
+- **地面**：smooth_stone、polished_andesite、iron_block 板面
+- **照明**：用 chain 将 lantern 悬挂在桁架线上
+- **强调材料**：会风化的 copper、redstone_lamp、hopper 和 barrel
 
-## Proportions
-- long clear-span halls: length 2–4 times width, no internal columns if possible
-- walls tall, 6–10, with glazing filling the upper 0.5–0.7
-- roof shallow, 0.2–0.35 of half-span, or sawtoothed
-- chimney rising 1.5–2 times the roof height, slender
+## 比例
+- 长条无柱大厅：长度为宽度的 2–4 倍，尽可能不设内部柱子
+- 墙高 6–10 格，上部 0.5–0.7 由玻璃占据
+- 屋顶低缓，高度为半跨的 0.2–0.35，或采用锯齿形
+- 烟囱高出屋顶高度的 1.5–2 倍，形态修长
 
-## Signature moves
-- **Sawtooth roof** — a run of asymmetric ridges, one face glazed. Instantly
-  industrial and very cheap to build with stairs and glass.
-- **Exposed truss** — iron bars and chains crossing the ceiling in a repeated
-  pattern.
-- **Gridded steel windows** — many small panes in a large opening, held by a
-  visible grid.
-- **Chimney stack** — brick, tapering, clearly taller than everything else.
+## 标志性手法
+- **锯齿屋顶**——连续设置不对称屋脊，其中一面安装玻璃。使用楼梯和玻璃即可低成本获得鲜明工业感。
+- **外露桁架**——iron_bars 与 chain 以重复图案跨越天花板。
+- **钢格大窗**——大型洞口由可见网格划分为许多小玻璃格。
+- **烟囱**——砖砌、向上收分，并明确高于其他一切结构。
 
-## Variants
-- **factory** — sawtooth roof, chimney, yard with rails
-- **warehouse** — plain brick box, big sliding doors, loading dock
-- **power station** — cooling towers, pipework, turbine hall
-- **converted loft** — the same shell, now with plants and warm light inside
+## 变体
+- **工厂**——锯齿屋顶、烟囱和带轨道的厂院
+- **仓库**——朴素砖盒体、大型滑门和装卸平台
+- **发电站**——冷却塔、管线和汽轮机大厅
+- **改造阁楼**——保留同一工业外壳，内部加入植物与暖光
 
-## Avoid
-- decorative mouldings
-- small domestic windows
-- pristine unweathered brick
+## 避免
+- 装饰线脚
+- 小型住宅窗
+- 崭新且毫无风化的砖墙

@@ -1,41 +1,34 @@
 # tudor — 都铎半木
 
-Tudor is medieval timber framing that got wealthy. The same exposed frame and
-white infill, but now the owner can afford to show off: the timber pattern turns
-decorative, jetties stack two or three storeys deep, and chimneys become sculpted
-brick towers. The frame is still structural, it is just also bragging.
+都铎风格是富裕起来的中世纪木框架建筑。它仍使用外露框架与白色填充墙，但业主已经有能力炫耀：木构图案变成装饰，两三层挑楼逐层叠加，烟囱也成为经过雕塑处理的砖塔。框架仍承担结构作用，只是同时也在展示财富。
 
-## Materials
-- **frame**: dark_oak_log, dark_oak_planks, stripped_dark_oak_log — dark, and
-  the pattern is deliberate
-- **infill**: white_concrete, bone_block, smooth_quartz, white_terracotta —
-  bright white against the dark timber is the whole look
-- **brick** (chimney, base): bricks, mud_bricks, nether_bricks for a darker red
-- **roof**: dark_oak_slab, deepslate_tiles; steep and often multi-gabled
-- **glass**: glass_pane in tight grids, sometimes with a leaded diamond feel
-- **light**: lantern on iron brackets by the door
+## 材料
+- **框架**：dark_oak_log、dark_oak_planks、stripped_dark_oak_log——颜色深，图案经过刻意设计
+- **填充墙**：white_concrete、bone_block、smooth_quartz、white_terracotta——明亮白墙与深木框架的对比是整个核心
+- **砖材**（烟囱、基座）：bricks、mud_bricks；更深红色可用 nether_bricks
+- **屋顶**：dark_oak_slab、deepslate_tiles；坡度陡，通常有多个山墙
+- **玻璃**：glass_pane 组成密集网格，有时暗示铅条菱形窗
+- **照明**：门旁铁支架上悬挂 lantern
 
-## Proportions
-- 2–3 storeys, **each jettied 1 past the one below** — the wall leans out as it
-  rises
-- roof rise 0.9–1.3 of half-span — steep, and broken by several gables
-- frame divides walls into panels roughly as wide as they are tall
-- chimney stacks rise well clear of the ridge, 2–4 above it
+## 比例
+- 建筑高 2–3 层，并且**每层比下一层外挑 1 格**，墙面随高度逐层外伸
+- 屋顶高度为半跨的 0.9–1.3，坡度陡，并被多个山墙打断
+- 框架把墙面分成宽高大致相等的板块
+- 烟囱明显高出屋脊，顶部超过 2–4 格
 
-## Signature moves
-- **Stacked jetties** — the defining silhouette. Each floor oversails the last.
-- **Decorative framing** — not just posts and rails: add diagonal braces and
-  chevrons in the panels. This is what separates tudor from plain medieval.
-- **Multiple gables** facing the street at different widths.
-- **Sculpted chimney** — a tall brick stack with a stepped or twisted cap.
+## 标志性手法
+- **叠层挑楼**——定义整体轮廓，每层都越过下层向外伸出。
+- **装饰性框架**——不能只有柱和横梁，还要在板块内加入斜撑和人字纹；这是都铎与普通中世纪建筑的区别。
+- **多个山墙**——以不同宽度朝向街道。
+- **雕塑感烟囱**——高砖烟囱配阶梯形或扭转形顶部。
 
-## Variants
-- **townhouse row** — narrow frontages sharing walls, jetties over the street
-- **manor** — wide, symmetrical-ish, wings around a court
-- **inn** — ground floor open, sign hanging, stable yard behind
-- **guildhall** — larger frame, arcaded ground floor
+## 变体
+- **联排住宅**——临街面狭窄、共享侧墙，挑楼伸向街道
+- **庄园**——宽阔、近似对称，多翼围绕庭院
+- **旅店**——首层开放、悬挂招牌，后方设置马厩院
+- **行会大厅**——框架尺度更大，首层设拱廊
 
-## Avoid
-- pale or bare timber; the frame must be dark
-- flat roofs or shallow pitches
-- plain rectangular panels only — the framing pattern is the point
+## 避免
+- 浅色或裸色木材；框架必须深色
+- 平屋顶或低缓坡顶
+- 只使用朴素矩形板块；框架图案才是重点

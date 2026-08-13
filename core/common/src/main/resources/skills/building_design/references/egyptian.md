@@ -1,43 +1,34 @@
 # egyptian — 古埃及
 
-Built to outlast everything. Walls lean inward as they rise, openings are few
-and small, and the mass is so overwhelming that a doorway reads as a crack in a
-cliff. Surfaces are covered in carved bands and figures, but the silhouette
-stays absolutely simple — the ornament never breaks the outline. Sun-bleached
-stone, black shadow, and almost no shade in between.
+为超越时间而建。墙体随高度向内倾斜，开口稀少且很小，巨大体量使门洞像崖壁裂缝。表面覆盖雕刻带和人物，但轮廓始终绝对简洁，装饰绝不打破外形。日晒褪色的石材、纯黑阴影，两者之间几乎没有过渡。
 
-## Materials
-- **body**: sandstone, cut_sandstone, smooth_sandstone, chiseled_sandstone —
-  mix so the mass looks quarried, not poured
-- **columns**: sandstone_pillar equivalents, chiseled_sandstone — thick, closely
-  spaced, papyrus-headed
-- **carved bands**: chiseled_sandstone, sandstone_stairs at a regular height
-- **accent**: gold_block and lapis (blue_concrete / blue_terracotta) for royal
-  work only
-- **floor**: smooth_sandstone, polished_andesite
-- **light**: torches in deep niches; keep interiors dark
+## 材料
+- **主体**：sandstone、cut_sandstone、smooth_sandstone、chiseled_sandstone；混合后像采石而非浇筑
+- **柱子**：以 chiseled_sandstone 等表现砂岩柱，粗壮密集并带纸莎草柱头
+- **雕刻带**：chiseled_sandstone、sandstone_stairs，在固定高度形成条带
+- **点缀**：gold_block 与青金石色（blue_concrete / blue_terracotta），仅用于皇家建筑
+- **地板**：smooth_sandstone、polished_andesite
+- **照明**：深壁龛中的火把，室内保持昏暗
 
-## Proportions
-- walls **batter inward**: lose 1 of thickness every 4–6 of height
-- pylons (gate towers) far wider at the base than the top, flanking the entrance
-- columns very stout: height only 4–5 times diameter, spaced barely wider than
-  they are thick
-- openings tiny relative to wall area — under 5% of the facade
+## 比例
+- 墙体**向内收分**：每升高 4–6 格，厚度减少 1 格
+- 塔门底部远宽于顶部，成对夹住入口
+- 柱子极粗，高度仅为直径的 4–5 倍，间距略大于柱径
+- 开口不足立面面积的 5%
 
-## Signature moves
-- **Battered walls** — nothing is plumb. This is the fastest way to read Egyptian.
-- **Pylon gateway** — two massive tapering towers with a small door between them.
-- **Cavetto cornice** — the wall flares outward at the very top, capped by a flat
-  band. A course of upside-down stairs approximates it.
-- **Avenue of statues** or sphinxes leading to the entrance.
+## 标志手法
+- **倾斜墙体**——没有完全垂直的墙，是最快的古埃及识别方式
+- **塔门入口**——两座巨大收分塔体夹住一扇小门
+- **凹圆檐口**——墙顶先向外翻，再以平带收口；一圈倒置楼梯可近似表现
+- **雕像或狮身人面像大道**通向入口
 
-## Variants
-- **temple** — pylon, court, hypostyle hall of dense columns, dark sanctuary
-- **pyramid** — pure geometry, smooth faces, small entrance low on one side
-- **rock-cut tomb** — facade carved into a cliff, no free-standing mass
-- **obelisk and court** — a single tapering shaft on a plaza
+## 变体
+- **神庙**——塔门、庭院、密柱厅和黑暗圣所
+- **金字塔**——纯几何、光滑表面，一侧低处有小入口
+- **崖墓**——立面直接凿入悬崖，没有独立体量
+- **方尖碑庭院**——广场上一根向上收分的高柱
 
-## Avoid
-- vertical plumb walls
-- large windows or open colonnades letting light through
-- cool grey stone; this palette is warm and dry
+## 避免
+- 完全垂直的墙体
+- 大窗或让大量光线穿过的开放柱廊
+- 冷灰石材；色板应温暖干燥

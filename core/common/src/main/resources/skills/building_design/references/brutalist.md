@@ -1,43 +1,34 @@
 # brutalist — 粗野主义
 
-Raw concrete, left exactly as the formwork made it, in shapes that are honest to
-the point of aggression. Volumes are heavy and blocky, they cantilever and stack
-without apology, and the openings are deep slots cut into mass rather than
-windows set into a wall. It is not "ugly grey" — it is a specific argument that
-structure and material should be shown, not dressed.
+未经遮掩的混凝土保持脱模后的状态，体块诚实到近乎具有攻击性。厚重方正的体量大胆悬挑和堆叠，开口是从实体中切出的深槽，而不是贴在墙面的窗。它并非“难看的灰色”，而是一种明确主张：结构和材料应被展示，而不是被装饰隐藏。
 
-## Materials
-- **body**: gray_concrete, light_gray_concrete, smooth_stone, polished_andesite
-  — mix the greys so the concrete has pour lines
-- **texture**: stone_bricks and chiseled_stone_bricks in bands to imply board
-  marks
-- **relief**: stripped_oak_wood, stripped_spruce_wood — one warm plane, used
-  once, makes the grey deliberate rather than accidental
-- **glass**: dark or tinted, always recessed deep
-- **light**: sea_lantern washing a concrete face; hard shadows are the point
-- **planting**: moss_block and vines where water runs down — brutalism ages, and
-  the staining is part of it
+## 材料
+- **主体**：gray_concrete、light_gray_concrete、smooth_stone、polished_andesite；混合灰色表现浇筑分层
+- **纹理**：stone_bricks、chiseled_stone_bricks 组成带状模板痕迹
+- **对比面**：stripped_oak_wood、stripped_spruce_wood；只出现一次的暖色平面会让灰色显得有意
+- **玻璃**：深色或染色玻璃，始终深嵌
+- **照明**：用 sea_lantern 洗亮混凝土表面；硬阴影正是目的
+- **植物**：水迹处使用 moss_block 和藤蔓；污迹也是风格的一部分
 
-## Proportions
-- massive: wall thickness reads as 2 or more, especially at openings
-- openings recessed 1–2 and much smaller than the wall area around them
-- cantilevers of 3–5, deliberately unnerving
-- stacked volumes offset from each other rather than aligned
+## 比例
+- 墙体视觉厚度至少 2 格，开口处尤其明显
+- 开口后退 1–2 格，面积远小于周围墙面
+- 悬挑 3–5 格，刻意制造不安感
+- 堆叠体块彼此错位，而不是上下对齐
 
-## Signature moves
-- **Deep reveals** — every window sits at the back of a 2-deep slot. The shadow
-  does the work.
-- **Aggressive cantilever** — an upper mass hanging far out over nothing.
-- **Board-marked bands** — horizontal texture lines at the height of each pour.
-- **Exposed circulation** — stairs and ramps on the outside as sculptural shapes.
+## 标志手法
+- **深窗洞**——每扇窗位于两格深的槽底，由阴影塑造效果
+- **强烈悬挑**——上层体块大幅悬空伸出
+- **模板分层带**——每次浇筑高度处有水平纹理线
+- **外露交通**——室外楼梯和坡道本身就是雕塑体块
 
-## Variants
-- **civic** — library or town hall, top-heavy, big overhangs
-- **housing** — repeated units, external walkways, planted terraces
-- **bunker** — mostly blind, slot openings, half-buried
-- **weathered** — heavily stained and mossy, half-abandoned
+## 变体
+- **市政建筑**——图书馆或市政厅，头重脚轻并有大悬挑
+- **住宅**——重复单元、外部走廊和种植露台
+- **掩体**——近乎无窗、狭缝开口、半埋地下
+- **风化建筑**——大量污迹和苔藓，近乎废弃
 
-## Avoid
-- painted or clean bright surfaces
-- thin walls and large flush glazing
-- decoration of any kind that is not structural
+## 避免
+- 涂漆或干净明亮的表面
+- 薄墙和齐平的大面积玻璃
+- 任何非结构性的装饰

@@ -1,42 +1,34 @@
 # desert_adobe — 沙漠土坯
 
-Mud brick, hand-smoothed, with walls thick enough that the inside stays cool
-until evening. Everything is rounded because it was shaped by hand and re-
-plastered every few years; corners are soft, parapets are wavy, and the roof is
-flat because it is another room. Buildings grow by accretion, merging into each
-other and climbing a slope.
+手工抹平的泥砖墙厚到能让室内一直凉爽至傍晚。建筑因手塑并周期性重抹灰而处处圆润：墙角柔和、女儿墙起伏，平屋顶还是额外房间。建筑通过不断增建而生长，彼此合并并沿坡地逐级上升。
 
-## Materials
-- **walls**: smooth_sandstone, sandstone, cut_sandstone, terracotta,
-  orange_terracotta — mix at least three so the plaster looks hand-applied
-- **beams**: stripped_oak_log, stripped_jungle_log — poking straight out of the
-  wall, which is how the real thing looks
-- **roof surface**: smooth_sandstone_slab, sandstone_slab
-- **floor**: terracotta, smooth_sandstone
-- **light**: lantern, torch, campfire on the roof terrace
-- **accent**: one saturated colour on doors only — blue or turquoise
+## 材料
+- **墙面**：smooth_sandstone、sandstone、cut_sandstone、terracotta、orange_terracotta；至少混合三种，表现手工抹灰
+- **梁**：stripped_oak_log、stripped_jungle_log，直接伸出墙面
+- **屋面**：smooth_sandstone_slab、sandstone_slab
+- **地板**：terracotta、smooth_sandstone
+- **照明**：lantern、torch、屋顶露台上的 campfire
+- **点缀**：只在门上使用一种高饱和色，如蓝色或青绿色
 
-## Proportions
-- walls thick: 2 deep where the section shows, especially around openings
-- **flat roofs** with a parapet 1–2 above the roof surface
-- openings small and deeply recessed, 1x2 or 2x2 at most
-- 1–3 storeys, each stepping back so lower roofs become upper terraces
+## 比例
+- 墙体视觉厚度 2 格，尤其是开口周围
+- **平屋顶**，屋面上方设高 1–2 格的女儿墙
+- 开口小而深嵌，最大 1×2 或 2×2
+- 1–3 层，每层向后退，让下层屋顶成为上层露台
 
-## Signature moves
-- **Protruding beams** — round timbers sticking 1 out of the wall just below the
-  roof line, at a regular interval. Cheapest and strongest signal of the style.
-- **Roof as room** — the flat roof is used: parapet, stair up, furniture.
-- **Softened corners** — chamfer or step the corners rather than leaving them
-  crisp.
-- **Stepped accretion** — several boxes at different heights merged into one mass.
+## 标志手法
+- **伸出墙面的梁头**——屋顶线下方每隔固定距离伸出 1 格圆木，是最便宜而强烈的风格信号
+- **屋顶即房间**——平屋顶有女儿墙、上楼通道和家具
+- **柔化墙角**——削角或做成阶梯，不保留机器般锐利的直角
+- **逐层增建**——多个不同高度的盒子合并成一个体量
 
-## Variants
-- **village** — houses merging, alleys between, shared roof terraces
-- **kasbah** — fortified, tapering corner towers, few openings
-- **oasis house** — palms and a water channel through the courtyard
-- **granary** — tall blank walls, tiny high openings, ladder access
+## 变体
+- **村落**——住宅相连，巷道穿行，共享屋顶露台
+- **卡斯巴**——防御性强、角塔收分、开口很少
+- **绿洲住宅**——院内有棕榈和水渠
+- **粮仓**——高大空白墙面、极小高窗和梯子入口
 
-## Avoid
-- pitched roofs
-- crisp machine-cut corners
-- cool grey or white; the palette is warm earth throughout
+## 避免
+- 坡屋顶
+- 精确锐利的机器切割墙角
+- 冷灰或白色；整体应是暖土色

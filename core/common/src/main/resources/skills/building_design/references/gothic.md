@@ -1,45 +1,35 @@
 # gothic — 哥特
 
-Gothic is an argument about weight: how little stone can hold up how much
-height, and how much of the wall can be replaced by glass. Every device — the
-pointed arch, the buttress, the shafted pier — exists to push thrust outward and
-downward so the wall between can be dissolved. Verticality is not decoration
-here, it is the structural logic showing through.
+哥特建筑讨论的是重量：用尽可能少的石材支撑尽可能高的结构，并用玻璃替代尽可能多的墙体。尖拱、扶壁、束柱等每种构件，都在把推力向外、向下传递，从而让柱间墙体得以消解。这里的竖向感不是装饰，而是结构逻辑的直接呈现。
 
-## Materials
-- **stone**: stone_bricks, chiseled_stone_bricks, polished_diorite, calcite,
-  smooth_stone — light, cool, and mixed so the mass reads as coursed masonry
-- **tracery and ribs**: stone_brick_wall, iron_bars, stone_brick_stairs
-- **glass**: stained_glass and stained_glass_pane — deep blues and reds, used in
-  tall narrow strips
-- **roof**: deepslate_tiles, gray_concrete, dark_prismarine; very steep
-- **light**: lantern, soul_lantern, and let the glass carry the colour
-- **accent**: copper for spire caps as it weathers green
+## 材料
+- **石材**：stone_bricks、chiseled_stone_bricks、polished_diorite、calcite、smooth_stone——浅淡、冷峻并适当混合，使体量呈现分层砌筑感
+- **窗饰与肋骨**：stone_brick_wall、iron_bars、stone_brick_stairs
+- **玻璃**：stained_glass、stained_glass_pane——使用深蓝与深红，组成高而窄的条带
+- **屋顶**：deepslate_tiles、gray_concrete、dark_prismarine；坡度非常陡
+- **照明**：lantern、soul_lantern，并让彩色玻璃承担主要色彩
+- **强调材料**：塔尖顶部可使用 copper，使其逐渐风化成绿色
 
-## Proportions
-- height is 2–4 times the width of the nave — commit to it
-- windows fill 0.5–0.75 of each bay; the wall is what is left over, not the
-  starting point
-- buttresses project 1–3 and step back as they rise
-- roof rise 1.0–1.6 of half-span — among the steepest of any style
-- spires taller than the building they sit on
+## 比例
+- 高度为中殿宽度的 2–4 倍——必须贯彻这种高耸感
+- 窗户占每个开间的 0.5–0.75；墙体只是开窗后剩余的部分，而非设计起点
+- 扶壁向外伸出 1–3 格，并随高度逐层退进
+- 屋顶高度为半跨的 1.0–1.6 倍，是所有风格中最陡峭的一类
+- 尖塔高度要超过其下方建筑
 
-## Signature moves
-- **Pointed arch** — two stair or slab runs meeting at a point, never a
-  semicircle. Use it on every opening, including doors.
-- **Buttress rhythm** — vertical piers at every bay, stepping outward at the
-  base. They are what make the wall look thin.
-- **Vertical shafts** — thin continuous lines running the full height, unbroken
-  by any horizontal band.
-- **Rose window** — one large circular opening on the main facade.
+## 标志性手法
+- **尖拱**——两段楼梯或台阶在顶端交汇成尖点，绝不能做成半圆。所有开口，包括门，都使用这种形式。
+- **扶壁节奏**——每个开间设置竖向墩柱，底部逐级向外伸展；正是它们让墙体显得轻薄。
+- **竖向线脚**——细长连续的线条贯穿完整高度，不被任何水平带截断。
+- **玫瑰窗**——主立面设置一个大型圆形开口。
 
-## Variants
-- **cathedral** — cruciform plan, twin west towers, flying buttresses
-- **chapel** — single narrow hall, one tall window at the end
-- **dark gothic** — blackstone and deepslate, soul fire, no colour in the glass
-- **ruined abbey** — walls and window tracery standing, roof entirely gone
+## 变体
+- **主教座堂**——十字形平面、西立面双塔和飞扶壁
+- **礼拜堂**——单个狭长大厅，尽端设置一扇高窗
+- **暗黑哥特**——blackstone 与 deepslate、灵魂火，玻璃不使用彩色
+- **修道院遗迹**——墙体和窗格仍然站立，屋顶已经完全消失
 
-## Avoid
-- round arches (that is romanesque)
-- strong horizontal banding, which flattens the whole effect
-- warm stone; keep the palette cool and pale
+## 避免
+- 圆拱，那属于罗曼式
+- 强烈的水平分带，否则会压扁整体效果
+- 暖色石材；配色应保持冷淡、浅亮
